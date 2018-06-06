@@ -119,6 +119,7 @@
 	</div>
 	<div style="clear:both;"></div> 
 </div>
+
 <!-- Script for Map -->
 <script>
   // Initialize and add the map
@@ -133,4 +134,5 @@
   }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY5t-tXrIskhm6OZmUp0DnSytAlCwavA&callback=initMap"></script>
+
 <?php get_footer(); ?>
