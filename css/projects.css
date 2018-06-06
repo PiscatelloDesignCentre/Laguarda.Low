@@ -110,7 +110,8 @@ ul.navigation-tabs {
     text-decoration: none;
 }
 
-.navigation-tabs a:visited  {
+.navigation-tabs a:visited,
+.navigation-tabs a:hover  {
     color: #FFF;
     text-decoration: none;
 }
