@@ -1,9 +1,10 @@
 .grid-container {
     width: 100%;
+    min-height: calc(100vh - 90px);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto;
     grid-gap: 1px;
+    grid-auto-rows: min-content;
 }
 
 .project-thumb {

@@ -27,33 +27,7 @@
 	</nav> 
 	<div class="row-fluid project-grid">
 		<div class="grid-container">
-		<?php
-			$post_tag = "Projects";
-			$the_query = new WP_Query( array('tag' => $post_tag, 'posts_per_page' => -1)  );
-			if ( $the_query->have_posts() ) {
-				while ( $the_query->have_posts() ) { $the_query->the_post(); ?>
-					<a href="<?php echo get_permalink($id) ?>" class="project-thumb invisible">
-						<?php $featured_img_url = get_the_post_thumbnail_url(get_the_ID(),'full'); ?>
-						<img src="<?php echo $featured_img_url ?>" />
-						<div class="project-info">
-							<span class="project-title">
-								<?php echo get_the_title($id) ?>
-							</span>
-							<span class="project-location">
-								<?php echo get_the_content() ?>
-							</span>
-							<span class="project-category">
-								<?php echo get_the_category()[0]->name ?>
-							</span>
-						</div>
-					</a>
-				<?php }
-			} else {
-				// no posts found
-			}
-			/* Restore original Post Data */
-			wp_reset_postdata();
-			?>
+		
 		</div>
 	</div>
 	<script>
@@ -61,7 +35,10 @@
 		var categories = []
 		var currentlyLoading = false;
 
-		
+		document.querySelectorAll(".navigation-tabs li").forEach((el, i) => {
+			el.addEventListener("click", filterProjects);
+		});
+
 		document.addEventListener("DOMContentLoaded", pageLoaded)
 
 		async function getCategories() {
@@ -79,20 +56,50 @@
 
 		async function pageLoaded() {
 
+			categories = await getCategories()
+			let filter = ""
+			let idArr = []
 			if(location.hash) {
-				console.log(location.hash.replace('#',''))
+				let catName = location.hash.replace('#','')
+				let cat = filterCategoryNames(catName)
+				filter = "&categories=" + cat.id
+			}
+			
+
+			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&per_page=16"  + filter , {
+				method: 'GET'
+			}).then((res) => {
+				return res.json()
+			});
+
+			if(posts.length) {
+				posts.forEach( (el, i) => {
+					idArr.push(el.id)
+				})
 			}
 
-			categories = await getCategories()
+			let filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&per_page=16&exclude="+idArr.join(","), {
+				method: 'GET'
+			}).then((res) => {
+				return res.json()
+			});
 			
-			console.log(categories)
+			posts = posts.concat(filler)
+
+			let html = await returnProject(posts);
+			
+			document.querySelector(".grid-container").classList.remove("fade-out")
 
 
-			applyAnimation()
+			document.querySelector(".grid-container").innerHTML = ""
+			document.querySelector(".grid-container").innerHTML = html
+			
+			applyAnimation();
+
 		}
 
-		function filterCategoryNames(categoryName) {
-			let cat = categories.filter(category => category.id == id)[0]
+		function filterCategoryNames(name) {
+			let cat = categories.filter(category => category.slug == name)[0]
 			// console.log(cat)
 			return cat || ""
 		}
@@ -114,24 +121,9 @@
 
 		const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-		// async function fadeOutAnimation() {
-		// 	let els  = document.querySelectorAll(".project-thumb")
-		// 	let numArr = Array.apply(null, {length: els.length}).map(Number.call, Number)
-		// 	numArr = shuffle(numArr)
-		// 	// console.log(numArr)
-						
-		// 	for(el of numArr) {
-		// 		els[el].classList.add("fade-out")
-		// 		await delay(200)
-		// 	}
-
-		// }
 
 		async function fadeOutAnimation() {
 			document.querySelector(".grid-container").classList.add("fade-out")
-
-			// await delay(500)
-
 		}
 		
 		function shuffle(a) {
@@ -141,15 +133,13 @@
 			}
 			return a;
 		}
+
 		/**
 		@filterProjects
 		returns void
 		Filters projects based on data-set and matching strings.
 		*/
-		
-		document.querySelectorAll(".navigation-tabs li").forEach((el, i) => {
-			el.addEventListener("click", filterProjects);
-		});
+	
 
 		async function getNewPosts(e) {
 			let idArr = [];
@@ -202,11 +192,14 @@
 			applyAnimation();
 		}
 
+			
+
 		function mapCategories(id) {
 			let cat = categories.filter(category => category.id == id)[0]
 			// console.log(cat)
 			return cat || ""
 		}
+
 		async function returnProject(posts = []) {
 			let htmlList = ""
 			await posts.forEach((post,i) => {
