@@ -18,7 +18,8 @@
     <link href="<?php echo get_bloginfo('template_directory'); ?>/style.css" rel="stylesheet">
 
     <!-- Custom font for this template -->
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i" rel="stylesheet">
+    <link href=“https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i” rel=“stylesheet”>
+
 
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 

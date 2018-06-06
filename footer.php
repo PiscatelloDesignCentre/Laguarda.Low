@@ -315,6 +315,35 @@
       // }
     </script>
 
+    <script type="text/javascript">
+      $(".projectMap").click(function(){
+        $('div.relatedProjectsContent').removeClass("active");
+        $('div.shareProjectContent').removeClass("active");
+        $('div.mapContent').addClass("active");
+      });
+      $(".projectShare").click(function(){
+        $('div.relatedProjectsContent').removeClass("active");
+        $('div.mapContent').removeClass("active");
+        $('div.shareProjectContent').addClass("active");
+      });
+    </script>
+
+
+    <!-- Script for Map -->
+    <script>
+      // Initialize and add the map
+      function initMap() {
+        // The location of Uluru
+        var pdc = {lat: 40.755282, lng: -73.993486};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 15, center: pdc, mapTypeId: 'satellite'});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: pdc, map: map});
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY5t-tXrIskhm6OZmUp0DnSytAlCwavA&callback=initMap"></script>
+
     <!-- <?php wp_footer(); ?> -->
   </body>
 </html>

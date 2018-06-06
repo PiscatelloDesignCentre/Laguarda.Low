@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="row-fluid slider-wrapper theme-laguardalowSlider singleProjectSlider" id="check">
+<div class="row-fluid slider-wrapper theme-laguardalowSlider singleProjectSlider loaded" id="check">
 	<div id="slider" class="nivoSlider">
 		<img src="http://localhost:8888/wordpress/wp-content/uploads/2018/05/LLA_Homepage1.jpg" alt="" title="#htmlcaption"/>
 		<img src="http://localhost:8888/wordpress/wp-content/uploads/2018/05/LLA_Homepage2.jpg" alt="" title="#htmlcaption"/>
@@ -25,10 +25,10 @@
 			</div>
 			<div class="mapAndShare">
 				<div class="projectMap">
-					<a href="">View Map</a>
+					<a>View Map</a>
 				</div>
 				<div class="projectShare">
-					<a href="">Share</a>
+					<a>Share</a>
 				</div>
 				<div style="clear:both;"></div> 
 			</div>
@@ -75,19 +75,46 @@
 			<div style="clear:both;"></div> 
 		</div>
 		<div class="backToCategory">
-			<a href="#check">
+			<a href="http://localhost:8888/wordpress/projects/#mixed-use">
 				<div id="backButton"></div>
 				<div id="backToText"><p>BACK TO MIXED USE</p></div>
 			</a>
 		</div>
 	</div>
-	<div class="relatedProjectsContent">
+	<div class="relatedProjectsContent active">
 		<div class="row-fluid relatedProjectsHeader">
 			<h3>Related Mixed Use Projects</h3>
 			<p> &nbsp; </p>
 		</div>
 		<div class="container relatedProjectsTiles">
 		  <?php echo do_shortcode( '[the-post-grid id="195" title="mixedUseProjectsGrid"]' ); ?>
+		</div>
+	</div>
+	<div class="mapContent">
+		<!-- Code for generating a map -->
+		<div id="map"></div>
+	</div>
+	<div class="shareProjectContent">
+		<div class="row-fluid shareProjectTitle">
+			<h3>Share This project</h3>
+			<p> &nbsp; </p>
+		</div>
+		<div class="shareProjectIcons">
+			<ul class="shareLinks">
+				<li id="shareOnFacebook">
+					<a href="">Facebook</a>
+				</li>
+				<li id="shareOnLinkedIn">
+					<a href="">LinkedIn</a>
+				</li>
+				<li id="shareOnPintrest">
+					<a href="">Pintrest</a>
+				</li>
+				<li id="shareOnInstagram">
+					<a href="">Instagram</a>
+				</li>
+			</ul>
+		  
 		</div>
 	</div>
 	<div style="clear:both;"></div> 

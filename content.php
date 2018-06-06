@@ -16,10 +16,10 @@
 </div>
 
 <script>
-  window.addEventListener("DOMContentLoaded", () => {
-    setTimeout( ()=> {
-      document.querySelector(".slider-wrapper").classList.add("loaded")
-    }, 2000)
-  })
+ window.addEventListener("DOMContentLoaded", () => {
+   setTimeout( ()=> {
+     document.querySelector(".slider-wrapper").classList.add("loaded")
+   }, 2000)
+ })
 </script>
 
