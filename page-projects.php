@@ -63,6 +63,16 @@
 				let catName = location.hash.replace('#','')
 				let cat = filterCategoryNames(catName)
 				filter = "&categories=" + cat.id
+
+				document.querySelectorAll(".navigation-tabs li").forEach((el, i) => {
+					if(el.dataset.filter == cat.id) {
+						el.classList.add("selected")
+					}
+
+					else {
+						el.classList.remove("selected")
+					}
+				});
 			}
 			
 
