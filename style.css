@@ -14,7 +14,6 @@ Tags: bootstrap
 
 
 body {
-  /*font-family: Georgia, "Times New Roman", Times, serif;*/
   font-family: 'Noto Sans', sans-serif !important;
   color: #000000;
   position: absolute;
@@ -1299,6 +1298,23 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   font-size: 25px;
   font-weight: bold;
   color: #000000;
+  float: left;
+}
+
+.closeButton {
+  height: 30px;
+  width: 30px;
+  float: right;
+  /*border: 1px solid black;*/
+  margin-top: 20px;
+  background: url('http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_closeButtonBlack.png') center center no-repeat;
+  background-size: cover;
+}
+
+.closeButton a {
+  display: block;
+  height: 30px;
+  cursor: pointer;
 }
 
 .shareProjectIcons {

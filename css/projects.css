@@ -61,6 +61,14 @@
     cursor: auto;
 }
 
+.project-info .project-location {
+    text-align: left;
+    font-weight: bold;
+    position: relative;
+    text-decoration: none;
+    cursor: auto;
+}
+
 .project-title a {
     font-weight: 800 !important;
     color: #FFF;
@@ -111,6 +119,7 @@ ul.navigation-tabs {
 }
 
 .navigation-tabs a:visited,
+.navigation-tabs a:active,
 .navigation-tabs a:hover  {
     color: #FFF;
     text-decoration: none;
@@ -120,6 +129,7 @@ ul.navigation-tabs {
 .navigation-tabs a.selected {
     background-color: #ed2939;
     text-decoration: none;
+    color: #ffffff;
 }
 
 .navigation-tabs a:not(:last-of-type) {
