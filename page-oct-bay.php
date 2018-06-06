@@ -97,7 +97,10 @@
 	<div class="shareProjectContent">
 		<div class="row-fluid shareProjectTitle">
 			<h3>Share This project</h3>
-			<p> &nbsp; </p>
+			<!-- <p> &nbsp; </p> -->
+			<div class="closeButton">
+				<a></a>
+			</div>
 		</div>
 		<div class="shareProjectIcons">
 			<ul class="shareLinks">
@@ -125,12 +128,12 @@
   // Initialize and add the map
   function initMap() {
     // The location of Uluru
-    var pdc = {lat: 40.755282, lng: -73.993486};
+    var octBay = {lat: 22.527588, lng: 113.993261};
     // The map, centered at Uluru
     var map = new google.maps.Map(
-        document.getElementById('map'), {zoom: 15, center: pdc, mapTypeId: 'satellite'});
+        document.getElementById('map'), {zoom: 13, center: octBay, mapTypeId: 'satellite'});
     // The marker, positioned at Uluru
-    var marker = new google.maps.Marker({position: pdc, map: map});
+    var marker = new google.maps.Marker({position: octBay, map: map});
   }
 </script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY5t-tXrIskhm6OZmUp0DnSytAlCwavA&callback=initMap"></script>
