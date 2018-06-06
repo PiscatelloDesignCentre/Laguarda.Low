@@ -10,7 +10,7 @@
             <div class="quote">
             Laguarda.Low is a global <br>
             architectural practice focused on <br>
-            creating exciting experience. <br>
+            creating exciting experiences. <br>
 
             </div>
         </div>      

@@ -57,8 +57,8 @@
           <!-- Search bar -->
           <div class="search-container">
             <form action="/action_page.php">
-              <input id="input-area" type="text" placeholder="" name="search">
               <button class="search" type="submit"></button>
+              <input id="input-area" type="text" placeholder="" name="search">
               <!-- <div id="input-area-slider"></div> -->
             </form>
           </div>
