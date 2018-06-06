@@ -14,5 +14,9 @@
 
             </div>
         </div>      
+
+    <script type="text/javascript">
+        // document.querySelector('.band').classList.add('active');
+    </script>
     </body>
 </html>

@@ -75,7 +75,7 @@
 			<div style="clear:both;"></div> 
 		</div>
 		<div class="backToCategory">
-			<a href="http://localhost:8888/wordpress/projects/#mixed-use">
+			<a href="http://localhost:8888/wordpress/projects/#mixeduse">
 				<div id="backButton"></div>
 				<div id="backToText"><p>BACK TO MIXED USE</p></div>
 			</a>
