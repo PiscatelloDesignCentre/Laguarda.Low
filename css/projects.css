@@ -1,0 +1,161 @@
+.grid-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-gap: 1px;
+}
+
+.project-thumb {
+    position: relative !important;
+    box-sizing: border-box;
+    overflow: hidden; 
+    z-index: 10;
+}
+
+.project-thumb::after {
+    content: '';
+    height: 30%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.5));
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.project-thumb:hover img {
+    transform: scale(1.1);
+}
+
+
+.project-thumb img {
+    z-index: -1;
+    width: 100%;
+    display: block;
+    transition: 0.75s ease all;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: rotate(0deg) skewY(0deg) scale(1.05);
+}
+
+.project-info {
+    color: #FFF;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 30px 30px;
+    font-size: 12.5px;
+    z-index: 2;
+}
+
+.project-info .project-title {
+    text-align: left;
+    font-weight: bold;
+    position: relative;
+    text-decoration: none;
+    cursor: auto;
+}
+
+.project-title a {
+    font-weight: 800 !important;
+    color: #FFF;
+    text-decoration: none;
+}
+
+.project-title a:hover {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.project-info  span {
+    display: block;
+}
+
+.project-category {
+    font-size: 10.5px;
+}
+
+/* Navigation for the tiles */
+
+
+ul.navigation-tabs {
+    display: flex;
+    justify-content: stretch;
+    align-content: center;
+    white-space: nowrap;
+    list-style: none;
+    font-size: 12.5px;
+    cursor: pointer;
+}
+
+
+
+.navigation-tabs li {
+    background-color: #C0C0C0;
+    height: 30px;
+    color: #FFF;
+    flex: 1;
+    width: 8.33%;
+    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 30px;
+    text-transform: uppercase;
+}
+
+.navigation-tabs li:hover,
+.navigation-tabs li.selected {
+    background-color: #ed2939;
+}
+
+.navigation-tabs li:not(:last-of-type) {
+    border-right: 1px solid #FFF;
+}
+
+
+
+
+
+/* Projects Loading Screen */
+
+
+/* Fade in and up animation */
+@keyframes loadImages {
+    0% {
+        transform: translateY(10%);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.animate-grid {
+    animation: loadImages .75s ease;
+}
+
+/* Fade out randomly animation */
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.animate-grid {
+    animation: loadImages .75s ease;
+}
+
+.fade-out {
+    animation: fadeOut .345s ease forwards;
+}

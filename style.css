@@ -1,0 +1,1232 @@
+/*
+Theme Name: laguarda.low
+Author: Anirudh Nagulapalli	
+Description: Bootstrap Blog template converted to WordPress
+Version: 0.0.1
+Tags: bootstrap
+*/
+
+/*
+ * Globals
+ */
+
+/*$lightGrey: #f1f1f2;*/
+
+
+body {
+  /*font-family: Georgia, "Times New Roman", Times, serif;*/
+  font-family: 'Noto Sans', sans-serif !important;
+  color: #000000;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}
+
+/*h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  margin-top: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  color: #333;
+}*/
+
+
+/*
+ * Override Bootstrap's default container.
+ */
+
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/*
+ * Header
+ */
+
+
+/*
+ * band
+ */
+.site-header{
+  background-color: transparent;
+  background-size: cover;
+  box-shadow: none;
+  /*position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;*/
+}
+
+.page-id-152 .site-header {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+}
+
+.band {
+  height: 60px;
+  background: transparent;
+  transition: background-color 0.5s linear;
+  /*-moz-transition: background-color 0.5s linear;
+  -webkit-transition: background-color 0.5s linear;*/
+  /*-webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+          box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);*/
+}
+
+.band:hover {
+  background-color: rgb(255,255,255, 1);
+  transition: background-color 0.5s linear;
+  /*-moz-transition: background-color 0.5s linear;
+  -webkit-transition: background-color 0.5s linear;*/
+}
+
+.band.active {
+  background-color: rgb(255,255,255, 1);
+  /*transition: background-color 0.5s linear;*/
+}
+
+/*
+.site-header .row-fluid {
+  height: 100%;
+}*/
+
+/*.site-header .row-fluid .col-md-2, .site-header .row-fluid .col-md-3, .site-header > .row-fluid > .col-md-4 {
+  height: 100%;
+}*/
+
+.band .col-md-2, .band .col-md-3, .band .col-md-4 {
+  height: 100%;
+  z-index: 9999;
+}
+
+/*
+ * Blog logo
+ */
+
+.logo {
+  background: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_LogoWhite.png") no-repeat left;
+  background-color: transparent;
+  background-size: 50%;
+  max-height:100%;
+  max-width: 100%;
+  left: 30px;
+  /*-webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+          box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);*/
+}
+
+.logo a {
+  width: 100%;
+  display: block;
+  height: 100%;
+  text-decoration: none;
+  color: transparent !important;
+}
+
+.band:hover .logo, .band.active .logo {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_LogoRed.png");
+  background-color: transparent;
+  max-height:100%;
+  max-width: 100%;
+  padding: 17px 0;
+}
+
+/*
+ * Search bar
+ */
+
+.band .search-container {
+  float: right;
+  width: 90%;
+  margin-right: -23px;
+}
+
+.band input[type=text] {
+  padding: 6px;
+  margin: 12px 0px;
+  font-size: 16px;
+  border: none;
+  height: 36px;
+}
+
+.search {
+  background: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_SearchWhite.png") no-repeat center;
+  background-size: 100%;
+}
+
+.band:hover .search, .band.active .search {
+  background: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_SearchGrey.png") no-repeat center;
+  background-size: 100%; 
+}
+
+.band .search-container button {
+  float: right;
+  /*padding: 6px 10px;*/
+  margin: 20px 0px;
+  /*margin-right: 16px;*/
+  /*background: #ffffff;*/
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.band .search-container button:hover {
+  
+}
+
+.search-container #input-area, .band:hover .search-container #input-area, .band.active .search-container #input-area {
+  outline: 0;
+  background: transparent;
+  transform: scaleX(0);
+  -moz-transform: scaleX(0);
+  -webkit-transform: scaleX(0);
+  /*border-bottom: 1px solid #ED2939;*/
+
+}
+
+/*.band:hover .search-container #input-area {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  transform: scaleX(0);
+  border-bottom: 2px solid #ED2939;
+}*/
+
+
+.search-container:hover #input-area, .band:hover .search-container:hover #input-area, .band.active .search-container:hover #input-area {
+  /*border: 0;*/
+  width: 90%;
+  outline: 0;
+  background: transparent;
+  border-bottom: 0.5px solid #ED2939;
+  transform: scaleX(1);
+  -moz-transform: scaleX(1);
+  -webkit-transform: scaleX(1);
+
+  transition: transform 1s ease-in-out;
+  /*-moz-transition: transform 1s ease-in-out;
+  -webkit-transition: transform 1s ease-in-out;*/
+
+  transform-origin:100% 50%;
+  /*-moz-transform-origin:100% 50%;
+  -webkit-transform-origin:100% 50%;*/
+}
+
+
+/*.band:hover .search-container:hover #input-area {
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 2px solid #ED2939;
+  transform: scaleX(1);  
+  transition: transform 1.5s ease-in-out;
+  transform-origin:100% 50%;
+}*/
+
+
+
+.band:hover .search-container:hover .search, .band.active .search-container:hover .search {
+  background: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_SearchRed.png") no-repeat center;
+  background-size: 100%; 
+}
+  
+/* 
+ * Navigation links 
+ */
+
+/* Active state gets a caret at the bottom */
+.site-nav .active {
+  color: #F0F0F0;
+}
+.site-nav .active:after {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 0;
+  margin-left: -5px;
+  vertical-align: middle;
+  content: " ";
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid;
+  border-left: 5px solid transparent;
+}
+
+.site-nav li {
+    position: relative;
+    display: inline-block;
+    padding: 20px 15px;
+    font-weight: bold; 
+}
+
+.site-nav li a {
+  color: #ffffff; /*Change to #C0C0C0*/
+  text-decoration: none;
+}
+
+.menu {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+}
+
+.menu-main-menu-container {
+  float: right;
+}
+
+.band:hover .site-nav li a:hover, .band.active .site-nav li a:hover, .band:hover .site-nav li a:focus, .band.active .site-nav li a:focus, .band:hover .site-nav li a:active, .band.active .site-nav li a:active {
+  text-decoration: none;
+  color: #ED2939; /*Red*/
+}
+
+/*.band:hover .site-nav li a:focus, .band.active .site-nav li a:focus {
+  text-decoration: none;
+  color: #ED2939;
+}*/
+
+.band:hover .site-nav .current-menu-item a, .band.active .site-nav .current-menu-item a {
+  color: #ED2939;
+} 
+
+
+/*
+ * Language toggle tab
+ */
+
+.lang-toggle {
+    /*display: block;*/
+    /*border: 1px solid black;*/
+    /*right:15px;*/
+    width: 40%;
+    height: 50%;
+    margin: 15px;
+    position: relative;
+    float: right;
+
+}
+
+/*.lang-toggle p {
+  line-height: 28px; 
+  text-align: center; 
+  color: #ffffff;
+}*/
+.lang-toggle #lang-en {
+  float: left;
+  line-height: 30px; 
+  text-align: center; 
+  color: #ffffff;
+  font-size: 10.5px;
+  font-weight: bold;
+}
+
+.lang-toggle #lang-zh {
+  /*float: right;*/
+  line-height: 30px; 
+  text-align: center; 
+  color: #C0C0C0;
+  font-size: 10.5px;
+  font-weight: bold;
+}
+
+.band:hover ul li a, .band:hover .lang-toggle p, .band.active ul li a, .band.active .lang-toggle p {
+  color: #C0C0C0;
+}
+
+.band:hover .lang-toggle #lang-en, .band.active .lang-toggle #lang-en {
+  color: #ED2939;
+}
+
+
+/*
+ * Main column and sidebar layout
+ */
+
+.blog-main {
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+/* Sidebar modules for boxing content */
+.sidebar-module {
+  padding: 15px;
+  margin: 0 -15px 15px;
+}
+.sidebar-module-inset {
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+.sidebar-module-inset p:last-child,
+.sidebar-module-inset ul:last-child,
+.sidebar-module-inset ol:last-child {
+  margin-bottom: 0;
+}
+
+
+/* Pagination */
+.pager {
+  margin-bottom: 60px;
+  text-align: left;
+}
+.pager > li > a {
+  width: 140px;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 30px;
+}
+
+
+/*
+ * Blog posts
+ */
+/*
+.blog-post {
+  margin-bottom: 60px;
+}
+.blog-post-title {
+  margin-bottom: 5px;
+  font-size: 40px;
+}
+.blog-post-meta {
+  margin-bottom: 20px;
+  color: #999;
+}
+*/
+
+/*
+ * Footer
+ */
+
+.site-footer {
+  /*text-align: center;*/
+  /*background-color: #f9f9f9;*/
+  position: relative;
+  left: 0;
+  bottom: 0;
+  /*height: 100%;*/
+  width: 100%;
+  border-top: 1px solid #e5e5e5;
+  font-size: 12.5px;
+  line-height: 20px;
+}
+
+.site-footer .container-fluid {
+  padding: 60px 0 0 0;
+  background-color: #f1f1f2;
+}
+
+.site-footer li:last-child {
+  margin-bottom: 60px;
+}
+
+.footer_projects ul, .footer_expertise ul, .footer_firm ul, .footer_news ul, .footer_contact ul, .credits ul {
+	list-style-type: none;
+  padding: 0px;
+}
+
+.footer_projects ul li a, .footer_expertise ul li a, .footer_firm ul li a, .footer_news ul li a, .footer_contact ul li a, .credits ul li a {
+  text-decoration: none;
+  color: #000000;
+  cursor: pointer;
+}
+
+.footer_projects ul li a:hover, .footer_expertise ul li a:hover, .footer_firm ul li a:hover, .footer_news ul li a:hover, .footer_contact ul li a:hover, .credits ul li a:hover {
+  color: #ED2939;
+}
+
+.footer-titles {
+  font-size: 12.5px !important;
+  font-weight: bold;
+}
+
+.credits li {
+  font-size: 10.5px;
+}
+
+.footer_projects, .footer_expertise, .footer_firm, .footer_news, .footer_contact, .credits {
+  opacity: 0;
+  transition: all  700ms ease;
+  /*transition-delay: 500ms;*/
+  transform: translate(0px, 50px);
+  backface-visibility: hidden;
+  height: 100%;
+  margin-top: 0px !important;
+}
+
+.footer_projects.in-view, .footer_expertise.in-view, .footer_firm.in-view, .footer_news.in-view, .footer_contact.in-view, .credits.in-view {
+  opacity: 1;
+  transform: translate(0px, 0px);
+}
+
+.footer_projects {
+  transition-delay: 200ms;
+}
+
+.footer_expertise {
+  transition-delay: 400ms;
+}
+
+.footer_firm {
+  transition-delay: 600ms;
+}
+
+.footer_news {
+  transition-delay: 800ms;
+}
+
+.footer_contact {
+  transition-delay: 1000ms;
+}
+
+.credits {
+  transition-delay: 1200ms;
+}
+
+.lowerBand {
+  height: 60px;
+  background-color: #ffffff;
+}
+
+.lowerBand .copyRight {
+  /*border: 1px solid black;*/
+  height: 100%;
+  font-size: 10.5px;
+  margin: 0px;
+}
+
+.lowerBand .copyRight p {
+  color: #DCDCDC;
+  padding: 20px 15px;
+  margin: 0px;
+}
+
+
+/*Social Media*/
+
+.lowerBand .socialMedia {
+  /*border: 1px solid black;*/
+  height: 100%;
+}
+
+.menu-social-links-menu-container {
+  float: right;
+  height: 100%;
+}
+
+.socialMedia ul li {
+  display: inline-block;
+}
+
+.socialMedia ul li a {
+  line-height: 0; 
+  font-size: 0;
+  color: transparent; 
+}
+
+#menu-social-links-menu {
+  float: right;
+  height: 60px;
+}
+
+
+
+.socialMedia ul li.menu-item-23 a {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_1.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-23 a:hover {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_footerRed1.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-22 a {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_2.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-22 a:hover {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_footerRed2.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-24 a {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_3.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-24 a:hover {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_footerRed3.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-25 a {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_4.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-25 a:hover {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_footerRed4.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-26 a {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_5.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-26 a:hover {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_footerRed5.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-142 a {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_6.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+.socialMedia ul li.menu-item-142 a:hover {
+  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_footerRed6.png");
+  display: block;
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+}
+
+
+/*
+ * Slider
+ */
+
+
+
+.slider-wrapper { 
+  /*margin: 100px auto;*/
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  /*z-index: -1;*/
+  top: -60px;
+  bottom: 0px;
+  position: relative;
+  /*background: linear-gradient(transparent , #000000 200%);*/
+
+}
+
+/*====================*/
+/*=== Other Styles ===*/
+/*====================*/
+.clear {
+  clear:both;
+}
+
+
+/*
+ * Projects page
+ */
+
+
+.project-nav {
+  box-shadow: none;
+  height: 30px;
+}
+
+.project-nav ul {
+  margin: 0px;
+  padding: 0px;
+}
+
+.project-nav .project-nav-article {
+  height: 30px; 
+  /*border-right: 0.5px solid #ffffff;*/
+  border-left: 0.5px solid #ffffff; 
+  display: inline-block;
+  cursor: pointer;
+  background-color: #C0C0C0;
+  text-align: left;
+  padding: 4px 30px;
+}
+
+.project-nav .project-nav-article a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12.5px;
+  line-height: 12.5px;
+}
+
+/*.project-nav .allProjects.stick {
+  background-color: #ED2939;
+}*/
+
+.project-nav ul lo.current-menu-item a {
+  background-color: #ED2939;
+}
+
+.project-nav .project-nav-article:hover {
+  background-color: #ED2939;
+}
+
+.project-nav .project-nav-article.active {
+  background-color: #ED2939;
+}
+
+
+/*
+ * Projects Post grid css
+ */
+
+.item {
+  border: 0.5px solid #ffffff;
+  overflow: hidden;
+}
+
+.item .layer-content {
+  background: linear-gradient(transparent, #000000 100%);
+}
+
+.skin.flat .layer-content {
+  padding: 10px 15px;
+}
+
+.layer-content {
+  margin-top: -70px;
+}
+
+.layer-media a img {
+  transition: transform 0.8s;
+  -moz-transition: transform 0.8s;
+  -webkit-transition: transform 0.8s;
+}
+
+.layer-media a img:hover {
+
+  transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+}
+
+
+/*Project name as title*/
+#post-grid-93 .title {
+  font-size: 12.5px !important;
+  padding: 0px 15px !important;
+  text-align: left;
+  color: #ffffff;
+  font-weight: bold;
+  position: relative;
+}
+
+/*Project Location as content*/
+#post-grid-93 .content {
+  font-size: 12.5px !important;
+  padding: 0px 15px !important;
+  text-align: left;
+  color: #ffffff;
+  font-weight: bold;
+  position: relative;
+}
+
+/*Project type as category*/
+#post-grid-93 .categories a {
+  padding: 0px 15px !important;
+  text-align: left;
+  color: #ffffff;
+  font-size: 10.5px !important;
+  font-weight: normal;
+  position: relative;
+}
+
+.grid-nav-bottom {
+  display: none;
+}
+
+/*
+ * The post grid css
+ */
+.rt-tpg-container .rt-tpg-isotope-buttons{
+  margin: 0px;
+  text-align: center;
+}
+
+body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
+  background-color: #ED2939 !important;
+  color: #ffffff;
+}
+
+.rt-tpg-container .rt-tpg-isotope-buttons button {
+  background-color: #C0C0C0;
+  color: #ffffff;
+  margin: 0px;
+  width: 8.33%;
+  font-weight: normal;
+  border-left: 0.5px solid #ffffff;
+  border-top: 0.5px solid #ffffff;
+  font-size: 12.5px;
+  text-transform: uppercase;
+}
+
+.rt-tpg-container .rt-equal-height {
+  margin: 0px;
+  padding:0px;
+  border-left: 0.5px solid #ffffff;
+  border-top: 1px solid white;
+  /*animation: fadein 3s, floatText 1s;*/
+  /*transition: all 700ms ease-out;
+  transform: translate3d(0px, 200, 0px);
+  backface-visibility: hidden;
+
+  transform: translate3d(0px, 0px, 0px);*/
+}
+
+.rt-tpg-container .layout1 .rt-equal-height {
+  border: none;
+}
+/*@keyframes fadein {
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
+}
+
+@keyframes floatText {
+  0% {
+    bottom: -20px;
+  }
+  100% {
+    bottom: 10px;
+  }
+}*/
+
+.rt-tpg-container .isotope1 .rt-holder {
+  padding: 0px;
+}
+
+.rt-tpg-container .layout1 .rt-holder {
+  padding-right: 15px;
+  padding-bottom: 15px;
+}
+
+.rt-tpg-container .isotope1 .rt-holder .rt-detail {
+  padding: 10px 15px;
+  margin-top: -82px;
+}
+
+.rt-tpg-container .layout1 .rt-holder .rt-detail {
+  padding: 10px 15px;
+  margin-top: -67px;
+}
+
+.rt-tpg-container .isotope1 .rt-holder .rt-detail .entry-title, .rt-tpg-container .layout1 .rt-holder .rt-detail .entry-title {
+  font-size: 12.5px;
+  margin: 0;
+  font-weight: bold;
+  padding: 0px 15px;
+}
+
+.rt-tpg-container .isotope1 .rt-holder .rt-detail .entry-title a, .rt-tpg-container .layout1 .rt-holder .rt-detail .entry-title a {
+  font-size: 12.5px;
+  text-align: left;
+  font-weight: bold;
+  position: relative;
+  text-decoration: none;
+  cursor: auto;
+  color: #ffffff;
+}
+
+.entry-content, .post-content {
+  position: relative;
+  padding: 0px 15px;
+  font-size: 12.5px;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.entry-content p{
+  margin: 0px;
+}
+
+.post-meta-user {
+  padding: 0px 15px;
+  font-size: 10.5px;
+}
+
+.fa-folder-open-o:before {
+  display: none;
+}
+
+.categories-links {
+  padding: 0px;
+}
+
+.categories-links a {
+  font-size: 10.5px;
+  /*padding: 0px 15px;*/
+  /*text-transform: capitalize;*/
+  color: #ffffff !important;
+  position: relative;
+  float: left;
+}
+
+/*Animating the project assests*/
+
+/*.isotope-item {
+  display: inline;
+  opacity: 1;
+  transition: transform  700ms ease;
+  transform: translate(0px, 100px);
+  backface-visibility: hidden;
+}
+
+.isotope-item.in-view {
+  opacity: 1;
+  transform: translate(0px, 0px);
+  transition-delay: 200ms;
+}*/
+
+/*@keyframes fadein {
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
+}
+
+@keyframes floatText {
+  0% {
+    bottom: -20px;
+  }
+  100% {
+    bottom: 10px;
+  }
+}*/
+
+
+/*
+ * Project - Oct Bay
+ */
+
+.singleProjectSlider .nivoSlider .nivo-caption {
+  font-family: inherit;
+  background: linear-gradient(transparent , #000000 125%);
+  text-align: center;
+  z-index: 9;
+  line-height: 40px;
+}
+
+.slider-wrapper:not(.loaded) .nivo-caption p:first-of-type {
+  animation: slideFromBottom 1.25s ease forwards;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: rotate(0deg) skewY(0deg);
+  opacity: 1;
+}
+
+.slider-wrapper.loaded .nivo-caption p:first-of-type {
+  opacity: 1;
+  display: block;
+  animation: slideFromBottom 0s ease forwards;
+}
+
+
+
+@keyframes slideFromBottom {
+  0% {
+    transform: translateY(20px);
+    opacity: -1;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.singleProjectSlider .nivoSlider .nivo-caption p {
+  margin:0;
+  transition: transform 1.75s;
+  -moz-transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+  bottom: 0px;
+  position: relative;
+  line-height: 35px;
+  /*animation: fadein 2s;*/
+}
+
+.projectName {
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+  bottom: -7px;
+  line-height: 10px;
+}
+
+.projectCategory {
+  font-size: 12.5px;
+  font-weight: normal;
+  position: relative;
+  bottom: 10px;
+}
+
+/*@keyframes fadein {
+  from {
+    opacity:0;
+  }
+  to {
+    opacity:1;
+  }
+}*/
+
+/*
+ * Single Project pages
+ */
+
+#wrapper {
+  min-height: 100%;
+  height: auto;
+  display: flex;
+}
+
+.projectContent {
+  background-color: #f1f1f2;
+  padding: 30px 60px 30px 30px;
+  float: left;
+  width: 50%;
+  height: auto;
+  position:relative;
+}
+
+.projectTitleHeader {
+  height: 20%; 
+  /*border: 1px solid black;*/
+  line-height: 5px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.projectTitle {
+  float: left;
+  width: 50%;
+  height: auto;
+  padding-right: 5px;
+}
+
+.projectTitle h3 {
+  font-weight: bold;
+  width: 50%;
+}
+
+.projectTitle p {
+  font-size: 12.5px;
+  width: 50%;
+}
+
+.mapAndShare {
+  /*margin-right: 60px;*/
+  /*border: 1px solid black;*/
+  float: right;
+  width: 50%;
+  height: 20px;
+  margin-top: 25px;
+}
+
+.projectMap {
+  float: left;
+  width: 48%;
+  height: 20px;
+  /*border: 1px solid black;*/
+  background-color: #bcbec0;
+  text-align: center;
+}
+
+.projectMap:hover {
+  background-color: #ED2939;
+  cursor: pointer;
+}
+
+.projectShare {
+  float: right;
+  width: 48%;
+  height: 20px;
+  /*border: 1px solid black;*/
+  background-color: #bcbec0;
+  text-align: center;
+}
+
+.projectShare:hover {
+  background-color: #ED2939;
+  cursor: pointer;
+}
+
+.projectMap a, .projectShare a {
+  color: #ffffff;
+  font-size: 12.5px;
+  line-height: 20px;
+  vertical-align: middle;
+  margin: 0px;
+  text-decoration: none;
+}
+
+.projectDescription {
+  height: fit-content; 
+  /*border: 1px solid black;*/
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.projectMeta {
+  padding-top: 10px;
+  padding-bottom: 20px;
+  height: 40%; 
+  /*border: 1px solid black;*/
+}
+
+.projectMeta p {
+  font-size: 10.5px;
+  margin-bottom: 0px;
+}
+
+.projectMeta .leftMeta {
+  float: left;
+  width: 50%;
+  height: auto;
+  padding-right: 5px;
+}
+
+.projectMeta .rightMeta {
+  float: right;
+  width: 50%;
+  height: auto;
+  padding-left: 5px;
+}
+
+.projectMeta .rightMeta a {
+  color: #000000;
+  text-decoration: underline;
+}
+
+.projectMeta .rightMeta a:hover {
+  color: #ED2939;
+}
+
+.rightMeta p:last-child {
+  padding-bottom: 40px;
+}
+
+.backToCategory {
+  position: absolute;
+  bottom: 10px;
+  padding: 0px;
+  width: 100%;
+}
+
+.backToCategory a {
+  display: block;
+  text-decoration: none;
+  color: #000000;
+}
+
+#backButton {
+  display: inline;
+  height: 30px;
+  width: 30px;
+  float: left;
+  background: url('http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_.png') center center no-repeat;
+  background-size: cover;
+}
+#backToText {
+  font-weight: bold;
+  font-size: 12.5px;
+  display: inline;
+  line-height: 30px;
+}
+
+.relatedProjectsContent {
+  background-color: #bcbec0;
+  padding: 30px 15px 30px 30px;
+  float: right;
+  width: 50%;
+  height: auto;
+}
+.relatedProjectsContent h3 {
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.relatedProjectsHeader {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  line-height: 5px;
+  height: 20%;
+}
+
+.relatedProjectsTiles {
+  width: 100%;
+  height: 50%;
+  padding: 10px 0px;
+}
+
+.relatedProjectsTiles #row1, .relatedProjectsTiles #row2 {
+  padding: 0px;
+}
+
+.downArrow {
+  height: 30px;
+  width: 30px;
+  /*border: 1px solid white;*/
+  margin-left: 30px;
+  margin-bottom: 16px;
+  position: absolute;
+  bottom: 0px;
+  z-index: 999;
+  background: url('http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_DownArrow.png') center center no-repeat;
+  background-size: cover;
+}
+
+.downArrow a {
+  height: 30px;
+  display: block;
+}
