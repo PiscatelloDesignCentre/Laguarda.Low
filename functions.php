@@ -12,6 +12,7 @@
 	));
 
   wp_enqueue_style( 'projects', get_template_directory_uri() . '/css/projects.css',false,'1.1','all');
+  wp_enqueue_style( 'video-homepage', get_template_directory_uri() . '/css/video-homepage.css',false,'1.1','all');
   
   function people_init() {
 		// create a new taxonomy

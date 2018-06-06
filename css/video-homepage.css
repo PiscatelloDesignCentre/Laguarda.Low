@@ -1,0 +1,31 @@
+#my-video {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+}
+
+.quote-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(transparent , #000000 125%);
+    height: 150px;
+    width: 100%;
+}
+
+.quote {
+    font-family: inherit;
+    text-align: center;
+    z-index: 9;
+    line-height: 30px;
+    animation: slideFromBottom 1.25s ease forwards;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: rotate(0deg) skewY(0deg);
+    font-size: 25px;
+    color: #FFF;
+    position: absolute;
+    text-align: left;
+    padding: 30px;
+}
