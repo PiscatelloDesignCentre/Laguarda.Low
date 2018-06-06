@@ -95,7 +95,7 @@ ul.navigation-tabs {
 
 
 
-.navigation-tabs li {
+.navigation-tabs a {
     background-color: #C0C0C0;
     height: 30px;
     color: #FFF;
@@ -107,14 +107,21 @@ ul.navigation-tabs {
     justify-content: flex-start;
     padding-left: 30px;
     text-transform: uppercase;
+    text-decoration: none;
 }
 
-.navigation-tabs li:hover,
-.navigation-tabs li.selected {
+.navigation-tabs a:visited  {
+    color: #FFF;
+    text-decoration: none;
+}
+
+.navigation-tabs a:hover,
+.navigation-tabs a.selected {
     background-color: #ed2939;
+    text-decoration: none;
 }
 
-.navigation-tabs li:not(:last-of-type) {
+.navigation-tabs a:not(:last-of-type) {
     border-right: 1px solid #FFF;
 }
 

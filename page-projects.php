@@ -1,9 +1,9 @@
 <?php get_header(); ?>
 	<nav class="row-fluid project-nav">
 		<ul class="navigation-tabs">
-			<li data-filter="" class="selected">
+			<a data-filter="" class="selected">
 				ALL PROJECTS
-			</li>
+			</a>
 			<?php
 				$args = array(
 					"hide_empty" => 0,
@@ -17,9 +17,9 @@
 				
 				foreach ( $cats as $cat ) { ?>
 					<?php if($cat->slug !== "projects") { ?>
-					<li data-filter="<?php echo $cat->term_id ?>">
+					<a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-", " ", $cat->slug) ?>">
 						<?php echo $cat->cat_name ?>
-					</li>
+					</a>
 					<?php } ?>  
 				<?php } ?>
 
@@ -35,7 +35,7 @@
 		var categories = []
 		var currentlyLoading = false;
 
-		document.querySelectorAll(".navigation-tabs li").forEach((el, i) => {
+		document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
 			el.addEventListener("click", filterProjects);
 		});
 
@@ -61,10 +61,9 @@
 			let idArr = []
 			if(location.hash) {
 				let catName = location.hash.replace('#','')
-				let cat = filterCategoryNames(catName)
+				let cat = filterCategoryNames(catName.toLowerCase())
 				filter = "&categories=" + cat.id
-
-				document.querySelectorAll(".navigation-tabs li").forEach((el, i) => {
+				document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
 					if(el.dataset.filter == cat.id) {
 						el.classList.add("selected")
 					}
@@ -182,7 +181,7 @@
 		async function filterProjects(e) {
 			if(e.target.classList.contains("selected")) { return }
 
-			document.querySelectorAll(".navigation-tabs li").forEach( (el, i) => {
+			document.querySelectorAll(".navigation-tabs a").forEach( (el, i) => {
 				el.classList.remove("selected")
 			});
 
