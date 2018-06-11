@@ -61,6 +61,14 @@
     cursor: auto;
 }
 
+.project-info .project-location {
+    text-align: left;
+    font-weight: bold;
+    position: relative;
+    text-decoration: none;
+    cursor: auto;
+}
+
 .project-title a {
     font-weight: 800 !important;
     color: #FFF;
@@ -111,6 +119,7 @@ ul.navigation-tabs {
 }
 
 .navigation-tabs a:visited,
+.navigation-tabs a:active,
 .navigation-tabs a:hover  {
     color: #FFF;
     text-decoration: none;
@@ -120,6 +129,7 @@ ul.navigation-tabs {
 .navigation-tabs a.selected {
     background-color: #ed2939;
     text-decoration: none;
+    color: #ffffff;
 }
 
 .navigation-tabs a:not(:last-of-type) {
@@ -168,3 +178,87 @@ ul.navigation-tabs {
 .fade-out {
     animation: fadeOut .345s ease forwards;
 }
+
+
+
+
+/* Archives Page */
+
+.archives-overlay {
+    height: calc(100vh - 90px);
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    z-index: 99;
+    background-color: #FFF;
+    font-family: 'Noto Sans', sans-serif;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+
+.table-header,
+.table-contents {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: min-content;
+}
+
+.archives-overlay .table-header {
+    margin-top: 50px;
+}
+
+.archives-overlay .table-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-rows: min-content;
+    box-sizing: border-box;
+    border-bottom: 1px solid #FFF;
+    transition: height .15s ease;
+}
+
+.archives-overlay :not(.table-header) .table-row {
+    background-color: #F1F1F2;
+    cursor: pointer;
+    height: 40px;
+    overflow: hidden;
+}
+
+
+.archives-overlay :not(.table-header) .table-row:hover {
+    background-color: #FFF;
+    color: #ed2939;
+}
+
+.archives-overlay .table-cell {
+    display: border-box;
+    padding: 10px 30px;
+}
+
+.archives-overlay .table-header .table-cell {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.archives-overlay .table-cell:first-of-type {
+    font-weight: bold;
+}
+
+.slide-open {
+    width: 100%;
+    padding: 10px 30px;
+    box-sizing: border-box;
+    height: 0;
+}
+
+.slide-open a {
+    color: #ed2939;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.open {
+    height: 250px !important;
+}
+
+

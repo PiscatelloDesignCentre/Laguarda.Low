@@ -27,8 +27,9 @@
 	</nav> 
 	<div class="row-fluid project-grid">
 		<div class="grid-container">
-		
+			<!-- Projects go here -->
 		</div>
+		<?php include "archives.php" ?>
 	</div>
 	<script>
 
