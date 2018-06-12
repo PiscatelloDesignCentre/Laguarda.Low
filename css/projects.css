@@ -195,6 +195,8 @@ ul.navigation-tabs {
     font-family: 'Noto Sans', sans-serif;
     box-sizing: border-box;
     overflow: scroll;
+    position: fixed;
+    visibility: hidden;
 }
 
 .table-header,
@@ -214,16 +216,19 @@ ul.navigation-tabs {
     grid-auto-rows: min-content;
     box-sizing: border-box;
     border-bottom: 1px solid #FFF;
-    transition: height .15s ease;
 }
 
 .archives-overlay :not(.table-header) .table-row {
     background-color: #F1F1F2;
     cursor: pointer;
-    height: 40px;
     overflow: hidden;
 }
 
+.archives-overlay :not(.table-header) .table-row.selected {
+    font-weight: bold;
+    color: #ed2939;
+    background-color: #FFF;
+}
 
 .archives-overlay :not(.table-header) .table-row:hover {
     background-color: #FFF;
@@ -246,9 +251,13 @@ ul.navigation-tabs {
 
 .slide-open {
     width: 100%;
-    padding: 10px 30px;
     box-sizing: border-box;
     height: 0;
+    color: #000;
+    transition: all .15s ease;
+    padding: 0 30px;
+    font-weight: normal;
+
 }
 
 .slide-open a {
@@ -259,6 +268,17 @@ ul.navigation-tabs {
 
 .open {
     height: 250px !important;
+    padding:  10px 30px;
+}
+/* NO SROLL */
+
+.noscroll {
+    overflow: hidden;
+}
+
+.archives-overlay.visible {
+    display: block;
+    visibility: visible;
 }
 
 

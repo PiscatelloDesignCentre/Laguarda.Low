@@ -73,8 +73,14 @@
 						el.classList.remove("selected")
 					}
 				});
-			}
+				
+				console.log(cat.id)
+				if(cat.id == 19) {
+					document.body.classList.add("noscroll")
+					return;
+				}
 			
+			}
 
 			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&per_page=16"  + filter , {
 				method: 'GET'
@@ -190,6 +196,17 @@
 
 			e.target.classList.add("selected");
 			await fadeOutAnimation()
+
+			if(e.target.dataset.filter == 19) {
+				document.body.classList.add("noscroll");
+				document.querySelector(".archives-overlay").classList.add("visible")
+				return;
+			}
+
+			else   {
+				document.body.classList.remove("noscroll")
+				document.querySelector(".archives-overlay").classList.remove("visible")
+			}
 
 			let posts = await getNewPosts(e);
 			let html = await returnProject(posts);
