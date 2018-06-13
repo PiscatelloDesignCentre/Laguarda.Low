@@ -197,6 +197,8 @@ ul.navigation-tabs {
     overflow: scroll;
     position: fixed;
     visibility: hidden;
+    opacity: 0;
+    transition: .25s ease opacity, visibility 0s ease 1s;
 }
 
 .table-header,
@@ -216,12 +218,14 @@ ul.navigation-tabs {
     grid-auto-rows: min-content;
     box-sizing: border-box;
     border-bottom: 1px solid #FFF;
+    opacity: 0;
 }
 
 .archives-overlay :not(.table-header) .table-row {
     background-color: #F1F1F2;
     cursor: pointer;
     overflow: hidden;
+    opacity: 0;
 }
 
 .archives-overlay :not(.table-header) .table-row.selected {
@@ -260,6 +264,11 @@ ul.navigation-tabs {
 
 }
 
+.slide-open img {
+    width: 100%;
+    display: block;
+}
+
 .slide-open a {
     color: #ed2939;
     font-weight: bold;
@@ -279,6 +288,24 @@ ul.navigation-tabs {
 .archives-overlay.visible {
     display: block;
     visibility: visible;
+    opacity: 1;
+    transition: visibility 0s linear 1s, opacity .15s ease;
+}
+
+@keyframes animateRows {
+    0% {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.row-animate {
+    animation: animateRows .345s ease forwards;
 }
 
 

@@ -43,7 +43,7 @@
 		document.addEventListener("DOMContentLoaded", pageLoaded)
 
 		async function getCategories() {
-			return await fetch('/wordpress/wp-json/wp/v2/categories?per_page=20', {
+			return await fetch('/wordpress/wp-json/wp/v2/categories?per_page=50', {
 				method: "GET"
 			}).then(res => {
 				return res.json()
@@ -58,11 +58,13 @@
 		async function pageLoaded() {
 
 			categories = await getCategories()
+			window.categories = categories
 			let filter = ""
 			let idArr = []
 			if(location.hash) {
 				let catName = location.hash.replace('#','')
 				let cat = filterCategoryNames(catName.toLowerCase())
+
 				filter = "&categories=" + cat.id
 				document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
 					if(el.dataset.filter == cat.id) {
@@ -73,16 +75,16 @@
 						el.classList.remove("selected")
 					}
 				});
-				
-				console.log(cat.id)
 				if(cat.id == 19) {
 					document.body.classList.add("noscroll")
+					archivesLoaded()
+					document.querySelector(".archives-overlay").classList.add("visible")
 					return;
 				}
 			
 			}
 
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&per_page=16"  + filter , {
+			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&parent=7&type=page&per_page=16"  + filter , {
 				method: 'GET'
 			}).then((res) => {
 				return res.json()
@@ -94,7 +96,7 @@
 				})
 			}
 
-			let filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&per_page=16&exclude="+idArr.join(","), {
+			let filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&parent=7&type=page&per_page=16&exclude="+idArr.join(","), {
 				method: 'GET'
 			}).then((res) => {
 				return res.json()
@@ -165,7 +167,7 @@
 				filter = ""
 			}
 
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&per_page=16"  + filter , {
+			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&per_page=16"  + filter , {
 				method: 'GET'
 			}).then((res) => {
 				return res.json()
@@ -177,7 +179,7 @@
 				})
 			}
 
-			let filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&per_page=16&exclude="+idArr.join(","), {
+			let filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&per_page=16&exclude="+idArr.join(","), {
 				method: 'GET'
 			}).then((res) => {
 				return res.json()
@@ -199,6 +201,7 @@
 
 			if(e.target.dataset.filter == 19) {
 				document.body.classList.add("noscroll");
+				archivesLoaded()
 				document.querySelector(".archives-overlay").classList.add("visible")
 				return;
 			}
@@ -206,6 +209,9 @@
 			else   {
 				document.body.classList.remove("noscroll")
 				document.querySelector(".archives-overlay").classList.remove("visible")
+				setTimeout(() => {
+					document.querySelector(".table-contents").innerHTML = ""
+				}, 500)
 			}
 
 			let posts = await getNewPosts(e);

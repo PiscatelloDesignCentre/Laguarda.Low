@@ -8,192 +8,6 @@
         </div>
     </div>
     <div class="table-contents">
-        <div class="table-row">
-            <div class="table-cell">Europark Apartments</div>
-            <div class="table-cell">Residential</div> 
-            <div class="table-cell">Dalian, China</div>
-            <div class="table-cell">2016</div>
-        </div>
-        <div class="table-row" onclick="return slideOpen(event)">
-            <div class="table-cell">Jining Master Plan</div>
-            <div class="table-cell">Mixed Use</div> 
-            <div class="table-cell">Jining, China</div>
-            <div class="table-cell">2016</div>
-            <div class="slide-open">
-                Laguarda.Low Architects’ design for this 
-                mixed use master plan incorporates all 
-                aspects of the development’s program in 
-                a cohesive and harmonious manner in conjunction 
-                ith the district’s Cultural Facilities group. 
-                The site will feature a retail complex, four 
-                office towers, a residential tower and street 
-                level retail totaling over three million 
-                gross square feet of space.
-                <br><br>
-                <a>View Project</a>
-            </div>
-            <div class="slide-open">
-                <strong>Status</strong><br>
-                <span>In Development</span>
-                <br><br>
-                <strong>Size</strong><br>
-                <span>400,000 SF</span>
-                <br><br>
-                <strong>Client</strong><br>
-                <span>Placeholder</span>
-                <br></br>
-            </div>
-            <div class="slide-open">
-                <strong>Scope</strong><br>
-                <span>Retail Complex</span><br>
-                <span>Four Office Towers</span><br>
-                <span>Residential Tower</span><br>
-                <span>Street Level Retail</span>
-            </div>
-            <div class="slide-open"></div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Luneng Master Plan</div>
-            <div class="table-cell">Mixed Use</div> 
-            <div class="table-cell">Chengdu, China</div>
-            <div class="table-cell">2016</div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Ritten House Square Condominiums</div>
-            <div class="table-cell">Residential</div> 
-            <div class="table-cell">Philadelphia, USA</div>
-            <div class="table-cell">2016</div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Grandberry Lifestyle Center</div>
-            <div class="table-cell">Mixed Use</div> 
-            <div class="table-cell">Tokyo, Japan</div>
-            <div class="table-cell">2015</div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Europark Apartments</div>
-            <div class="table-cell">Residential</div> 
-            <div class="table-cell">Dalian, China</div>
-            <div class="table-cell">2016</div>
-        </div>
-        <div class="table-row" onclick="return slideOpen(event)">
-            <div class="table-cell">Jining Master Plan</div>
-            <div class="table-cell">Mixed Use</div> 
-            <div class="table-cell">Jining, China</div>
-            <div class="table-cell">2016</div>
-            <div class="slide-open">
-                Laguarda.Low Architects’ design for this 
-                mixed use master plan incorporates all 
-                aspects of the development’s program in 
-                a cohesive and harmonious manner in conjunction 
-                ith the district’s Cultural Facilities group. 
-                The site will feature a retail complex, four 
-                office towers, a residential tower and street 
-                level retail totaling over three million 
-                gross square feet of space.
-                <br><br>
-                <a>View Project</a>
-            </div>
-            <div class="slide-open">
-                <strong>Status</strong><br>
-                <span>In Development</span>
-                <br><br>
-                <strong>Size</strong><br>
-                <span>400,000 SF</span>
-                <br><br>
-                <strong>Client</strong><br>
-                <span>Placeholder</span>
-                <br></br>
-            </div>
-            <div class="slide-open">
-                <strong>Scope</strong><br>
-                <span>Retail Complex</span><br>
-                <span>Four Office Towers</span><br>
-                <span>Residential Tower</span><br>
-                <span>Street Level Retail</span>
-            </div>
-            <div class="slide-open"></div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Luneng Master Plan</div>
-            <div class="table-cell">Mixed Use</div> 
-            <div class="table-cell">Chengdu, China</div>
-            <div class="table-cell">2016</div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Ritten House Square Condominiums</div>
-            <div class="table-cell">Residential</div> 
-            <div class="table-cell">Philadelphia, USA</div>
-            <div class="table-cell">2016</div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Grandberry Lifestyle Center</div>
-            <div class="table-cell">Mixed Use</div> 
-            <div class="table-cell">Tokyo, Japan</div>
-            <div class="table-cell">2015</div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Europark Apartments</div>
-            <div class="table-cell">Residential</div> 
-            <div class="table-cell">Dalian, China</div>
-            <div class="table-cell">2016</div>
-        </div>
-        <div class="table-row" onclick="return slideOpen(event)">
-            <div class="table-cell">Jining Master Plan</div>
-            <div class="table-cell">Mixed Use</div> 
-            <div class="table-cell">Jining, China</div>
-            <div class="table-cell">2016</div>
-            <div class="slide-open">
-                Laguarda.Low Architects’ design for this 
-                mixed use master plan incorporates all 
-                aspects of the development’s program in 
-                a cohesive and harmonious manner in conjunction 
-                ith the district’s Cultural Facilities group. 
-                The site will feature a retail complex, four 
-                office towers, a residential tower and street 
-                level retail totaling over three million 
-                gross square feet of space.
-                <br><br>
-                <a>View Project</a>
-            </div>
-            <div class="slide-open">
-                <strong>Status</strong><br>
-                <span>In Development</span>
-                <br><br>
-                <strong>Size</strong><br>
-                <span>400,000 SF</span>
-                <br><br>
-                <strong>Client</strong><br>
-                <span>Placeholder</span>
-                <br></br>
-            </div>
-            <div class="slide-open">
-                <strong>Scope</strong><br>
-                <span>Retail Complex</span><br>
-                <span>Four Office Towers</span><br>
-                <span>Residential Tower</span><br>
-                <span>Street Level Retail</span>
-            </div>
-            <div class="slide-open"></div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Luneng Master Plan</div>
-            <div class="table-cell">Mixed Use</div> 
-            <div class="table-cell">Chengdu, China</div>
-            <div class="table-cell">2016</div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Ritten House Square Condominiums</div>
-            <div class="table-cell">Residential</div> 
-            <div class="table-cell">Philadelphia, USA</div>
-            <div class="table-cell">2016</div>
-        </div>
-        <div class="table-row">
-            <div class="table-cell">Grandberry Lifestyle Center</div>
-            <div class="table-cell">Mixed Use</div> 
-            <div class="table-cell">Tokyo, Japan</div>
-            <div class="table-cell">2015</div>
-        </div>
     </div>
 </div>
 
@@ -202,7 +16,93 @@
         document.body.classList.add("noscroll");
     }
     function slideOpen(e) {
-        e.currentTarget.classList.toggle("selected")
-        e.currentTarget.querySelectorAll(".slide-open").forEach( (el, i) => { el.classList.toggle("open") });
+        if(e.currentTarget.classList.contains("selected")) {
+            e.currentTarget.classList.toggle("selected")
+            e.currentTarget.querySelectorAll(".slide-open").forEach( (el, i) => {
+                el.classList.remove("open")
+            });
+        }
+        else {
+            document.querySelectorAll(".table-row").forEach( (el, i) => {
+                el.classList.remove("selected")
+            });
+
+            document.querySelectorAll(".slide-open").forEach( (el, i) => {
+                el.classList.remove("open")
+            });
+
+            e.currentTarget.querySelectorAll(".slide-open").forEach( (el, i) => {
+                el.classList.add("open")
+            })
+
+            e.currentTarget.classList.toggle("selected")
+        }
     }
+
+    async function archivesLoaded() {
+        let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&per_page=16", {
+            method: 'GET'
+        }).then((res) => {
+            return res.json()
+        }).then( (json) => {
+            loadRows(json)
+        })
+    }
+
+    function mapCategories(id) {
+        let cat = window.categories.filter(category => category.id == id)[0]
+        // console.log(cat)
+        return cat || ""
+    }
+
+    async function loadRows(json) {
+        let html = ""
+        json.forEach( (el, i) => {
+            html += 
+                "<div class='table-row' onclick='return slideOpen(event)'> \
+                    <div class='table-cell'>"+ el.title.rendered+"</div> \
+                    <div class='table-cell'>"+ mapCategories(el.categories[0]).name + "</div> \
+                    <div class='table-cell'>"+ el.content.rendered.replace(/(<([^>]+)>)/ig,"") +"</div> \
+                    <div class='table-cell'>2016</div> \
+                    <div class='slide-open'> \
+                        " + el.acf.description + " \
+                    </div> \
+                    <div class='slide-open'> \
+                        <strong>Status</strong><br> \
+                        <span>"+ el.acf.status+"</span> \
+                        <br><br> \
+                        <strong>Size</strong><br> \
+                        <span>"+ el.acf.size+"</span> \
+                        <br><br>\
+                        <strong>Client</strong><br> \
+                        <span>"+ el.acf.client +"</span> \
+                        <br></br> \
+                    </div> \
+                    <div class='slide-open'> \
+                        <strong>Scope</strong><br> \
+                        " + el.acf.scope+ " \
+                    </div> \
+                    <div class='slide-open'><img src='"+ el._embedded["wp:featuredmedia"][0].source_url + "' /></div> \
+                </div> "
+        });
+
+        document.querySelector(".table-contents").innerHTML = html
+
+        animateRows()
+    }
+
+    function animateRows() {
+        let offset = 0;
+
+        document.querySelectorAll(".table-row").forEach((el, i) => {
+
+            setTimeout(() => {
+                el.classList.add('row-animate');
+            }, offset);
+
+            offset += 75;
+            // console.log(offset)
+        })
+    }
+
 </script>

@@ -13,7 +13,8 @@
 
   wp_enqueue_style( 'projects', get_template_directory_uri() . '/css/projects.css',false,'1.1','all');
   wp_enqueue_style( 'video-homepage', get_template_directory_uri() . '/css/video-homepage.css',false,'1.1','all');
-  
+  wp_enqueue_style( 'expertise', get_template_directory_uri() . '/css/expertise.css',false,'1.1','all');
+
   function people_init() {
 		// create a new taxonomy
 		register_taxonomy(
@@ -30,6 +31,23 @@
 		);
 	}
 	add_action( 'init', 'people_init' );
+
+	$post_type = "post";
+
+	function my_rest_prepare_post($data, $post, $request) {
+		$_data = $data->data;
+
+		$fields = get_fields($post->ID);
+
+		foreach ($fields as $key => $value){
+			$_data[$key] = get_field($key, $post->ID);
+		}
+
+		$data->data = $_data;
+		return $data;
+	}
+
+	add_filter("rest_prepare_{$post_type}", 'my_rest_prepare_post', 10, 3);
 
 	// function is_page( $page = 'oct-bay' ) {
  //    global $wp_query;

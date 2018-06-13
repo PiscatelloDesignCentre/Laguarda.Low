@@ -247,7 +247,7 @@
     <script type="text/javascript">
       $( document ).ready(function() {
         // $('.nivo-caption').addClass('effect');
-        console.log( "document loaded" );
+        // console.log( "document loaded" );
       });
     </script>
     <!-- <script type="text/javascript">
