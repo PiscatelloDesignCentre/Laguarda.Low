@@ -182,7 +182,7 @@ h5.subtitle {
     grid-area: rhs;
 }
 
-.approach-gallery .img-block img {
+.img-block img {
     display: block;
     width: 100%;
 }

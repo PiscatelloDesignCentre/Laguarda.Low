@@ -16,7 +16,7 @@
         </div>
     </div>
     <a href="#approach" class="approach-nav">
-        <img src="">See Approach
+        See Approach
     </a>
 </div>
 <div class="content__full-width full-height" id="approach">
