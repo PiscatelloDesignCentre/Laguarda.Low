@@ -48,6 +48,8 @@
 	}
 
 	add_filter("rest_prepare_{$post_type}", 'my_rest_prepare_post', 10, 3);
+	set_post_thumbnail_size( 800 );
+
 
 	// function is_page( $page = 'oct-bay' ) {
  //    global $wp_query;
