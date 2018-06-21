@@ -40,7 +40,7 @@
     }
 
     async function archivesLoaded() {
-        let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&per_page=16", {
+        let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&per_page=16", {
             method: 'GET'
         }).then((res) => {
             return res.json()
@@ -61,7 +61,7 @@
             html += 
                 "<div class='table-row' onclick='return slideOpen(event)'> \
                     <div class='table-cell'>"+ el.title.rendered+"</div> \
-                    <div class='table-cell'>"+ mapCategories(el.categories[0]).name + "</div> \
+                    <div class='table-cell'>"+ mapCategories(el.categories).name + "</div> \
                     <div class='table-cell'>"+ el.content.rendered.replace(/(<([^>]+)>)/ig,"") +"</div> \
                     <div class='table-cell'>2016</div> \
                     <div class='slide-open'> \

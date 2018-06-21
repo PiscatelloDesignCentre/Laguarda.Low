@@ -84,23 +84,27 @@
 			
 			}
 
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&parent=7&type=page&per_page=16"  + filter , {
+			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&parent=7&type=page&per_page=16"  + filter , {
 				method: 'GET'
 			}).then((res) => {
 				return res.json()
 			});
+
+			let filler = [];
 
 			if(posts.length) {
 				posts.forEach( (el, i) => {
 					idArr.push(el.id)
 				})
-			}
+			
 
-			let filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&parent=7&type=page&per_page=16&exclude="+idArr.join(","), {
-				method: 'GET'
-			}).then((res) => {
-				return res.json()
-			});
+				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&parent=7&type=page&per_page=16&exclude="+idArr.join(","), {
+					method: 'GET'
+				}).then((res) => {
+					return res.json()
+				});
+			
+			}
 			
 			posts = posts.concat(filler)
 
@@ -167,23 +171,25 @@
 				filter = ""
 			}
 
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&per_page=16"  + filter , {
+			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&per_page=16"  + filter , {
 				method: 'GET'
 			}).then((res) => {
 				return res.json()
 			});
+
+			let filler = [];
 
 			if(posts.length) {
 				posts.forEach( (el, i) => {
 					idArr.push(el.id)
 				})
-			}
 
-			let filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories_exclude=48&per_page=16&exclude="+idArr.join(","), {
-				method: 'GET'
-			}).then((res) => {
-				return res.json()
-			});
+				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&per_page=16&exclude="+idArr.join(","), {
+					method: 'GET'
+				}).then((res) => {
+					return res.json()
+				});
+			}
 			return posts.concat(filler)
 		}
 
@@ -228,9 +234,11 @@
 			
 
 		function mapCategories(id) {
-			let cat = categories.filter(category => category.id == id)[0]
-			// console.log(cat)
-			return cat || ""
+			console.log(id)
+			var index = id.indexOf(7);
+			if (index !== -1) id.splice(index, 1);
+			let cat = categories.filter(category => category.id == id[0])
+			return cat[0] || ""
 		}
 
 		async function returnProject(posts = []) {
@@ -238,7 +246,7 @@
 			await posts.forEach((post,i) => {
 				let insert = 
 					"<a href='"+ post.link + "' class='project-thumb invisible'> \
-						<img src='"+ post._embedded["wp:featuredmedia"][0].source_url + "' /> \
+						<img src='"+ (post._embedded["wp:featuredmedia"][0].source_url) + "' /> \
 						<div class='project-info'> \
 							<span class='project-title'> \
 								 " + post.title.rendered + " \
@@ -247,7 +255,7 @@
 								" + post.content.rendered.replace(/(<([^>]+)>)/ig,"") + " \
 							</span> \
 							<span class='project-category'> \
-								" + mapCategories(post.categories[0]).name + " \
+								" + mapCategories(post.categories).name + " \
 							</span> \
 						</div> \
 					</a>"

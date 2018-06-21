@@ -10,7 +10,6 @@ Tags: bootstrap
  * Globals
  */
 
-/*$lightGrey: #f1f1f2;*/
 
 
 body {
@@ -23,17 +22,6 @@ body {
   left: 0px;
 }
 
-/*h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
-  margin-top: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-weight: normal;
-  color: #333;
-}*/
 
 
 /*
@@ -58,10 +46,6 @@ h6, .h6 {
   background-color: transparent;
   background-size: cover;
   box-shadow: none;
-  /*position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;*/
 }
 
 .page-id-152 .site-header {
@@ -72,34 +56,14 @@ h6, .h6 {
 
 .band {
   height: 60px;
-  background: transparent;
-  transition: background-color 0.5s linear;
-  /*-moz-transition: background-color 0.5s linear;
-  -webkit-transition: background-color 0.5s linear;*/
-  /*-webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
-          box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);*/
+  background-color: transparent;
+  transition: background-color 0.15s ease;
 }
 
-.band:hover {
-  background-color: rgb(255,255,255, 1);
-  transition: background-color 0.5s linear;
-  /*-moz-transition: background-color 0.5s linear;
-  -webkit-transition: background-color 0.5s linear;*/
-}
-
+.band:hover,
 .band.active {
-  background-color: rgb(255,255,255, 1);
-  /*transition: background-color 0.5s linear;*/
+  background-color: #FFF;
 }
-
-/*
-.site-header .row-fluid {
-  height: 100%;
-}*/
-
-/*.site-header .row-fluid .col-md-2, .site-header .row-fluid .col-md-3, .site-header > .row-fluid > .col-md-4 {
-  height: 100%;
-}*/
 
 .band .col-md-2, .band .col-md-3, .band .col-md-4 {
   height: 100%;
@@ -111,14 +75,12 @@ h6, .h6 {
  */
 
 .logo {
-  background: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_LogoWhite.png") no-repeat left;
+  background: no-repeat left;
   background-color: transparent;
   background-size: 50%;
   max-height:100%;
   max-width: 100%;
   left: 30px;
-  /*-webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
-          box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);*/
 }
 
 .logo a {
@@ -130,7 +92,7 @@ h6, .h6 {
 }
 
 .band:hover .logo, .band.active .logo {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_LogoRed.png");
+  background-image: url("../../uploads/2018/05/LaguardaLow_LogoRed.png");
   background-color: transparent;
   max-height:100%;
   max-width: 100%;
@@ -140,12 +102,6 @@ h6, .h6 {
 /*
  * Search bar
  */
-
-.band .search-container {
-  float: right;
-  width: 90%;
-  margin-right: -23px;
-}
 
 .band input[type=text] {
   padding: 6px;
@@ -182,24 +138,15 @@ h6, .h6 {
   
 }
 
-.search-container #input-area, .band:hover .search #input-area, .band.active .search #input-area {
+.search-container #input-area, 
+.band:hover .search #input-area, 
+.band.active .search #input-area {
   outline: 0;
   background: transparent;
   transform: scaleX(0);
   -moz-transform: scaleX(0);
   -webkit-transform: scaleX(0);
-  /*border-bottom: 1px solid #ED2939;*/
-
 }
-
-/*.band:hover .search-container #input-area {
-  border: 0;
-  outline: 0;
-  background: transparent;
-  transform: scaleX(0);
-  border-bottom: 2px solid #ED2939;
-}*/
-
 
 .search:hover ~ #input-area {
   /*border: 0;*/
@@ -210,26 +157,9 @@ h6, .h6 {
   transform: scaleX(1);
   -moz-transform: scaleX(1);
   -webkit-transform: scaleX(1);
-
   transition: transform 1s ease-in-out;
-  /*-moz-transition: transform 1s ease-in-out;
-  -webkit-transition: transform 1s ease-in-out;*/
-
   transform-origin:100% 50%;
-  /*-moz-transform-origin:100% 50%;
-  -webkit-transform-origin:100% 50%;*/
 }
-
-
-/*.band:hover .search-container:hover #input-area {
-  border: 0;
-  outline: 0;
-  background: transparent;
-  border-bottom: 2px solid #ED2939;
-  transform: scaleX(1);  
-  transition: transform 1.5s ease-in-out;
-  transform-origin:100% 50%;
-}*/
 
 
 
@@ -287,10 +217,6 @@ h6, .h6 {
   color: #ED2939; /*Red*/
 }
 
-/*.band:hover .site-nav li a:focus, .band.active .site-nav li a:focus {
-  text-decoration: none;
-  color: #ED2939;
-}*/
 
 .band:hover .site-nav .current-menu-item a, .band.active .site-nav .current-menu-item a {
   color: #ED2939;
@@ -302,9 +228,6 @@ h6, .h6 {
  */
 
 .lang-toggle {
-    /*display: block;*/
-    /*border: 1px solid black;*/
-    /*right:15px;*/
     width: 40%;
     height: 50%;
     margin: 15px;
@@ -313,12 +236,7 @@ h6, .h6 {
 
 }
 
-/*.lang-toggle p {
-  line-height: 28px; 
-  text-align: center; 
-  color: #ffffff;
-}*/
-.lang-toggle #lang-en {
+.lang-toggle .lang-en {
   float: left;
   line-height: 30px; 
   text-align: center; 
@@ -328,8 +246,7 @@ h6, .h6 {
   cursor: pointer;
 }
 
-.lang-toggle #lang-zh {
-  /*float: right;*/
+.lang-toggle .lang-zh {
   line-height: 30px; 
   text-align: center; 
   color: #C0C0C0;
@@ -346,7 +263,7 @@ h6, .h6 {
   color: #C0C0C0;
 }
 
-.band:hover .lang-toggle #lang-en, .band.active .lang-toggle #lang-en {
+.band:hover .lang-toggle .lang-en, .band.active .lang-toggle .lang-en {
   color: #ED2939;
 }
 
@@ -389,37 +306,15 @@ h6, .h6 {
   border-radius: 30px;
 }
 
-
-/*
- * Blog posts
- */
-/*
-.blog-post {
-  margin-bottom: 60px;
-}
-.blog-post-title {
-  margin-bottom: 5px;
-  font-size: 40px;
-}
-.blog-post-meta {
-  margin-bottom: 20px;
-  color: #999;
-}
-*/
-
 /*
  * Footer
  */
 
 .site-footer {
-  /*text-align: center;*/
-  /*background-color: #f9f9f9;*/
   position: relative;
   left: 0;
   bottom: 0;
-  /*height: 100%;*/
   width: 100%;
-  /*border-top: 1px solid #e5e5e5;*/
   font-size: 12.5px;
   line-height: 20px;
 }
@@ -460,7 +355,6 @@ h6, .h6 {
 .footer_projects, .footer_expertise, .footer_firm, .footer_news, .footer_contact, .credits {
   opacity: 0;
   transition: all  700ms ease;
-  /*transition-delay: 500ms;*/
   transform: translate(0px, 50px);
   backface-visibility: hidden;
   height: 100%;
@@ -502,7 +396,6 @@ h6, .h6 {
 }
 
 .lowerBand .copyRight {
-  /*border: 1px solid black;*/
   height: 100%;
   font-size: 10.5px;
   margin: 0px;
@@ -518,7 +411,6 @@ h6, .h6 {
 /*Social Media*/
 
 .lowerBand .socialMedia {
-  /*border: 1px solid black;*/
   height: 100%;
 }
 
@@ -648,25 +540,22 @@ h6, .h6 {
 
 
 .slider-wrapper { 
-  /*margin: 100px auto;*/
   width: 100%;
   height: 100%;
   background-size: cover;
-  /*z-index: -1;*/
   top: -60px;
   bottom: 0px;
   position: relative;
-  /*background: linear-gradient(transparent , #000000 200%);*/
 
 }
 
 /*====================*/
 /*=== Other Styles ===*/
 /*====================*/
+
 .clear {
   clear:both;
 }
-
 
 /*
  * Projects page
@@ -685,7 +574,6 @@ h6, .h6 {
 
 .project-nav .project-nav-article {
   height: 30px; 
-  /*border-right: 0.5px solid #ffffff;*/
   border-left: 0.5px solid #ffffff; 
   display: inline-block;
   cursor: pointer;
@@ -700,10 +588,6 @@ h6, .h6 {
   font-size: 12.5px;
   line-height: 12.5px;
 }
-
-/*.project-nav .allProjects.stick {
-  background-color: #ED2939;
-}*/
 
 .project-nav ul lo.current-menu-item a {
   background-color: #ED2939;
@@ -817,34 +701,12 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   padding:0px;
   border-left: 0.5px solid #ffffff;
   border-top: 1px solid white;
-  /*animation: fadein 3s, floatText 1s;*/
-  /*transition: all 700ms ease-out;
-  transform: translate3d(0px, 200, 0px);
-  backface-visibility: hidden;
-
-  transform: translate3d(0px, 0px, 0px);*/
 }
 
 .rt-tpg-container .layout1 .rt-equal-height {
   border: none;
 }
-/*@keyframes fadein {
-  from {
-    opacity:0;
-  }
-  to {
-    opacity:1;
-  }
-}
 
-@keyframes floatText {
-  0% {
-    bottom: -20px;
-  }
-  100% {
-    bottom: 10px;
-  }
-}*/
 
 .rt-tpg-container .isotope1 .rt-holder {
   padding: 0px;
@@ -917,40 +779,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   float: left;
 }
 
-/*Animating the project assests*/
-
-/*.isotope-item {
-  display: inline;
-  opacity: 1;
-  transition: transform  700ms ease;
-  transform: translate(0px, 100px);
-  backface-visibility: hidden;
-}
-
-.isotope-item.in-view {
-  opacity: 1;
-  transform: translate(0px, 0px);
-  transition-delay: 200ms;
-}*/
-
-/*@keyframes fadein {
-  from {
-    opacity:0;
-  }
-  to {
-    opacity:1;
-  }
-}
-
-@keyframes floatText {
-  0% {
-    bottom: -20px;
-  }
-  100% {
-    bottom: 10px;
-  }
-}*/
-
 
 /*
  * Project - Oct Bay
@@ -973,19 +801,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   opacity: 1;
   display: block;
   animation: slideFromBottom 0s ease forwards;
-}
-
-
-@keyframes slideFromBottom {
-  0% {
-    transform: translateY(20px);
-    opacity: -1;
-  }
-
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 
 .singleProjectSlider .nivoSlider .nivo-caption p {
@@ -1014,18 +829,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   bottom: 10px;
 }
 
-/*@keyframes fadein {
-  from {
-    opacity:0;
-  }
-  to {
-    opacity:1;
-  }
-}*/
-
-/*
- * Single Project pages
- */
 
 #wrapper {
   min-height: 100%;
@@ -1071,8 +874,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 }
 
 .mapAndShare {
-  /*margin-right: 60px;*/
-  /*border: 1px solid black;*/
   float: right;
   width: 50%;
   height: 20px;
@@ -1083,7 +884,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   float: left;
   width: 48%;
   height: 20px;
-  /*border: 1px solid black;*/
   background-color: #bcbec0;
   text-align: center;
 }
@@ -1097,7 +897,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   float: right;
   width: 48%;
   height: 20px;
-  /*border: 1px solid black;*/
   background-color: #bcbec0;
   text-align: center;
 }
@@ -1118,7 +917,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 
 .projectDescription {
   height: fit-content; 
-  /*border: 1px solid black;*/
   padding-top: 10px;
   padding-bottom: 10px;
 }
@@ -1127,7 +925,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   padding-top: 10px;
   padding-bottom: 20px;
   height: 40%; 
-  /*border: 1px solid black;*/
 }
 
 .projectMeta p {
@@ -1237,12 +1034,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 }
 
 .mapContent {
-  /*background-color: #bcbec0;
-  padding: 30px 15px 30px 30px;
-  float: right;
-  width: 50%;
-  height: auto;
-  flex: 0 0 50%;*/
   visibility: hidden;
   display: none;
 }
@@ -1264,12 +1055,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
  }
 
 .shareProjectContent {
-  /*background-color: #bcbec0;
-  padding: 30px 15px 30px 30px;
-  float: right;
-  width: 50%;
-  height: auto;
-  flex: 0 0 50%;*/
   visibility: hidden;
   display: none;
 }
@@ -1287,7 +1072,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 
 .shareProjectTitle {
   height: 20%;
-  /* border: 1px solid black; */
   line-height: 5px;
   padding-top: 20px;
   padding-bottom: 10px;
@@ -1305,7 +1089,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   height: 30px;
   width: 30px;
   float: right;
-  /*border: 1px solid black;*/
   margin-top: 20px;
   background: url('http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_closeButtonBlack.png') center center no-repeat;
   background-size: cover;

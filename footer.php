@@ -65,7 +65,7 @@
             <li class="footer-titles">CREDITS</li>
             </br>
             <li>Website Design</li>
-            <li>Pisactello Design Centre</li>
+            <li>Piscatello Design Centre</li>
             </br>
             <li>Photography</li>
             <li>Placeholder Name</li>

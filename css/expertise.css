@@ -83,7 +83,7 @@
 
 .content__full-width {
     width: 100%;
-    padding: 60px 30px;
+    padding: 30px 30px;
     background: #f1f1f2;
     display: grid;
     grid-auto-rows: auto;
@@ -95,7 +95,7 @@
 }
 
 .content__full-width.full-height {
-    height: calc(100vh - 60px);
+    height: calc(100vh);
 }
 
 
@@ -140,6 +140,14 @@ h5.subtitle {
      background-color: #DDD;
 }
 
+.related-projects .project-thumb img {
+    height: 100%;
+}
+
+.related-projects .project-thumb .project-info {
+    padding: 15px 15px;
+}
+
 .approach-nav {
     position: absolute;
     color: #000;
@@ -148,6 +156,18 @@ h5.subtitle {
     left: 30px;
     bottom: 60px;
     text-decoration: none;
+    white-space: nowrap;
+}
+
+.approach-nav a {
+    position: absolute;
+    color: #000;
+    font-weight: bold;
+    text-transform: uppercase;
+    left: 0;
+    bottom: 0;
+    text-decoration: none;
+    white-space: nowrap;
 }
 
 .approach-nav:active,
@@ -187,9 +207,162 @@ h5.subtitle {
     width: 100%;
 }
 
+.grid-4 {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.grid-2 {
+    grid-template-columns: 1fr 1fr;
+}
+
+.grid-1 {
+    grid-template-columns: 1fr;
+}
+
+.grid-3 {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.nopadding {
+    padding: 0;
+}
+
+.gray-block {
+    width: 100%;
+    height: 350px;
+}
+
+.nomargin {
+    margin: 0;
+}
+.nogap {
+    grid-gap: 0;
+ }
+
+.gap-16 {
+    grid-gap: 16px;
+}
+
+.job-opp {
+    margin-top: 50px;
+}
+
+.job-opp h5 {
+    padding: 2px 0;
+}
+
+.job-opp p {
+    padding: 16px 0;
+}
+
+.job-opp .job-button,
+.share-button {
+    background-color: #bcbec0;
+    display: inline-block; 
+    border: none;
+    color: #FFF;
+    font-size: 12.5px;
+    padding: 2px 24px;
+    white-space: nowrap;
+    min-width: 125px;
+    outline: none;
+}
+
+.job-opp .job-button:hover,
+.share-button:hover {
+    background-color: #ED2939;
+}
+
+
+.lightbox {
+    position: fixed;
+    background-color: rgba(0,0,0,1);
+    width: 100vw;
+    height: 100vh;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0s visibility ease .15s, .15s opacity ease;
+    z-index: 99999999;
+    top: 0;
+    left: 0;
+}
+
+.lightbox.visible {
+    visibility: visible;
+    opacity: 1;
+}
+
+.contact h1,
+.contact h2,
+.contact h3,
+.contact h4,
+.contact h5,
+.contact h6 {
+    font-weight: bold !important;
+    margin: 0;
+    column-span: all;
+}
+
+.grid-header {
+    padding-top: 32px;
+    padding-bottom: 16px;
+}
+
+.right,
+.left {
+    position: relative;
+}
+
+.innerpadding {
+    padding: 30px 30px;
+    box-sizing: border-box;
+}
+
+.overlay {
+    position: absolute;
+    background-color: #bcbec0;
+    height: 100%;
+    width: 100%;
+    top: 0px;
+    left: 0;
+    color: #FFF;
+}
+
+.career-content {
+    columns: 2;
+    width: 100%;
+    display: block;
+    height: 100%;
+    font-size: 24px;
+}
+
+.career-content h2 {
+    font-size: 24px;
+}
+
+p {
+    font-size: 12.5px !important;
+}
+
+
 @media all and (max-width: 1199px) {
     .content__full-width {
         grid-template-columns: 1fr 1fr;
+    }
+
+    .grid-4 {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    
+    .grid-2 {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .grid-1 {
+        grid-template-columns: 1fr;
+    }
+    
+    .grid-3 {
+        grid-template-columns: 1fr 1fr 1fr;
     }
   } 
 @media all and (max-width: 991px) { 

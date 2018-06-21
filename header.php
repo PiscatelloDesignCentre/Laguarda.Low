@@ -3,12 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>laguardia.low</title>
+    <title><?php bloginfo( 'name' ); ?><?php wp_title() ?></title>
     <?php wp_head(); ?>
 
     <!-- Bootstrap core CSS -->
@@ -42,45 +41,73 @@
   </head>
 
   <body>
-    <header class="site-header">
+    <header>
       <!-- <?php if (is_page('projects')) { ?>
 
       <?php }?> -->
-      <div class="band row-fluid">
-        <div class="logo col-md-3">
-          <a href="http://localhost:8888/wordpress/">
-            Lauguarda Low
-          </a>
-        </div>
-        <div class="col-md-3">
-          <!-- Search bar -->
-          <div class="search-container">
-            <form action="/action_page.php">
-              <button class="search" type="submit"></button>
-              <input id="input-area" type="text" placeholder="" name="search">
-              <!-- <div id="input-area-slider"></div> -->
-            </form>
+      <div class="band laguarda-low-header <?php echo is_home() ? "home-band" : "" ?>">
+        <div class="flex-left">
+          <div class="logo flex-col" style="background-image: url('<?php echo get_home_url() ?>/wp-content/uploads/2018/05/LaguardaLow_LogoWhite.png')">
+            <a href="<?php echo get_site_url() ?>">
+              Lauguarda Low
+            </a>
+          </div>
+          <div class="flex-col">
+            <!-- Search bar -->
+            <div class="search-container search-desktop">
+              <form action="/action_page.php">
+                <button class="search" type="submit"></button>
+                <input id="input-area" type="text" placeholder="" name="search">
+                <!-- <div id="input-area-slider"></div> -->
+              </form>
+            </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <nav class="site-nav">
-            <?php
-            $args = array(
-              'theme_location' => 'primary'
-            );
-            ?>
-            <?php wp_nav_menu( $args ); ?>
-          </nav>
-        </div>
-        <div class="col-md-2">
-          <!-- English/Chinese -->
-          <div class="lang-toggle">
-            <div id="lang-en">English</div>
-            <div id="lang-zh">中文</div>
+        <div class="flex-right">
+          <div class="flex-col search-mobile">
+            <div class="search-container">
+              <form action="/action_page.php">
+                <button class="search" type="submit"></button>
+                <input id="input-area" type="text" placeholder="" name="search">
+                <!-- <div id="input-area-slider"></div> -->
+              </form>
+            </div>
           </div>
+          <div class="flex-col nav-collapse">
+            <nav class="site-nav">
+              <?php
+              $args = array(
+                'theme_location' => 'primary'
+              );
+              ?>
+              <?php wp_nav_menu( $args ); ?>
+            </nav>
+          </div> 
+          <div class="flex-col lang-container">
+            <!-- English/Chinese -->
+            <div class="lang-toggle">
+              <div class="lang-en">English</div>
+              <div class="lang-zh">中文</div>
+            </div>
+          </div>
+        </div>
+        <div class="open-close">
+          <div class="dot top"></div>
+          <div class="dot bottom"></div>
         </div>
       </div>
-      
+      <script>
+        document.querySelector(".open-close").addEventListener('click', (e) => {
+          var box = e.currentTarget.classList.toggle("expand");
+          document.querySelector(".flex-right").classList.toggle("visible")
+          document.body.classList.toggle("no-scroll");
+          if(document.querySelector(".band").classList.contains("home-band")) {
+            document.querySelector(".band").classList.toggle("active");
+            document.querySelector(".band").classList.toggle("fixed");
+          }
+
+        })
+      </script>
     </header>
 
         

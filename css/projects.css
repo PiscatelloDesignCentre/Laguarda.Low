@@ -99,6 +99,7 @@ ul.navigation-tabs {
     list-style: none;
     font-size: 12.5px;
     cursor: pointer;
+    background-color: #C0C0C0;
 }
 
 
@@ -107,8 +108,7 @@ ul.navigation-tabs {
     background-color: #C0C0C0;
     height: 30px;
     color: #FFF;
-    flex: 1;
-    width: 8.33%;
+    width: 8.34%;
     text-align: center;
     display: inline-flex;
     align-items: center;
@@ -116,6 +116,7 @@ ul.navigation-tabs {
     padding-left: 30px;
     text-transform: uppercase;
     text-decoration: none;
+    box-sizing: border-box;
 }
 
 .navigation-tabs a:visited,
@@ -132,7 +133,7 @@ ul.navigation-tabs {
     color: #ffffff;
 }
 
-.navigation-tabs a:not(:last-of-type) {
+.navigation-tabs a {
     border-right: 1px solid #FFF;
 }
 
@@ -251,6 +252,9 @@ ul.navigation-tabs {
 
 .archives-overlay .table-cell:first-of-type {
     font-weight: bold;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .slide-open {

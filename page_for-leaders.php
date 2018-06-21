@@ -9,14 +9,14 @@ get_header();
 // TO SHOW THE PAGE CONTENTS
 while ( have_posts() ) : the_post(); ?>
     <!-- Left side with info -->
-    <div class="content__full-width">
+    <div class="content__full-width full-height">
         <div class="left">
             <div class="page-top-left">
                 <h3 class="title"><?php the_title() ?></h3>
                 <h5 class="subtitle"><?php the_field('formal_title')?></h5>
             </div>
             <p><?php the_content(); ?></p>
-            <h1>"<?php the_field('quote')?>"</h1>
+            <h2>"<?php the_field('quote')?>"</h2>
         </div>
         <div class="right">
             <div class="img-block">
@@ -51,6 +51,9 @@ while ( have_posts() ) : the_post(); ?>
                     endif;
                 ?>
             </div>
+        </div>
+        <div class="approach-nav">
+            <?php next_post_link( '%link', 'See Next Leadership', TRUE ); ?>
         </div>
     </div>
     
