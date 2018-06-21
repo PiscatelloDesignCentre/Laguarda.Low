@@ -40,7 +40,7 @@
 
   </head>
 
-  <body>
+  <body class="<?php echo is_home() ? "full-bleed-homepage" : "" ?>">
     <header>
       <!-- <?php if (is_page('projects')) { ?>
 
@@ -100,10 +100,12 @@
         document.querySelector(".open-close").addEventListener('click', (e) => {
           var box = e.currentTarget.classList.toggle("expand");
           document.querySelector(".flex-right").classList.toggle("visible")
-          document.body.classList.toggle("no-scroll");
+          document.body.classList.toggle("noscroll")
+          document.querySelector(".band").classList.toggle("fixed");
+          
           if(document.querySelector(".band").classList.contains("home-band")) {
             document.querySelector(".band").classList.toggle("active");
-            document.querySelector(".band").classList.toggle("fixed");
+            document.querySelector(".band").blur();
           }
 
         })

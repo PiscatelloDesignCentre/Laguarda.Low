@@ -11,15 +11,13 @@ Tags: bootstrap
  */
 
 
+html {
+  margin: 0 !important;
+}
 
 body {
   font-family: 'Noto Sans', sans-serif !important;
   color: #000000;
-  position: absolute;
-  top: 0px;
-  bottom: 0px;
-  right: 0px;
-  left: 0px;
 }
 
 
@@ -92,7 +90,7 @@ body {
 }
 
 .band:hover .logo, .band.active .logo {
-  background-image: url("../../uploads/2018/05/LaguardaLow_LogoRed.png");
+  background-image: url("images/LaguardaLow_LogoRed.png") !important;
   background-color: transparent;
   max-height:100%;
   max-width: 100%;
@@ -123,10 +121,7 @@ body {
 
 .band .search-container button {
   float: right;
-  /*padding: 6px 10px;*/
   margin: 20px 0px;
-  /*margin-right: 16px;*/
-  /*background: #ffffff;*/
   font-size: 17px;
   border: none;
   cursor: pointer;

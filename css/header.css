@@ -99,7 +99,9 @@ header {
 }
   
 .open-close.expand .dot {
-    width: 28px;
+    height: 2px;
+    width: 2px;
+    width: 31px;
     border-radius: 4px;
     background-color: #ED2939;
 }
