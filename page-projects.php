@@ -1,7 +1,7 @@
 <?php get_header(); ?>
 	<nav class="row-fluid project-nav">
 		<ul class="navigation-tabs">
-			<a data-filter="" class="selected">
+			<a data-filter="" href="#" class="selected">
 				ALL PROJECTS
 			</a>
 			<?php
@@ -27,20 +27,69 @@
 	</nav> 
 	<div class="row-fluid project-grid">
 		<div class="grid-container">
-			<!-- Projects go here -->
+		<?php
+			$args = [
+				"cat" => 7,
+				"posts_per_page" => 12,
+				"page" => 1
+			];
+
+			// The Query
+			$the_query = new WP_Query( $args );
+			
+			// The Loop
+			if ( $the_query->have_posts() ):
+			
+				while ( $the_query->have_posts() ):
+					$the_query->the_post();
+				?>
+				<!-- POST CONTENT -->
+					<a href="<?php echo get_the_permalink(); ?>" class="project-thumb invisible"> 
+						<img 
+							src="<?php echo get_the_post_thumbnail_url( get_the_ID(), 'full' ); ?>"
+						> 
+						<div class='project-info'> 
+							<span class='project-title'> 
+								<?php echo get_the_title(); ?>
+							</span> 
+							<span class='project-location'> 
+								<?php the_field('location'); ?>
+							</span>
+							<span class='project-category'> 
+								<?php echo get_the_category(); ?> 
+							</span> 
+						</div> 
+					</a>
+				<?php endwhile; ?> 
+			
+			<?php else: ?>
+
+			<?php endif; ?>
+			
+			<?php wp_reset_postdata();?>
+
 		</div>
 		<?php include "archives.php" ?>
 	</div>
 	<script>
-
+		var urlPart = {}
 		var categories = []
 		var currentlyLoading = false;
+		var currentPage = 1;
+		var loading = false;
+		var isPageLoaded = false;
+		var currentFilter = "";
+		var idArr = [];
+		var totalPages = 1;
 
+		
 		document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
 			el.addEventListener("click", filterProjects);
 		});
 
 		document.addEventListener("DOMContentLoaded", pageLoaded)
+
+		window.onbeforeunload = function(){ window.scrollTo(0,0); }
 
 		async function getCategories() {
 			return await fetch('/wordpress/wp-json/wp/v2/categories?per_page=50', {
@@ -56,11 +105,16 @@
 		}
 
 		async function pageLoaded() {
-
+			loading = true
 			categories = await getCategories()
 			window.categories = categories
 			let filter = ""
-			let idArr = []
+			if(!location.hash) {
+				applyAnimation();
+				isPageLoaded = true;
+				loading = false;
+				return;
+			}
 			if(location.hash) {
 				let catName = location.hash.replace('#','')
 				let cat = filterCategoryNames(catName.toLowerCase())
@@ -84,21 +138,24 @@
 			
 			}
 
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&parent=7&type=page&per_page=16"  + filter , {
+			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=7&per_page=12&page=1"  + filter , {
 				method: 'GET'
 			}).then((res) => {
+				console.log(res.headers)
+				totalPages = res.headers["X-WP-TotalPages"]
+				console.log(res)
 				return res.json()
 			});
-
+		
 			let filler = [];
 
-			if(posts.length) {
+			if(posts.length && posts.length < 11) {
 				posts.forEach( (el, i) => {
 					idArr.push(el.id)
 				})
 			
 
-				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&parent=7&type=page&per_page=16&exclude="+idArr.join(","), {
+				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=7&parent=7&per_page=12&exclude="+idArr.join(","), {
 					method: 'GET'
 				}).then((res) => {
 					return res.json()
@@ -117,7 +174,9 @@
 			document.querySelector(".grid-container").innerHTML = html
 			
 			applyAnimation();
-
+			 
+			isPageLoaded = true;
+			loading = false;
 		}
 
 		function filterCategoryNames(name) {
@@ -128,9 +187,8 @@
 
 		function applyAnimation() {
 			
-
 			var offset = 0;
-			document.querySelectorAll(".project-thumb").forEach((el, i) => {
+			document.querySelectorAll(".project-thumb.invisible").forEach((el, i) => {
 				setTimeout(() => {
 					el.classList.add('animate-grid');
 					el.classList.remove('invisible');
@@ -163,28 +221,28 @@
 		*/
 	
 
-		async function getNewPosts(e) {
-			let idArr = [];
-			let filter = "&categories=" + e.target.dataset.filter
+		async function getNewPosts(filterLabel, pageNumber = 1) {
+			let filter = "&categories=" + filterLabel
 			
-			if(!e.target.dataset.filter) { 
+			if(!filterLabel) { 
 				filter = ""
 			}
 
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&per_page=16"  + filter , {
+			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=12&page=" + pageNumber + filter , {
 				method: 'GET'
 			}).then((res) => {
+				console.log(res)
 				return res.json()
 			});
 
 			let filler = [];
 
-			if(posts.length) {
+			if(posts.length && posts.length < 11) {
 				posts.forEach( (el, i) => {
 					idArr.push(el.id)
 				})
 
-				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&per_page=16&exclude="+idArr.join(","), {
+				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=12&exclude="+idArr.join(","), {
 					method: 'GET'
 				}).then((res) => {
 					return res.json()
@@ -220,7 +278,8 @@
 				}, 500)
 			}
 
-			let posts = await getNewPosts(e);
+			curentFilter = e.target.dataset.filter;
+			let posts = await getNewPosts(curentFilter);
 			let html = await returnProject(posts);
 			
 			document.querySelector(".grid-container").classList.remove("fade-out")
@@ -240,31 +299,62 @@
 			let cat = categories.filter(category => category.id == id[0])
 			return cat[0] || ""
 		}
+		
 
-		async function returnProject(posts = []) {
+		async function returnProject(posts = [], append = false) {
 			let htmlList = ""
 			await posts.forEach((post,i) => {
 				let insert = 
-					"<a href='"+ post.link + "' class='project-thumb invisible'> \
-						<img src='"+ (post._embedded["wp:featuredmedia"][0].source_url) + "' /> \
-						<div class='project-info'> \
-							<span class='project-title'> \
-								 " + post.title.rendered + " \
-							</span> \
-							<span class='project-location'> \
-								" + post.content.rendered.replace(/(<([^>]+)>)/ig,"") + " \
-							</span> \
-							<span class='project-category'> \
-								" + mapCategories(post.categories).name + " \
-							</span> \
-						</div> \
-					</a>"
+					`<a href='${post.link}' class='project-thumb invisible'> 
+						<img src='${post._embedded["wp:featuredmedia"][0].source_url}' /> 
+						<div class='project-info'> 
+							<span class='project-title'> 
+								${post.title.rendered} 
+							</span> 
+							<span class='project-location'> 
+								${post.acf.location}
+							</span>
+							<span class='project-category'> 
+								${mapCategories(post.categories).name} 
+							</span> 
+						</div> 
+					</a>`
+				if(append) {
+					document.querySelector(".project-grid .grid-container").insertAdjacentHTML('beforeend', insert)
+				}
 				
-				htmlList += insert
+				else htmlList += insert
 			});	
 
 			return Promise.resolve(htmlList)
 		}
+
+
+
+		// Lazy Loading 
+
+
+
+		window.onscroll = async function() {
+			var container = document.querySelector(".grid-container"),
+				space = $(window).height() - $(".grid-container")[0].getBoundingClientRect().bottom;
+
+			
+			// console.log(space)			
+
+			if ((space > -200) && !loading && isPageLoaded) {
+				loading = true;
+				currentPage++;
+				// console.log(currentPage)
+				let posts = await getNewPosts(currentFilter, currentPage);
+				let html = await returnProject(posts, true);
+
+				// console.log("loading...")
+
+				applyAnimation();
+				loading = false;
+			}
+		};
 	</script>
 
 <?php get_footer(); ?>

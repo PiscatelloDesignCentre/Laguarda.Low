@@ -55,7 +55,7 @@ body {
 .band {
   height: 60px;
   background-color: transparent;
-  transition: background-color 0.15s ease;
+  transition: background-color .35s ease;
 }
 
 .band:hover,
@@ -110,12 +110,13 @@ body {
 }
 
 .search {
-  background: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_SearchWhite.png") no-repeat center;
+  background: url("./images/LaguardaLow_SearchWhite.png") no-repeat center;
   background-size: 100%;
+  outline: none;
 }
 
 .band:hover .search, .band.active .search {
-  background: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_SearchGrey.png") no-repeat center;
+  background: url("./images/LaguardaLow_SearchGrey.png") no-repeat center;
   background-size: 100%; 
 }
 
@@ -129,38 +130,9 @@ body {
   height: 20px;
 }
 
-.band .search-container button:hover {
-  
-}
-
-.search-container #input-area, 
-.band:hover .search #input-area, 
-.band.active .search #input-area {
-  outline: 0;
-  background: transparent;
-  transform: scaleX(0);
-  -moz-transform: scaleX(0);
-  -webkit-transform: scaleX(0);
-}
-
-.search:hover ~ #input-area {
-  /*border: 0;*/
-  width: 90%;
-  outline: 0;
-  background: transparent;
-  border-bottom: 0.5px solid #ED2939;
-  transform: scaleX(1);
-  -moz-transform: scaleX(1);
-  -webkit-transform: scaleX(1);
-  transition: transform 1s ease-in-out;
-  transform-origin:100% 50%;
-}
-
-
-
-.band:hover .search:hover, .band.active .search:hover {
-  background: url("http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_SearchRed.png") no-repeat center;
-  background-size: 100%; 
+.search-container:hover .search, .band.active .search:hover {
+  background: url("./images/LaguardaLow_SearchRed.png") no-repeat center;
+  background-size: contain; 
 }
   
 /* 
@@ -536,7 +508,7 @@ body {
 
 .slider-wrapper { 
   width: 100%;
-  height: 100%;
+  height: 100vh;
   background-size: cover;
   top: -60px;
   bottom: 0px;
@@ -560,6 +532,7 @@ body {
 .project-nav {
   box-shadow: none;
   height: 30px;
+  margin-top: 60px;
 }
 
 .project-nav ul {

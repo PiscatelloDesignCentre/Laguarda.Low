@@ -1,6 +1,5 @@
 .grid-container {
     width: 100%;
-    min-height: calc(100vh - 90px);
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 1px;
@@ -30,7 +29,7 @@
 }
 
 .project-thumb:hover img {
-    transform: scale(1.1);
+    transform: scale(1.075);
 }
 
 
@@ -40,7 +39,7 @@
     display: block;
     transition: 0.75s ease all;
     -webkit-backface-visibility: hidden;
-    -webkit-transform: rotate(0deg) skewY(0deg) scale(1.05);
+    -webkit-transform: rotate(0deg) skewY(0deg) scale(1.01);
 }
 
 .project-info {
@@ -135,6 +134,9 @@ ul.navigation-tabs {
 
 .navigation-tabs a {
     border-right: 1px solid #FFF;
+}
+.navigation-tabs a:last-of-type {
+    border-right: none;
 }
 
 
@@ -312,4 +314,37 @@ ul.navigation-tabs {
     animation: animateRows .345s ease forwards;
 }
 
+.loader-container {
+    position: absolute;
+}
 
+.loader {
+    position: relative;
+    height: 2px;
+    width: 75px;
+}
+.loader:after {
+    content: '';
+    width: 75px;
+    height: 2px;
+    background-color: red;
+    animation: animateLoader .75s linear alternate infinite;
+    display: block;
+    position: absolute;
+}
+  
+@keyframes animateLoader {
+    0% {
+      width: 0%;
+    }
+    
+    50% {
+      width: 75px;
+      left: 0;
+    }
+    
+    100% {
+      left: 75px;
+      width: 0%;
+    }
+}

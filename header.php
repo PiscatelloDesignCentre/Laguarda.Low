@@ -11,7 +11,9 @@
     <?php wp_head(); ?>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <noscript id="deferred-styles">
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    </noscript>
 
     <!-- Custom styles for this template -->
     <link href="<?php echo get_bloginfo('template_directory'); ?>/style.css" rel="stylesheet">
@@ -37,6 +39,22 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script>
+      var loadDeferredStyles = function() {
+        var addStylesNode = document.getElementById("deferred-styles");        
+        var replacement = document.createElement("div");
+        replacement.innerHTML = addStylesNode.textContent;
+        document.body.appendChild(replacement)
+        addStylesNode.parentElement.removeChild(addStylesNode);
+      };
+
+      var raf = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+          window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+      if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+      
+      else window.addEventListener('load', loadDeferredStyles);
+    </script>
+
 
   </head>
 
@@ -52,12 +70,12 @@
               Lauguarda Low
             </a>
           </div>
-          <div class="flex-col">
+          <div class="flex-col search-col">
             <!-- Search bar -->
             <div class="search-container search-desktop">
               <form action="/action_page.php">
-                <button class="search" type="submit"></button>
                 <input id="input-area" type="text" placeholder="" name="search">
+                <button class="search" type="submit"></button>
                 <!-- <div id="input-area-slider"></div> -->
               </form>
             </div>

@@ -91,6 +91,7 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  
     <script type="text/javascript">
       // Select all links with hashes
       $('a[href*="#"]')
@@ -129,10 +130,12 @@
           }
         });
     </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery-1.9.0.min.js"></script>
+    <!-- jQuery -->
+    <script src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery-1.9.0.min.js"></script>
+    
     <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery.nivo.slider.js"></script>
+    <script>
+    </script>
     <script type="text/javascript">
     $(window).load(function() {
       $('#slider').nivoSlider({ 
@@ -157,6 +160,7 @@
         lastSlide: function(){},          // Triggers when last slide is shown 
         afterLoad: function(){}           // Triggers when slider has loaded 
       });
+        
     });
     </script>
     <script type="text/javascript">
@@ -204,89 +208,8 @@
       $window.on('scroll resize', check_if_in_view);
       $window.trigger('scroll');
     </script>
-
-    <!-- <script type="text/javascript">
-      $( document ).ready(function() {
-        var $animation_elements = $('.isotope-item');
-        var $window = $(window);
-
-        function check_if_in_view() {
-          var window_height = $window.height();
-          var window_top_position = $window.scrollTop();
-          var window_bottom_position = (window_top_position + window_height);
-
-          $.each($animation_elements, function() {
-            var $element = $(this);
-            var element_height = $element.outerHeight();
-            var element_top_position = $element.offset().top;
-            var element_bottom_position = (element_top_position + element_height);
-
-            //check to see if this current container is within viewport
-            if ((element_bottom_position >= window_top_position) &&
-              (element_top_position <= window_bottom_position)) {
-              // console.log(element_top_position);
-              // console.log(element_bottom_position);
-              // console.log(element_height);
-              // console.log(window_top_position);
-              // console.log(window_bottom_position);
-              // console.log(window_height);
-              // console.log( "Finished" );
-              $element.addClass('in-view');
-            } else {
-              // $element.removeClass('in-view');
-            }
-          });
-        }
-
-        $window.on('scroll resize', check_if_in_view);
-        $window.trigger('scroll');
-      });
-    </script> -->
-
-    <!-- Script for lower text on Homepage to transition -->
-    <script type="text/javascript">
-      $( document ).ready(function() {
-        // $('.nivo-caption').addClass('effect');
-        // console.log( "document loaded" );
-      });
-    </script>
-    <!-- <script type="text/javascript">
-      $(window).load(function() {
-        $('.nivo-caption').addClass('effect');
-      });
-    </script> -->
-    <!-- <script type="text/javascript" language="JavaScript">
-      function set_body_height() { // set body height = window height
-        $('body').height($(window).height());
-      }
-      $(document).ready(function() {
-        $(window).bind('resize', set_body_height);
-        set_body_height();
-      });
-    </script> -->
-
-
-
-    <!-- Script for adding a class to Projets Assets -->
-    <!-- <script type="text/javascript">
-      $( document ).ready(function(){
-        $(".isotope-item").addClass(".fade-in");
-        console.log( "document loaded" );
-      });
-    </script> -->
-    <!-- Generating random fadeins -->
-    <!-- <script type="text/javascript">
-      $('.fadeIn').before('<div>&nbsp;</div>');
-
-      (function fadeInDiv(){
-        var divs;
-        if((divs = $('.fadeIn:not(:visible)')).length){
-          var elem = divs.eq(Math.floor(Math.random()*divs.length));
-          elem.prev().remove(); 
-          elem.fadeIn(Math.floor(Math.random()*1000), fadeInDiv); 
-        }
-      })();
-    </script> -->
+    
+  
 
     <script type="text/javascript">
       $( document ).ready(function(){
@@ -301,18 +224,9 @@
             "width": "100%"
           })
         }
+
       });
-      // $( "#check" ).hasClass( "slider-wrapper" ) {
-      //   $('.slider-wrapper').css({
-      //     "top": "0"
-      //   });
-      //   $('.site-header').css({
-      //     "position": "absolute",
-      //     "top": "0",
-      //     "left": "0",
-      //     "width": "100%"
-      //   });
-      // }
+  
     </script>
 
     <script type="text/javascript">

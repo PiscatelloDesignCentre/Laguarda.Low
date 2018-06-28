@@ -2,7 +2,7 @@
   <div class="row-fluid">
     <div class="col-md-3">
       <a href="http://localhost:8888/wordpress/">
-        <img class ="logo" src="http://localhost:8888/wordpress/wp-content/uploads/2018/05/LaguardaLow_LogoRed.png" alt="LaguardaLow">
+        <img class ="logo" src="http://<?php echo get_template_directory_uri() ?>/imagesLaguardaLow_LogoRed.png" alt="LaguardaLow">
       </a>
     </div>
     <div class="col-md-3">

@@ -7,6 +7,7 @@
             <li class="psuedo-select-item">Retail Design</li>
             <li class="psuedo-select-item">Sustainability</li>
         </ul>
+        <div class="selected-option"></div>
         <div class="bottom">
             Select
         </div>
@@ -25,4 +26,5 @@
             <div class="floating-label">Sustainability</div>
         </a>
     </div>
+
 <?php get_footer(); ?>

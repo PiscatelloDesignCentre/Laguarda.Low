@@ -1,5 +1,5 @@
 
-<div class="row-fluid slider-wrapper theme-laguardalowSlider">
+<div class="slider-wrapper theme-laguardalowSlider">
   <div id="slider" class="nivoSlider">
     <img src="<?php echo get_home_url() ?>/wp-content/uploads/2018/05/LLA_Homepage1.jpg" alt=""  title="#htmlcaptionTransitionElement"/>
     <img src="<?php echo get_home_url() ?>/wp-content/uploads/2018/05/LLA_Homepage2.jpg" alt=""  title="#htmlcaption"/>
