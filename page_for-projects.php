@@ -47,7 +47,7 @@ while ( have_posts() ) : the_post(); ?>
 				}
 			}
 		?>
-		<p><span class="projectName"></span><?php the_title() ?></span> </br> <span class="projectCategory"><?php echo $motorbikes_child_cat ?></span></p>
+		<p><span class="projectName"><?php the_title() ?></span> </br> <span class="projectCategory"><?php echo $motorbikes_child_cat ?></span></p>
 	</div>
 	<div class="downArrow">
 		<a href="#wrapper">

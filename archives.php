@@ -62,7 +62,7 @@
                 "<div class='table-row' onclick='return slideOpen(event)'> \
                     <div class='table-cell'>"+ el.title.rendered+"</div> \
                     <div class='table-cell'>"+ mapCategories(el.categories).name + "</div> \
-                    <div class='table-cell'>"+ el.content.rendered.replace(/(<([^>]+)>)/ig,"") +"</div> \
+                    <div class='table-cell'>"+ el.acf.location +"</div> \
                     <div class='table-cell'>2016</div> \
                     <div class='slide-open'> \
                         " + el.acf.description + " \

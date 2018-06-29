@@ -65,13 +65,13 @@
             <li class="footer-titles">CREDITS</li>
             </br>
             <li>Website Design</li>
-            <li>Piscatello Design Centre</li>
+            <li><a href="http://piscatello.com">Piscatello Design Centre</a></li>
             </br>
             <li>Photography</li>
             <li>Placeholder Name</li>
             </br>
             <li>Video</li>
-            <li>Yo.Yuu Creative</li>
+            <li><a href="http://www.yoyuucreative.com/">Yo.Yuu Creative</a></li>
           </ul>
         </div>
       </div>

@@ -6,6 +6,16 @@
     grid-auto-rows: min-content;
 }
 
+.mapAndShare a:hover {
+    color: #FFF !important;
+    text-decoration: none;
+}
+
+.backToCategory a:hover {
+    text-decoration: none;
+    color: #000;
+}
+
 .project-thumb {
     position: relative !important;
     box-sizing: border-box;

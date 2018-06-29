@@ -99,6 +99,17 @@
     height: calc(100vh);
 }
 
+.close-overlay {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    height: 30px;
+    width: 30px;
+    background-image: url(../images/LaguardaLow_closeButtonBlack.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
 
 h3.title {
     font-weight: bold;
@@ -208,6 +219,10 @@ h5.subtitle {
     width: 100%;
 }
 
+
+.new-york-band {
+    padding-bottom: 150px;
+}
 .grid-4 {
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
@@ -313,6 +328,10 @@ h5.subtitle {
     position: relative;
 }
 
+.nooverflow {
+    overflow: hidden;
+}
+
 .innerpadding {
     padding: 30px 30px;
     box-sizing: border-box;
@@ -326,6 +345,12 @@ h5.subtitle {
     top: 0px;
     left: 0;
     color: #FFF;
+    transform: translateX(100%);
+    transition: ease all .35s;
+}
+
+.slide-out {
+    transform: translateX(0)
 }
 
 .career-content {
@@ -343,6 +368,95 @@ h5.subtitle {
 p {
     font-size: 12.5px !important;
 }
+
+
+.video-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.video-container-overlay {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.hidden {
+    visibility: none;
+}
+
+.video-container-overlay .button {
+    background: url(../images/LaguardaLow_Play.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: 150px;
+    width: 150px;
+}
+
+.video-controls {
+    position: absolute;
+    bottom: 16px;
+    background: transparent;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    color: #FFF;
+    text-shadow: 0 0 14px rgba(0,0,0,0.5);
+    padding: 0 12px;
+    align-items: center;
+    transform: translateY(200%);
+    transition: .25s ease all;
+}
+
+.video-container:hover .video-controls {
+    transform: translateY(0)
+}
+
+.video-controls progress#seek-bar {
+    -webkit-appearance: none;
+    appearance: none; 
+    width: 100%;
+    background-color: #000;
+    height: 6px;
+    opacity: 1;
+}
+
+.video-controls progress::-webkit-progress-bar {
+    background-color: #666;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.video-controls progress::-webkit-progress-value {
+    background-color: #FFF;
+}
+
+#play-pause {
+    background-image: url('../images/LaguardaLow_LittleArrow.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-color: transparent;
+    border: 0;
+    height: 15px;
+    width: 15px;
+    outline: none;
+}
+
+#time-passed, #time-left {
+    width: 50px;
+    padding: 0 6px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    display: none;
+}
+
 
 
 @media all and (max-width: 1199px) {

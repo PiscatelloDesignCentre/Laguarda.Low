@@ -81,11 +81,15 @@ Supports Thumbs: true
 .theme-laguardalowSlider .nivo-caption {
     font-family: inherit;
     background: linear-gradient(transparent , #000000 125%);
-    line-height: 30px;
+	line-height: 30px;
 		/*margin-bottom: -200px;
 		transition: margin-bottom 2s ease;*/
 		/*bottom: -200px;*/
 		/*transition: transform 2s;*/
+}
+
+.nivo-caption p {
+	font-size: 25px !important;
 }
 
 /*body:hover .theme-laguardalowSlider .nivo-caption p {

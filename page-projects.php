@@ -31,12 +31,14 @@
 			$args = [
 				"cat" => 7,
 				"posts_per_page" => 12,
-				"page" => 1
+				"page" => 1,
+				"order" => "ASC",
+
 			];
 
 			// The Query
 			$the_query = new WP_Query( $args );
-			
+			echo "<script>window.page_length = ".$the_query->max_num_pages."</script>";
 			// The Loop
 			if ( $the_query->have_posts() ):
 			
@@ -69,6 +71,12 @@
 			<?php wp_reset_postdata();?>
 
 		</div>
+
+		<div class="spinner hidden">
+			<div class="bounce1"></div>
+			<div class="bounce2"></div>
+			<div class="bounce3"></div>
+		</div>
 		<?php include "archives.php" ?>
 	</div>
 	<script>
@@ -80,8 +88,6 @@
 		var isPageLoaded = false;
 		var currentFilter = "";
 		var idArr = [];
-		var totalPages = 1;
-
 		
 		document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
 			el.addEventListener("click", filterProjects);
@@ -103,13 +109,14 @@
 				return Promise.resolve(categories)
 			})
 		}
+		
 
 		async function pageLoaded() {
 			loading = true
 			categories = await getCategories()
 			window.categories = categories
 			let filter = ""
-			if(!location.hash) {
+			if(!location.hash || location.hash.length < 1) {
 				applyAnimation();
 				isPageLoaded = true;
 				loading = false;
@@ -118,6 +125,7 @@
 			if(location.hash) {
 				let catName = location.hash.replace('#','')
 				let cat = filterCategoryNames(catName.toLowerCase())
+				currentFilter = cat.id;
 
 				filter = "&categories=" + cat.id
 				document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
@@ -162,7 +170,10 @@
 				});
 			
 			}
-			
+
+			isPageLoaded = true;
+			loading = false;
+
 			posts = posts.concat(filler)
 
 			let html = await returnProject(posts);
@@ -175,8 +186,7 @@
 			
 			applyAnimation();
 			 
-			isPageLoaded = true;
-			loading = false;
+			
 		}
 
 		function filterCategoryNames(name) {
@@ -223,7 +233,8 @@
 
 		async function getNewPosts(filterLabel, pageNumber = 1) {
 			let filter = "&categories=" + filterLabel
-			
+			loading = true;
+			console.log(filterLabel)
 			if(!filterLabel) { 
 				filter = ""
 			}
@@ -231,35 +242,44 @@
 			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=12&page=" + pageNumber + filter , {
 				method: 'GET'
 			}).then((res) => {
-				console.log(res)
+				if(!res.ok) {
+					throw Error(res.statusText)
+				}
 				return res.json()
+			}).catch((err) => {
+				console.log(err)
 			});
 
 			let filler = [];
 
-			if(posts.length && posts.length < 11) {
+			if(posts.length && posts.length < 11 && filterLabel) {
 				posts.forEach( (el, i) => {
 					idArr.push(el.id)
 				})
 
-				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=12&exclude="+idArr.join(","), {
+				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=12&page="+pageNumber+"exclude="+idArr.join(","), {
 					method: 'GET'
 				}).then((res) => {
 					return res.json()
 				});
 			}
-			return posts.concat(filler)
+
+			loading = false;
+			return posts.concat(filler) || []
 		}
 
 		async function filterProjects(e) {
 			if(e.target.classList.contains("selected")) { return }
 
+			currentPage = 1;
+			idArr = [];
+			
 			document.querySelectorAll(".navigation-tabs a").forEach( (el, i) => {
 				el.classList.remove("selected")
 			});
-
 			
-
+			
+ 
 			e.target.classList.add("selected");
 			await fadeOutAnimation()
 
@@ -339,14 +359,15 @@
 			var container = document.querySelector(".grid-container"),
 				space = $(window).height() - $(".grid-container")[0].getBoundingClientRect().bottom;
 
+			// console.log(space)
 			
-			// console.log(space)			
-
-			if ((space > -200) && !loading && isPageLoaded) {
+			if ((space > -200) && !loading && isPageLoaded && currentPage < window.page_length) {
 				loading = true;
 				currentPage++;
 				// console.log(currentPage)
+				document.querySelector(".spinner").classList.remove("hidden");
 				let posts = await getNewPosts(currentFilter, currentPage);
+				document.querySelector(".spinner").classList.add("hidden");
 				let html = await returnProject(posts, true);
 
 				// console.log("loading...")

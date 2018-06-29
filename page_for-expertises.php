@@ -55,10 +55,19 @@ while ( have_posts() ) : the_post(); ?>
         </div>
         <div class="right">
             <div class="video-container">
-            <video>
-                <source src="<?php echo get_field('expertise_video') ?>" type="video/mp4">
-                Your browser does not support HTML5 video.
-            </video>
+                <video id="video">
+                    <source src="<?php echo get_field('expertise_video') ?>" type="video/mp4">
+                    Your browser does not support HTML5 video.
+                </video>
+                <div class="video-container-overlay">
+                    <div class="button">Play Video</div>
+                </div>
+                <div class="video-controls hidden">
+                    <button type="button" id="play-pause"></button>
+                    <span id="time-passed">0:00</span>
+                    <progress id="seek-bar" max="100" value="0"></progress>
+                    <span id="time-left">0:00</span>
+                </div>
             </div>
             <h4 class="section-title">Sustainable Projects</h4>
             <div class="related-projects">
@@ -77,10 +86,10 @@ while ( have_posts() ) : the_post(); ?>
                                         <?php the_title(); ?>
                                     </span>
                                     <span class='project-location'>
-                                        <?php the_content() ?>
+                                        <?php the_field('location') ?>
                                     </span>
                                     <span class='project-category'>
-                                        <?php echo get_the_category()[0]->cat_name ?>
+                                        <?php echo get_the_category()[1]->cat_name ?>
                                     </span>
                                 </div>
                             </a>
@@ -95,6 +104,7 @@ while ( have_posts() ) : the_post(); ?>
         </div>
     </div>
     
+    
     <!-- Right side with stuff for something -->
         <!-- Video -->
         <!-- Categorical projects -->
@@ -102,4 +112,87 @@ while ( have_posts() ) : the_post(); ?>
     endwhile; //resetting the page loop
     wp_reset_query(); //resetting the page query
 ?>
+
+<script>
+    window.onload = () => {
+        let video = document.getElementById("video")
+        var playButton = document.getElementById("play-pause");
+        var seekBar = document.getElementById("seek-bar");
+        var timePassed = document.getElementById("time-passed");
+        var timeDuration = document.getElementById("time-left");
+        var bigButton = document.querySelector(".video-container .button");
+
+        bigButton.addEventListener("click", ()=> {
+            document.querySelector(".video-container-overlay").classList.toggle("hidden");
+            document.querySelector(".video-controls").classList.toggle("hidden");
+            video.play();
+        });
+
+        
+
+        playButton.addEventListener("click", function() {
+            if (video.paused == true) {
+                // Play the video
+                video.play();
+
+                // Update the button text to 'Pause'
+                // playButton.innerHTML = "Pause";
+            } else {
+                // Pause the video
+                video.pause();
+
+                // Update the button text to 'Play'
+                // playButton.innerHTML = "Play";
+            }
+        });
+
+        seekBar.addEventListener("change", function() {
+            // Calculate the new time
+            var time = video.duration * (seekBar.value / 100);
+
+            // Update the video time
+            video.currentTime = time;
+        });
+
+        // Update the seek bar as the video plays
+        video.addEventListener("timeupdate", function() {
+            // Calculate the slider value
+            let value = (100 / video.duration) * video.currentTime;
+            let time = video.currentTime
+            let duration = video.duration
+
+            var minutes = Math.floor(time / 60);   
+            var seconds = Math.floor(time).toString();
+
+            var duration_minutes = Math.floor(duration / 60)
+            var duration_seconds = Math.floor(duration).toString()
+
+            seconds = seconds.length < 2 ? `0${seconds}` : seconds
+            duration_seconds = duration_seconds.length < 2 ? `0${duration_seconds}` : duration_seconds
+
+            timePassed.innerText = `${minutes}:${seconds}`
+            timeDuration.innerText = `${duration_minutes}:${duration_seconds}`
+            // Update the slider value
+            seekBar.value = value;
+            
+        });
+
+        video.addEventListener("ended", ()=>{
+            document.querySelector(".video-container-overlay").classList.toggle("hidden");
+            document.querySelector(".video-controls").classList.toggle("hidden");
+        })
+
+        // Pause the video when the slider handle is being dragged
+        seekBar.addEventListener("mousedown", function() {
+            video.pause();
+        });
+
+        // Play the video when the slider handle is dropped
+        seekBar.addEventListener("mouseup", function() {
+            video.play();
+        });
+    }
+
+    
+</script>
 <?php get_footer(); ?> 
