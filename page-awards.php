@@ -1,11 +1,16 @@
 <?php get_header(); ?> 
-<div class="archives-overlay visible">
+<div class="row-fluid padding-t-60">
+    <div class="page-title-video">
+        <h3><strong>Awards</strong></h3>
+    </div>
+</div>
+<div class="archives-overlay visible awards">
     <div class="table-header">
         <div class="table-row">
-            <div class="table-cell">Award</div>
-            <div class="table-cell">Project</div> 
-            <div class="table-cell">Location</div>
-            <div class="table-cell">Year</div>
+            <div class="table-cell sort-header active" data-key="title.rendered">Award</div>
+            <div class="table-cell sort-header" data-key="project_post.post_title">Project</div> 
+            <div class="table-cell sort-header">Location</div>
+            <div class="table-cell sort-header">Year</div>
         </div>
     </div>
     <div class="table-contents">
@@ -13,6 +18,9 @@
 </div>
 
 <script>
+
+    var globalPosts = []
+
     function preventBodyScroll(e) {
         document.body.classList.add("noscroll");
     }
@@ -40,8 +48,23 @@
         }
     }
 
+    document.querySelectorAll(".sort-header").forEach( (el, i) => {
+        el.addEventListener("click", (event) => {
+
+            document.querySelectorAll(".sort-header").forEach( (el, i) => {
+                el.classList.remove("active")
+            });
+
+            event.currentTarget.classList.add("active");
+            let sortKey = event.currentTarget.dataset.key;
+            let direction = event.currentTarget.dataset.direction;
+            let sorted = _.sortBy(globalPosts, sortKey);
+            loadRows(sorted)
+        });
+    });
+
     async function archivesLoaded() {
-        let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=50&per_page=16", {
+        let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=50&per_page=100", {
             method: 'GET'
         }).then((res) => {
             return res.json()
@@ -52,6 +75,7 @@
 
     async function loadRows(json) {
         let html = ""
+        globalPosts = json;
         json.forEach( (el, i) => {
             html += 
                 `<div class='table-row' onclick='return slideOpen(event)'> 
@@ -61,6 +85,9 @@
                     <div class='table-cell'>2016</div> 
                     <div class='slide-open'> 
                         ${el.acf.award_description}
+                        <br>
+                        <br>
+                        <a href='${el.link}'>View Project</a>
                     </div> 
                     <div class='slide-open'> 
                         <strong>Status</strong><br> 

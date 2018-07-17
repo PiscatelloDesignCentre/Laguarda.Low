@@ -30,6 +30,8 @@
             lastSlide: function(){},          // Triggers when last slide is shown 
             afterLoad: function(){}           // Triggers when slider has loaded 
           });
+
+          $("#slider").css({"opacity": 1});
         });
     </script>
     <!-- <script type="text/javascript">

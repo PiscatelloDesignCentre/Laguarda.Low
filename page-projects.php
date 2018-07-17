@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-	<nav class="row-fluid project-nav">
+	<nav class="row-fluid project-nav sm-hidden">
 		<ul class="navigation-tabs">
 			<a data-filter="" href="#" class="selected">
 				ALL PROJECTS
@@ -25,12 +25,13 @@
 
 		</ul>
 	</nav> 
+	
 	<div class="row-fluid project-grid">
 		<div class="grid-container">
 		<?php
 			$args = [
 				"cat" => 7,
-				"posts_per_page" => 12,
+				"posts_per_page" => 16,
 				"page" => 1,
 				"order" => "ASC",
 
@@ -58,7 +59,7 @@
 								<?php the_field('location'); ?>
 							</span>
 							<span class='project-category'> 
-								<?php echo get_the_category(); ?> 
+								<?php echo get_the_category()[1]->cat_name; ?> 
 							</span> 
 						</div> 
 					</a>
@@ -88,6 +89,7 @@
 		var isPageLoaded = false;
 		var currentFilter = "";
 		var idArr = [];
+		var categoryComplete = false;
 		
 		document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
 			el.addEventListener("click", filterProjects);
@@ -112,6 +114,7 @@
 		
 
 		async function pageLoaded() {
+			// console.log(window.page_length)
 			loading = true
 			categories = await getCategories()
 			window.categories = categories
@@ -122,6 +125,7 @@
 				loading = false;
 				return;
 			}
+			
 			if(location.hash) {
 				let catName = location.hash.replace('#','')
 				let cat = filterCategoryNames(catName.toLowerCase())
@@ -146,24 +150,25 @@
 			
 			}
 
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=7&per_page=12&page=1"  + filter , {
+			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=7&per_page=16&page=1"  + filter , {
 				method: 'GET'
 			}).then((res) => {
-				console.log(res.headers)
-				totalPages = res.headers["X-WP-TotalPages"]
-				console.log(res)
+				// console.log(res.headers)
+				// console.log(res)
 				return res.json()
 			});
 		
 			let filler = [];
 
-			if(posts.length && posts.length < 11) {
+			if(posts.length && posts.length < 11 || (window.page_length >= currentPage)) {
+				categoryComplete = true;
+
 				posts.forEach( (el, i) => {
 					idArr.push(el.id)
 				})
 			
 
-				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=7&parent=7&per_page=12&exclude="+idArr.join(","), {
+				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=7&parent=7&per_page=16&exclude="+idArr.join(","), {
 					method: 'GET'
 				}).then((res) => {
 					return res.json()
@@ -233,31 +238,35 @@
 
 		async function getNewPosts(filterLabel, pageNumber = 1) {
 			let filter = "&categories=" + filterLabel
+			let posts = []
 			loading = true;
 			console.log(filterLabel)
 			if(!filterLabel) { 
 				filter = ""
 			}
-
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=12&page=" + pageNumber + filter , {
-				method: 'GET'
-			}).then((res) => {
-				if(!res.ok) {
-					throw Error(res.statusText)
-				}
-				return res.json()
-			}).catch((err) => {
-				console.log(err)
-			});
+			if(!categoryComplete) {
+				posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=16&page=" + pageNumber + filter , {
+					method: 'GET'
+				}).then((res) => {
+					if(!res.ok) {
+						throw Error(res.statusText)
+					}
+					return res.json()
+				}).catch((err) => {
+					// console.log(err)
+				});
+			}
+			
 
 			let filler = [];
 
-			if(posts.length && posts.length < 11 && filterLabel) {
+			if(posts.length && posts.length < 11 && filterLabel || (window.page_length >= pageNumber)) {
+				categoryComplete = true;
 				posts.forEach( (el, i) => {
 					idArr.push(el.id)
 				})
 
-				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=12&page="+pageNumber+"exclude="+idArr.join(","), {
+				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=16&page="+pageNumber+"&exclude="+(idArr.join(",") || -"1"), {
 					method: 'GET'
 				}).then((res) => {
 					return res.json()
@@ -273,7 +282,10 @@
 
 			currentPage = 1;
 			idArr = [];
-			
+			categoryComplete = false;
+
+			loading = true;
+
 			document.querySelectorAll(".navigation-tabs a").forEach( (el, i) => {
 				el.classList.remove("selected")
 			});
@@ -298,8 +310,9 @@
 				}, 500)
 			}
 
-			curentFilter = e.target.dataset.filter;
-			let posts = await getNewPosts(curentFilter);
+			currentFilter = e.target.dataset.filter;
+			
+			let posts = await getNewPosts(currentFilter);
 			let html = await returnProject(posts);
 			
 			document.querySelector(".grid-container").classList.remove("fade-out")
@@ -308,12 +321,13 @@
 			document.querySelector(".grid-container").innerHTML = ""
 			document.querySelector(".grid-container").innerHTML = html
 			applyAnimation();
+			loading = false;
 		}
 
 			
 
 		function mapCategories(id) {
-			console.log(id)
+			// console.log(id)
 			var index = id.indexOf(7);
 			if (index !== -1) id.splice(index, 1);
 			let cat = categories.filter(category => category.id == id[0])

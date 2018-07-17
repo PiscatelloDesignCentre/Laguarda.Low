@@ -9,18 +9,28 @@ get_header();
 // TO SHOW THE PAGE CONTENTS
 while ( have_posts() ) : the_post(); ?>
     <!-- Left side with info -->
-    <div class="content__full-width full-height">
-        <div class="left">
+    <style>
+        p {
+            margin: 0 !important;
+        }
+
+        h2 {
+            line-height: 34px;
+            color: #BDBDBD !important;
+        }
+    </style>
+    <div class="content__full-width full-height padding-t-90">
+        <div class="left invisible animate">
             <div class="page-top-left">
-                <h3 class="title"><?php the_title() ?></h3>
+                <h3 class="title"><?php the_title() ?><?php echo  (get_field('designation') ? sprintf(', %s', get_field('designation')): '') ?></h3>
                 <h5 class="subtitle"><?php the_field('formal_title')?></h5>
             </div>
-            <p><?php the_content(); ?></p>
-            <h2>"<?php the_field('quote')?>"</h2>
+            <p style="width: 66.66%"><?php echo get_the_content(); ?></p>
+            <h2 class="padding-t-60" style="margin: 0; width: 66.66%">"<?php the_field('quote')?>"</h2>
         </div>
-        <div class="right">
-            <div class="img-block">
-                <img src="<?php the_field('employee_image')?>">
+        <div class="right invisible animate">
+            <div class="img-block invisible animate">
+                <img src="<?php the_field('employee_office_shot')?>">
             </div>
             <h4 class="section-title"><?php the_title() ?>'s Posts</h4>
             <div class="related-projects">
@@ -36,7 +46,7 @@ while ( have_posts() ) : the_post(); ?>
                                 <?php the_post_thumbnail('medium') ?>
                                 <div class='project-info'>
                                     <span class='project-title'>
-                                        <?php the_date(); ?>
+                                        <?php echo get_the_date('F j, Y'); ?>
                                     </span>
                                     <span class='project-location'>
                                         <?php the_title(); ?>
@@ -52,8 +62,9 @@ while ( have_posts() ) : the_post(); ?>
                 ?>
             </div>
         </div>
-        <div class="approach-nav">
-            <?php next_post_link( '%link', 'See Next Leadership', TRUE ); ?>
+        <div class="approach-nav invisible animate">
+            <?php $output  = "<img src=" . get_template_directory_uri() . "/images/LaguardaLow_Arrow_BlackRight.svg class='side-arrow' height='23px' width='23px'> SEE NEXT LEADERSHIP" ?>
+            <?php next_post_link( '%link', $output, TRUE ); ?>
         </div>
     </div>
     

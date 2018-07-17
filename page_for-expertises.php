@@ -46,16 +46,16 @@ while ( have_posts() ) : the_post(); ?>
 
     <!-- Left side with info -->
     <div class="content__full-width" id="content">
-        <div class="left">
-            <div class="page-top-left">
+        <div class="left invisible animate">
+            <div class="page-top-left invisible animate">
                 <h3 class="title"><?php the_title() ?></h3>
                 <h5 class="subtitle">Expertise</h5>
             </div>
-            <p><?php the_content(); ?></p>
+            <p style="width: 66.66%"><?php echo get_the_content(); ?></p>
         </div>
         <div class="right">
-            <div class="video-container">
-                <video id="video">
+            <div class="video-container invisible animate">
+                <video class="video" playsinline webkit-playsinline>
                     <source src="<?php echo get_field('expertise_video') ?>" type="video/mp4">
                     Your browser does not support HTML5 video.
                 </video>
@@ -63,14 +63,21 @@ while ( have_posts() ) : the_post(); ?>
                     <div class="button">Play Video</div>
                 </div>
                 <div class="video-controls hidden">
-                    <button type="button" id="play-pause"></button>
-                    <span id="time-passed">0:00</span>
-                    <progress id="seek-bar" max="100" value="0"></progress>
-                    <span id="time-left">0:00</span>
+                    <button type="button" class="play-pause"></button>
+                    <span class="time-passed">0:00</span>
+                    <progress class="seek-bar" max="100" value="0"></progress>
+                    <span class="time-left">0:00</span>
+                    <button class="full-screen"></button>
+                    <div class="volume-control">
+                        <button class="volume"></button>
+                        <div class="range-container">
+                            <input type="range" min=0 max=100>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <h4 class="section-title">Sustainable Projects</h4>
-            <div class="related-projects">
+            <h4 class="section-title invisible animate">Sustainable Projects</h4>
+            <div class="related-projects invisible animate">
                 <?php 
                     if(have_rows('related_projects')):
                         while(have_rows('related_projects')): the_row();
@@ -113,86 +120,5 @@ while ( have_posts() ) : the_post(); ?>
     wp_reset_query(); //resetting the page query
 ?>
 
-<script>
-    window.onload = () => {
-        let video = document.getElementById("video")
-        var playButton = document.getElementById("play-pause");
-        var seekBar = document.getElementById("seek-bar");
-        var timePassed = document.getElementById("time-passed");
-        var timeDuration = document.getElementById("time-left");
-        var bigButton = document.querySelector(".video-container .button");
-
-        bigButton.addEventListener("click", ()=> {
-            document.querySelector(".video-container-overlay").classList.toggle("hidden");
-            document.querySelector(".video-controls").classList.toggle("hidden");
-            video.play();
-        });
-
-        
-
-        playButton.addEventListener("click", function() {
-            if (video.paused == true) {
-                // Play the video
-                video.play();
-
-                // Update the button text to 'Pause'
-                // playButton.innerHTML = "Pause";
-            } else {
-                // Pause the video
-                video.pause();
-
-                // Update the button text to 'Play'
-                // playButton.innerHTML = "Play";
-            }
-        });
-
-        seekBar.addEventListener("change", function() {
-            // Calculate the new time
-            var time = video.duration * (seekBar.value / 100);
-
-            // Update the video time
-            video.currentTime = time;
-        });
-
-        // Update the seek bar as the video plays
-        video.addEventListener("timeupdate", function() {
-            // Calculate the slider value
-            let value = (100 / video.duration) * video.currentTime;
-            let time = video.currentTime
-            let duration = video.duration
-
-            var minutes = Math.floor(time / 60);   
-            var seconds = Math.floor(time).toString();
-
-            var duration_minutes = Math.floor(duration / 60)
-            var duration_seconds = Math.floor(duration).toString()
-
-            seconds = seconds.length < 2 ? `0${seconds}` : seconds
-            duration_seconds = duration_seconds.length < 2 ? `0${duration_seconds}` : duration_seconds
-
-            timePassed.innerText = `${minutes}:${seconds}`
-            timeDuration.innerText = `${duration_minutes}:${duration_seconds}`
-            // Update the slider value
-            seekBar.value = value;
-            
-        });
-
-        video.addEventListener("ended", ()=>{
-            document.querySelector(".video-container-overlay").classList.toggle("hidden");
-            document.querySelector(".video-controls").classList.toggle("hidden");
-        })
-
-        // Pause the video when the slider handle is being dragged
-        seekBar.addEventListener("mousedown", function() {
-            video.pause();
-        });
-
-        // Play the video when the slider handle is dropped
-        seekBar.addEventListener("mouseup", function() {
-            video.play();
-        });
-    }
-
-    
-</script>
+<?php include('video-player.php') ?>
 <?php get_footer(); ?> 

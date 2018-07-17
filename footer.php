@@ -3,59 +3,60 @@
         <div class="col-md-8">
           <div class="col-md-2 animation-element footer_projects">
             <ul>
-              <li class="footer-titles"><a>PROJECTS</a></li>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/projects">PROJECTS</a></li>
               </br>
-              <li><a>All Projects</a></li>
-              <li><a>Current</a></li>
-              <li><a>Planning</a></li>
-              <li><a>Mixed Use</a></li>
-              <li><a>Retail</a></li>
-              <li><a>Commercial</a></li>
-              <li><a>Transit</a></li>
-              <li><a>Public</a></li>
-              <li><a>Archive</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects">All Projects</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#current">Current</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#planning">Planning</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#mixeduse">Mixed Use</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#retail">Retail</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#transit">Transit</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#office">Office</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#residential">Residential</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#hospitality">Hospitality</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#renovation">Renovation</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#public">Public</a></li>
+              <li><a href="<?php echo get_site_url() ?>/projects#archive">Archive</a></li>
             </ul>
           </div>
           <div class="col-md-2 animation-element footer_expertise">
             <ul>
-              <li class="footer-titles"><a>EXPERTISE</a></li>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/expertise">EXPERTISE</a></li>
               </br>
-              <li><a>Master Planning</a></li>
-              <li><a>Mixed Use</a></li>
-              <li><a>Retail Design</a></li>
-              <li><a>Sustainability</a></li>
+              <li><a href="<?php echo get_site_url() ?>/expertise/master-planning">Master Planning</a></li>
+              <li><a href="<?php echo get_site_url() ?>/expertise/mixed-use">Mixed Use</a></li>
+              <li><a href="<?php echo get_site_url() ?>/expertise/retail-design">Retail Design</a></li>
+              <li><a href="<?php echo get_site_url() ?>/expertise/sustainability">Sustainability</a></li>
             </ul>
           </div>
           <div class="col-md-2 animation-element footer_firm">
             <ul>
-              <li class="footer-titles"><a>FIRM</a></li>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/firm">FIRM</a></li>
               </br>
-              <li><a>Overview</a></li>
-              <li><a>Leadership</a></li>
-              <li><a>Videos</a></li>
-              <li><a>Awards</a></li>
+              <li><a href="<?php echo get_site_url() ?>/firm/overview">Overview</a></li>
+              <li><a href="<?php echo get_site_url() ?>/firm/leadership">Leadership</a></li>
+              <li><a href="<?php echo get_site_url() ?>/firm/videos">Videos</a></li>
+              <li><a href="<?php echo get_site_url() ?>/firm/awards">Awards</a></li>
             </ul>
           </div>
           <div class="col-md-2 animation-element footer_news">
             <ul>
-              <li class="footer-titles"><a>NEWS</a></li>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/news">NEWS</a></li>
               </br>
-              <li><a>Events</a></li>
-              <li><a>Construction</a></li>
-              <li><a>Publications</a></li>
-              <li><a>Awards</a></li>
-              <li><a>Newsletters</a></li>
+              <li><a href="<?php echo get_site_url() ?>/news/events">Events</a></li>
+              <li><a href="<?php echo get_site_url() ?>/news/construction">Construction</a></li>
+              <li><a href="<?php echo get_site_url() ?>/news/publications">Publications</a></li>
+              <li><a href="<?php echo get_site_url() ?>/news/awards">Awards</a></li>
+              <li><a href="<?php echo get_site_url() ?>/news/newsletters">Newsletters</a></li>
             </ul>
           </div>
           <div class="col-md-2 animation-element footer_contact">
             <ul>
-              <li class="footer-titles"><a>CONTACT</a></li>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/contact">CONTACT</a></li>
               </br>
-              <li><a href=".project-nav">Commisions</a></li>
-              <li><a>Press</a></li>
-              <li><a>General</a></li>
-              <li><a>Careers</a></li>
-              <li><a>Office Locations</a></li>
+              <li><a href="<?php echo get_site_url() ?>/contact">General</a></li>
+                            <li><a href="<?php echo get_site_url() ?>/contact/#locations">Office Locations</a></li>
+              <li><a href="<?php echo get_site_url() ?>/contact/#careers">Careers</a></li>
             </ul>
           </div>
           <div class="col-md-2 animation-element"></div>
@@ -64,24 +65,24 @@
           <ul>
             <li class="footer-titles">CREDITS</li>
             </br>
-            <li>Website Design</li>
-            <li><a href="http://piscatello.com">Piscatello Design Centre</a></li>
-            </br>
-            <li>Photography</li>
-            <li>Placeholder Name</li>
+            <li>Website Design and Development</li>
+            <li><a href="http://piscatello.com" target="_blank">Piscatello Design Centre</a></li>
             </br>
             <li>Video</li>
-            <li><a href="http://www.yoyuucreative.com/">Yo.Yuu Creative</a></li>
+            <li><a href="http://www.yoyuucreative.com/" target="_blank">Yo.Yuu Creative</a></li>
           </ul>
         </div>
       </div>
       <div class="lowerBand row-fluid">
+        <div class="socialMedia">
+          <?php wp_nav_menu( array( 'theme_location' => 'footer' ) ); ?>  
+        </div>
         <div class="col-md-3 copyRight">
           <p>Copyright &copy; 2018 Laguarda Low Architects | LLA</p>
         </div>
-        <div class="col-md-3"></div>
-        <div class="col-md-3"></div>
-        <div class="col-md-3 socialMedia">
+        <div class="col-md-3 mobile-hidden"></div>
+        <div class="col-md-3 mobile-hidden"></div>
+        <div class="col-md-3 socialMedia mobile-hidden">
           <?php wp_nav_menu( array( 'theme_location' => 'footer' ) ); ?>  
         </div>
       </div>
@@ -130,14 +131,38 @@
           }
         });
     </script>
+    <script>
+      document.querySelectorAll(".site-footer ul").forEach((el, i) => {
+        el.addEventListener("touchstart", (event) => {
+          if(event.currentTarget.classList.contains("toggle-footer")) {
+            event.currentTarget.classList.remove("toggle-footer");
+            return; 
+          }
+          document.querySelectorAll(".site-footer ul").forEach((el, i) => {
+            el.classList.remove("toggle-footer");
+          });
+
+          event.currentTarget.classList.add("toggle-footer");
+        });
+      });
+
+      document.querySelectorAll(".site-footer ul a").forEach((el, i) => {
+        el.addEventListener("touchstart", (event) => {
+          event.stopPropagation();
+        });
+      });
+
+    </script>
+
     <!-- jQuery -->
     <script src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery-1.9.0.min.js"></script>
     
     <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery.nivo.slider.js"></script>
-    <script>
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
+
     <script type="text/javascript">
     $(window).load(function() {
+    
       $('#slider').nivoSlider({ 
         effect: 'fade',                 // Specify sets like: 'fold,fade,sliceDown' 
         slices: 15,                       // For slice animations 
@@ -160,7 +185,9 @@
         lastSlide: function(){},          // Triggers when last slide is shown 
         afterLoad: function(){}           // Triggers when slider has loaded 
       });
-        
+
+      $("#slider").css({"opacity": 1});
+      
     });
     </script>
     <script type="text/javascript">
@@ -208,6 +235,41 @@
       $window.on('scroll resize', check_if_in_view);
       $window.trigger('scroll');
     </script>
+    
+    <script>
+        $.fn.isInViewport = function() {
+            var elementTop = $(this).offset().top 
+            var elementBottom = elementTop + $(this).outerHeight();
+            var viewportTop = $(window).scrollTop();
+            var viewportBottom = viewportTop + $(window).height();
+
+            return elementBottom > viewportTop && elementTop < viewportBottom;
+        };
+
+        $(window).on('resize scroll', function() {
+            $('.animate').each(function() {
+                var activeColor = $(this).attr('id');
+                if ($(this).isInViewport()) {
+                    $(this).addClass("animate-grid")
+                    $(this).removeClass("invisible")
+                } else {
+
+                }
+            });
+        });
+
+        $(window).on('load', function() {
+            $('.animate').each(function() {
+                var activeColor = $(this).attr('id');
+                if ($(this).isInViewport()) {
+                    $(this).addClass("animate-grid")
+                    $(this).removeClass("invisible")
+                } else {
+
+                }
+            });
+        });
+      </script>
     
   
 

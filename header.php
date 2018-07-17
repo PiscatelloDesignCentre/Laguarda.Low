@@ -30,8 +30,6 @@
     <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/nivo-slider/themes/bar/bar.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/nivo-slider/themes/laguardalowSlider/laguardalowSlider.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/css/nivo-slider.css" type="text/css" media="screen" />
-    <!-- <link rel="stylesheet" href="style.css" type="text/css" media="screen" /> -->
-
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -65,28 +63,42 @@
       <?php }?> -->
       <div class="band laguarda-low-header <?php echo is_home() ? "home-band" : "" ?>">
         <div class="flex-left">
-          <div class="logo flex-col" style="background-image: url('<?php echo get_home_url() ?>/wp-content/uploads/2018/05/LaguardaLow_LogoWhite.png')">
+          
+          <div class="logo flex-col" style="background-image: url('<?php echo get_site_url() ?>/wp-content/uploads/2018/05/LaguardaLow_LogoWhite.png')">
             <a href="<?php echo get_site_url() ?>">
               Lauguarda Low
             </a>
           </div>
           <div class="flex-col search-col">
-            <!-- Search bar -->
+            <!-- Desktop Search -->
             <div class="search-container search-desktop">
-              <form action="/action_page.php">
-                <input id="input-area" type="text" placeholder="" name="search">
-                <button class="search" type="submit"></button>
+              <form action="<?php echo get_home_url() ?>">
+              <button class="search" type="button"></button>
+              <input id="input-area" autocomplete="off" placeholder="Search Laguarda.Low" type="text" placeholder="" name="s" id="s">
+              <button class="close-search" type="button"></button>
                 <!-- <div id="input-area-slider"></div> -->
               </form>
             </div>
           </div>
         </div>
+        <div class="search-overlay">
+          <ul class="search-suggestions">
+            <li class="text-red search-title">Recommended Searches</li>
+            <li><a href="">OCT Bay</a></li>
+            <li><a href="">OCT Boanan</a></li>
+            <li><a href="">Empire State Building</a></li>
+            <li><a href="">Freedom Tower</a></li>
+            <li><a href="">Burj Khalifa</a></li>
+            <li><a href="">330 W 38th Street</a></li>
+          </ul>
+        </div>
+        <!-- Mobile search -->
         <div class="flex-right">
           <div class="flex-col search-mobile">
             <div class="search-container">
-              <form action="/action_page.php">
-                <button class="search" type="submit"></button>
-                <input id="input-area" type="text" placeholder="" name="search">
+              <form action="<?php echo get_home_url() ?>">
+                <button class="search" type="button"></button>
+                <input id="input-area" autocomplete="off" type="text" placeholder="" name="s" id="s">
                 <!-- <div id="input-area-slider"></div> -->
               </form>
             </div>
@@ -101,19 +113,14 @@
               <?php wp_nav_menu( $args ); ?>
             </nav>
           </div> 
-          <div class="flex-col lang-container">
-            <!-- English/Chinese -->
-            <div class="lang-toggle">
-              <div class="lang-en">English</div>
-              <div class="lang-zh">中文</div>
-            </div>
-          </div>
         </div>
         <div class="open-close">
           <div class="dot top"></div>
           <div class="dot bottom"></div>
         </div>
       </div>
+    
+
       <script>
         document.querySelector(".open-close").addEventListener('click', (e) => {
           var box = e.currentTarget.classList.toggle("expand");
@@ -127,7 +134,125 @@
           }
 
         })
+
+        document.querySelector(".close-search").addEventListener("click", () => {
+          document.querySelector(".search-container").classList.remove("active");
+          $(".nav-collapse").css({"visibility": "visible"})
+          $(".nav-collapse").fadeTo(".345", 1)
+          document.body.classList.remove("noscroll")
+          document.querySelector(".search-overlay").classList.remove("visible");
+          document.querySelector(".band").classList.remove("searching")
+
+        });
+
+
+        document.querySelector(".search").addEventListener("click", () => {
+          document.querySelector(".search-container").classList.toggle("active")
+          if(document.querySelector(".search-container").classList.contains("active")) {
+            $(".nav-collapse").fadeTo(".345", 0)
+            setTimeout(() => {
+              $(".nav-collapse").css({"visibility": "hidden"})
+            }, 345);
+            document.body.classList.add("noscroll")
+            document.querySelector(".search-overlay").classList.add("visible");
+            document.querySelector(".band").classList.add("searching")
+            document.querySelector(".band").classList.add("active")
+          }
+
+          else {
+            $(".nav-collapse").css({"visibility": "visible"})
+            $(".nav-collapse").fadeTo(".345", 1)
+            document.body.classList.remove("noscroll")
+            document.querySelector(".search-overlay").classList.remove("visible");
+            document.querySelector(".band").classList.remove("searching")
+
+          }
+        });
       </script>
+
+      <!-- Mobile Selector -->
+      <div class="mobile-selector">
+        <span class="selected-category">Projects | All</span>
+        <div class="drop-down-selector">
+          <a data-filter="" href="#" class="selected">
+            ALL PROJECTS
+          </a>
+          <?php
+            $args = array(
+              "hide_empty" => 0,
+              "type"      => "post",      
+              "orderby"   => "name",
+              "order"     => "ASC",
+              'parent'  => 7 
+            );
+
+              $cats = get_categories($args);
+          ?>
+          <?php foreach ( $cats as $cat ) { ?>
+            <?php if($cat->slug !== "projects") { ?>
+            <a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-", " ", $cat->slug) ?>">
+              <?php echo $cat->cat_name ?>
+            </a>
+            <?php } ?>  
+          <?php } ?>
+        </div>
+      </div>
+      <!-- End Mobile Selector -->
     </header>
+
+    <script>
+    ((window, undefined) => {
+      var top = 0;
+
+      window.onload = () => {
+        lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+        var scroll = window.requestAnimationFrame ||
+             window.webkitRequestAnimationFrame ||
+             window.mozRequestAnimationFrame ||
+             window.msRequestAnimationFrame ||
+             window.oRequestAnimationFrame ||
+             // IE Fallback, you can even fallback to onscroll
+             function(callback){ window.setTimeout(callback, 1000/60) };
+
+        function loop() {
+
+          var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+          if (st > lastScrollTop && st > 120){
+            document.querySelector("header").classList.add("header-hidden");
+          } 
+          else if (st < lastScrollTop) {
+            document.querySelector("header").classList.remove("header-hidden");
+          }
+
+          lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+            scroll( loop )
+        }
+
+        // Call the loop for the first time
+        loop();
+
+
+
+
+        //Header nav window
+
+        document.querySelector(".mobile-selector").addEventListener("click", (e) => {
+          var band = document.querySelector(".laguarda-low-header")
+          e.currentTarget.classList.toggle("dropped")
+          document.body.classList.toggle("noscroll")
+          document.querySelector("html").classList.toggle("noscroll")
+          
+          if(band.classList.contains("fixed")) {
+            band.classList.remove("fixed")
+          }
+          else band.classList.add("fixed")
+
+          document.querySelector(".laguarda-low-header").classList.toggle("fixed")
+          document.querySelector(".mobile-selector").classList.toggle("fixed")
+        });
+      }
+    })(window)
+    </script>
 
         

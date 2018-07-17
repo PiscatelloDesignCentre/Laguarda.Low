@@ -13,6 +13,8 @@
 	width:100%;
 	height:auto;
 	overflow: hidden;
+	opacity: 0;
+	transition: .5s ease opacity;
 }
 .nivoSlider img {
 	position:absolute;
@@ -23,11 +25,15 @@
 	min-width: 100vw;
 	min-height: 100vh;
 	object-fit: cover;
+	transition: .5s ease opacity;
 }
+
+
 .nivo-main-image {
 	display: block !important;
 	position: relative !important; 
 	width: 100% !important;
+	z-index: 2;
 }
 
 /* If an image is wrapped in a link */

@@ -4,6 +4,8 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-gap: 1px;
     grid-auto-rows: min-content;
+    min-height: calc(100vh - 60px);
+    background-color: #FAFAFA;
 }
 
 .mapAndShare a:hover {
@@ -25,8 +27,8 @@
 
 .project-thumb::after {
     content: '';
-    height: 30%;
-    background: linear-gradient(transparent, rgba(0,0,0,0.5));
+    height: 40%;
+    background: linear-gradient(transparent, rgba(0,0,0,0.6));
     z-index: 1;
     position: absolute;
     bottom: 0;
@@ -57,8 +59,8 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    padding: 30px 30px;
-    font-size: 12.5px;
+    padding: 15px 15px;
+    font-size: 14px;
     z-index: 2;
 }
 
@@ -68,6 +70,7 @@
     position: relative;
     text-decoration: none;
     cursor: auto;
+    line-height: 17px;
 }
 
 .project-info .project-location {
@@ -106,7 +109,7 @@ ul.navigation-tabs {
     align-content: center;
     white-space: nowrap;
     list-style: none;
-    font-size: 12.5px;
+    font-size: 14px;
     cursor: pointer;
     background-color: #C0C0C0;
 }
@@ -122,7 +125,7 @@ ul.navigation-tabs {
     display: inline-flex;
     align-items: center;
     justify-content: flex-start;
-    padding-left: 30px;
+    padding-left: 15px;
     text-transform: uppercase;
     text-decoration: none;
     box-sizing: border-box;
@@ -214,6 +217,12 @@ ul.navigation-tabs {
     transition: .25s ease opacity, visibility 0s ease 1s;
 }
 
+.archives-overlay.awards {
+    height: auto;
+    min-height: calc(100vh - 90px);
+    position: relative;
+}
+
 .table-header,
 .table-contents {
     display: grid;
@@ -222,7 +231,12 @@ ul.navigation-tabs {
 }
 
 .archives-overlay .table-header {
-    margin-top: 50px;
+    margin-top: 30px;
+}
+
+
+.archives-overlay.awards .table-header {
+    margin-top: 0px;
 }
 
 .archives-overlay .table-row {
@@ -243,7 +257,6 @@ ul.navigation-tabs {
 
 .archives-overlay :not(.table-header) .table-row.selected {
     font-weight: bold;
-    color: #ed2939;
     background-color: #FFF;
 }
 
@@ -254,13 +267,19 @@ ul.navigation-tabs {
 
 .archives-overlay .table-cell {
     display: border-box;
-    padding: 10px 30px;
+    padding: 10px 15px;
 }
 
 .archives-overlay .table-header .table-cell {
     font-weight: bold;
     text-transform: uppercase;
+    cursor: pointer;
 }
+
+.archives-overlay .table-header .table-cell:hover {
+    color: #ed2939;
+}
+
 
 .archives-overlay .table-cell:first-of-type {
     font-weight: bold;
@@ -274,15 +293,19 @@ ul.navigation-tabs {
     box-sizing: border-box;
     height: 0;
     color: #000;
-    transition: all .15s ease;
-    padding: 0 30px;
+    transition: all .345s ease;
+    padding: 0 15px;
     font-weight: normal;
-
+    max-height: 0;
 }
 
 .slide-open img {
     width: 100%;
     display: block;
+}
+
+.slide-open:first-of-type {
+    font-size: 0 !important;
 }
 
 .slide-open a {
@@ -291,9 +314,14 @@ ul.navigation-tabs {
     font-size: 15px;
 }
 
+.sort-header.active {
+    color: #ed2939;
+}
+
 .open {
-    height: 250px !important;
-    padding:  10px 30px;
+    height: auto;
+    max-height: 500px;
+    padding:  30px 15px;
 }
 /* NO SROLL */
 
@@ -301,11 +329,42 @@ ul.navigation-tabs {
     overflow: hidden;
 }
 
-.archives-overlay.visible {
+ .visible {
     display: block;
     visibility: visible;
     opacity: 1;
     transition: visibility 0s linear 1s, opacity .15s ease;
+}
+
+
+/***
+** Search Page
+***/
+
+.result, .result:hover, .result:visited, .result:active {
+    background-color: #F1F1F2;
+    color: #000;
+    width: 100%;
+    display: block;
+    border-top: 1px solid #FFF;
+    padding: 8px 15px;
+    text-decoration: none;
+    opacity: 0;
+}
+
+.result .project-title {
+    font-size: 14px;
+    width: 25%;
+    display: inline-block;
+    font-weight: bold;
+}
+
+.result:hover {
+    background-color: #FFF;
+}
+
+.result .project-cat {
+    font-size: 14px;
 }
 
 @keyframes animateRows {

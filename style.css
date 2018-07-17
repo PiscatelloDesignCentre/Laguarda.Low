@@ -117,7 +117,7 @@ body {
 
 .band:hover .search, .band.active .search {
   background: url("./images/LaguardaLow_SearchGrey.png") no-repeat center;
-  background-size: 100%; 
+  background-size: cover; 
 }
 
 .band .search-container button {
@@ -130,10 +130,12 @@ body {
   height: 20px;
 }
 
-.search-container:hover .search, .band.active .search:hover {
+.search-container:hover .search, .band.active .search:hover, .band.searching .search {
   background: url("./images/LaguardaLow_SearchRed.png") no-repeat center;
-  background-size: contain; 
+  background-size: cover; 
 }
+
+
   
 /* 
  * Navigation links 
@@ -160,7 +162,6 @@ body {
 .site-nav li {
     position: relative;
     display: inline-block;
-    padding: 20px 15px;
     font-weight: bold; 
 }
 
@@ -189,6 +190,15 @@ body {
   color: #ED2939;
 } 
 
+header .menu li:nth-last-child(2) {
+  margin-left: 13%;
+}
+
+header .menu li:first-of-type {
+  margin-left: 10%;
+  margin-right: -3%;
+  padding-right: 10px;
+}
 
 /*
  * Language toggle tab
@@ -287,12 +297,13 @@ body {
 }
 
 .site-footer .container-fluid {
-  padding: 60px 0 0 0;
-  background-color: #f1f1f2;
+  padding: 30px 0 0 0;
+  /* background-color: #f1f1f2; */
+  border-bottom: 1px solid #DDD;
 }
 
 .site-footer li:last-child {
-  margin-bottom: 60px;
+  /* margin-bottom: 60px; */
 }
 
 .footer_projects ul, .footer_expertise ul, .footer_firm ul, .footer_news ul, .footer_contact ul, .credits ul {
@@ -317,6 +328,7 @@ body {
 
 .credits li {
   font-size: 10.5px;
+  line-height: 15px;
 }
 
 .footer_projects, .footer_expertise, .footer_firm, .footer_news, .footer_contact, .credits {
@@ -369,17 +381,15 @@ body {
 }
 
 .lowerBand .copyRight p {
-  color: #DCDCDC;
+  color: #bcbec0;
   padding: 20px 15px;
   margin: 0px;
+  font-size: 10.5px !important;
 }
 
 
 /*Social Media*/
 
-.lowerBand .socialMedia {
-  height: 100%;
-}
 
 .menu-social-links-menu-container {
   float: right;
@@ -404,7 +414,7 @@ body {
 
 
 .socialMedia ul li.menu-item-23 a {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaGrey1.png");
+  background-image: url("./images/LaguardaLow_socialMediaGrey1.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -412,7 +422,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-23 a:hover {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaRed1.png");
+  background-image: url("./images/LaguardaLow_socialMediaRed1.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -420,7 +430,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-22 a {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaGrey2.png");
+  background-image: url("./images//LaguardaLow_socialMediaGrey2.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -428,7 +438,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-22 a:hover {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaRed2.png");
+  background-image: url("./images//LaguardaLow_socialMediaRed2.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -436,7 +446,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-24 a {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaGrey3.png");
+  background-image: url("./images//LaguardaLow_socialMediaGrey3.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -444,7 +454,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-24 a:hover {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaRed3.png");
+  background-image: url("./images/LaguardaLow_socialMediaRed3.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -452,7 +462,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-25 a {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaGrey4.png");
+  background-image: url("./images/LaguardaLow_socialMediaGrey4.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -460,7 +470,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-25 a:hover {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaRed4.png");
+  background-image: url("./images//LaguardaLow_socialMediaRed4.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -468,7 +478,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-26 a {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaGrey5.png");
+  background-image: url("./images//LaguardaLow_socialMediaGrey5.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -476,7 +486,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-26 a:hover {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaRed5.png");
+  background-image: url("./images//LaguardaLow_socialMediaRed5.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -484,7 +494,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-142 a {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaGrey6.png");
+  background-image: url("./images/LaguardaLow_socialMediaGrey6.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -492,7 +502,7 @@ body {
 }
 
 .socialMedia ul li.menu-item-142 a:hover {
-  background-image: url("http://localhost:8888/wordpress/wp-content/uploads/2018/06/LaguardaLow_socialMediaRed6.png");
+  background-image: url("./images/LaguardaLow_socialMediaRed6.png");
   display: block;
   width: 30px;
   height: 30px;
@@ -513,7 +523,7 @@ body {
   top: -60px;
   bottom: 0px;
   position: relative;
-
+  /* background-color: #DDD; */
 }
 
 /*====================*/
@@ -553,8 +563,8 @@ body {
 .project-nav .project-nav-article a {
   color: #ffffff;
   text-decoration: none;
-  font-size: 12.5px;
-  line-height: 12.5px;
+  font-size: 1px;
+  line-height: 14px;
 }
 
 .project-nav ul lo.current-menu-item a {
@@ -607,7 +617,7 @@ body {
 
 /*Project name as title*/
 #post-grid-93 .title {
-  font-size: 12.5px !important;
+  font-size: 14px !important;
   padding: 0px 15px !important;
   text-align: left;
   color: #ffffff;
@@ -617,7 +627,7 @@ body {
 
 /*Project Location as content*/
 #post-grid-93 .content {
-  font-size: 12.5px !important;
+  font-size: 14px !important;
   padding: 0px 15px !important;
   text-align: left;
   color: #ffffff;
@@ -660,7 +670,7 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   font-weight: normal;
   border-left: 0.5px solid #ffffff;
   border-top: 0.5px solid #ffffff;
-  font-size: 12.5px;
+  font-size: 14px;
   text-transform: uppercase;
 }
 
@@ -696,14 +706,14 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 }
 
 .rt-tpg-container .isotope1 .rt-holder .rt-detail .entry-title, .rt-tpg-container .layout1 .rt-holder .rt-detail .entry-title {
-  font-size: 12.5px;
+  font-size: 14px;
   margin: 0;
   font-weight: bold;
   padding: 0px;
 }
 
 .rt-tpg-container .isotope1 .rt-holder .rt-detail .entry-title a, .rt-tpg-container .layout1 .rt-holder .rt-detail .entry-title a {
-  font-size: 12.5px;
+  font-size: 14px;
   text-align: left;
   font-weight: bold;
   position: relative;
@@ -715,7 +725,7 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 .entry-content, .post-content {
   position: relative;
   padding: 0px;
-  font-size: 12.5px;
+  font-size: 14px;
   color: #ffffff;
   font-weight: bold;
 }
@@ -790,22 +800,26 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   line-height: 10px;
 }
 
-.projectCategory {
-  font-size: 12.5px;
+.projectCategory { 
+  font-size: 14px;
   font-weight: normal;
   position: relative;
   bottom: 10px;
 }
 
+#content {
+  min-height: 100vh;
+}
+
 
 #wrapper {
-  min-height: 100%;
+  min-height: 100vh;
   height: auto;
   display: flex;
 }
 
 .projectContent {
-  background-color: #f1f1f2;
+  background-color: #F1F1F2;
   padding: 30px 60px 30px 30px;
   float: left;
   width: 50%;
@@ -815,10 +829,9 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 }
 
 .projectTitleHeader {
-  height: 20%; 
+  height: 11%; 
   /*border: 1px solid black;*/
   line-height: 5px;
-  padding-top: 20px;
   padding-bottom: 10px;
 }
 
@@ -834,18 +847,20 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   font-weight: bold;
   width: 50%;
   margin-bottom: 5px;
+  margin-top: 0;
 }
 
 .projectTitle p {
-  font-size: 12.5px;
+  font-size: 14px !important;
   width: 50%;
+  line-height: 10px;
 }
 
 .mapAndShare {
   float: right;
   width: 50%;
   height: 20px;
-  margin-top: 25px;
+  margin-top: 5px;
 }
 
 .projectMap {
@@ -876,7 +891,7 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 
 .projectMap a, .projectShare a {
   color: #ffffff;
-  font-size: 12.5px;
+  font-size: 14px;
   line-height: 20px;
   vertical-align: middle;
   margin: 0px;
@@ -886,7 +901,12 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 .projectDescription {
   height: fit-content; 
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 60px;
+  width: 100%;
+}
+
+.projectDescription p {
+  font-size: 14px !important;
 }
 
 .projectMeta {
@@ -947,21 +967,21 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   height: 20px;
   width: 20px;
   float: left;
-  background: url('./images/LaguardaLow_leftArrowBlack.png') center center no-repeat;
+  background: url('./images/LaguardaLow_Arrow_BlackLeft.svg') center center no-repeat;
   background-size: cover;
   margin-top: 4px;
 }
 #backToText {
   font-weight: bold;
-  font-size: 12.5px;
+  font-size: 14px;
   display: block;
   line-height: 30px;
   white-space: nowrap; 
 }
 
 .relatedProjectsContent {
-  background-color: #bcbec0;
-  padding: 30px 15px 30px 30px;
+  background-color: #E0E0E0;
+  padding: 30px 15px 30px 15px;
   float: right;
   width: 50%;
   height: auto;
@@ -971,8 +991,8 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 }
 
 .relatedProjectsContent.active {
-  background-color: #bcbec0;
-  padding: 30px 15px 30px 30px;
+  background-color: #E0E0E0;
+  padding: 30px 15px 30px 15px;
   float: right;
   width: 50%;
   height: auto;
@@ -985,13 +1005,13 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   font-size: 25px;
   color: #000000;
   font-weight: bold;
+  margin-top: 0;
 }
 
 .relatedProjectsHeader {
-  padding-top: 20px;
   padding-bottom: 10px;
   line-height: 5px;
-  height: 20%;
+  height: 11%;
 }
 
 .relatedProjectsTiles {
@@ -1106,6 +1126,22 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   background-image: url('./images/LaguardaLow_socialMediaBlack4.png');
 }
 
+#shareOnFacebook a:hover {
+  background-image: url('./images/LaguardaLow_socialMediaWhite1.png');
+}
+
+#shareOnLinkedIn a:hover {
+  background-image: url('./images/LaguardaLow_socialMediaWhite2.png');
+}
+
+#shareOnPintrest a:hover {
+  background-image: url('./images/LaguardaLow_socialMediaWhite3.png');
+}
+
+#shareOnInstagram a:hover {
+  background-image: url('./images/LaguardaLow_socialMediaWhite4.png');
+}
+
 .shareLinks{
   height: 75px;
   padding: 0px;
@@ -1136,11 +1172,18 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   padding: 30px 0;
 }
 
-.spinner > div {
-  width: 18px;
-  height: 18px;
-  background-color: #ED2939;
+.menu-item.wpml-ls-slot-4 {
+  padding: 0;
+  position: flex;
+  flex-direction: row;
+  font-size: 10.5px;
+}
 
+.spinner > div {
+  width: 10px;
+  height: 10px;
+  background-color: #000;
+  margin: 5px;
   border-radius: 100%;
   display: inline-block;
   -webkit-animation: sk-bouncedelay 1.4s infinite ease-in-out both;
@@ -1158,16 +1201,14 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 }
 
 @-webkit-keyframes sk-bouncedelay {
-  0%, 80%, 100% { -webkit-transform: scale(0) }
-  40% { -webkit-transform: scale(1.0) }
+  0%, 80%, 100% {     opacity: 0;  }
+  40% { opacity: 1; }
 }
 
 @keyframes sk-bouncedelay {
   0%, 80%, 100% { 
-    -webkit-transform: scale(0);
-    transform: scale(0);
+    opacity: 0;
   } 40% { 
-    -webkit-transform: scale(1.0);
-    transform: scale(1.0);
+    opacity: 1;
   }
 }

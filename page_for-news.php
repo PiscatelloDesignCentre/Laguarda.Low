@@ -6,23 +6,24 @@
 ?>
 <?php get_header(); ?>
 
+<style>
+    p {
+        font-size: 14px !important;
+    }
+</style>
 
 <?php  while ( have_posts() ) : the_post(); ?>
     <!-- Left side with info -->
-    <div class="content__full-width full-height">
-        <div class="left">
+    <div class="content__full-width full-height padding-t-90">
+        <div class="left invisible animate">
             <div class="page-top-left">
                 <h3 class="title"><?php the_title() ?></h3>
                 <h5 class="subtitle"><?php the_date() ?></h5>
             </div>
-            <p><?php the_content(); ?></p>
+            <p style="width: 66.66%"><?php echo get_the_content(); ?></p>
         </div>
-        <div class="right">
-            <div class="page-top-left">
-                <h5><button class="share-button">SHARE</button></h5>
-                <h5>&nbsp</h5>
-            </div>
-            <div class="img-block">
+        <div class="right invisible animate">
+            <div class="img-block invisible animate">
                 <?php $file_parts = pathinfo(get_field('attachment')); ?>
                 <?php if($file_parts['extension'] == "pdf"): ?>
                     <?php $pdf_url = '[flipbook pdf="' . get_field('attachment') .'" lightbox="true" height="800px" cover="'. get_field('pdf_preview') .'"]';?>
@@ -31,11 +32,15 @@
                     <img src="<?php the_field('attachment')?>">
                 <?php endif; ?>
             </div>
+            <div class="page-top-left" style="margin-top: 30px">
+                <h5><button class="share-button">SHARE</button></h5>
+                <h5>&nbsp</h5>
+            </div>
             
         </div>
-        <div class="approach-nav">
-            <?php next_post_link( '%link', 'See Next Leadership', TRUE ); ?>
-        </div>
+        <div class="approach-nav invisible animate">
+            <?php $output  = "<img src=" . get_template_directory_uri() . "/images/LaguardaLow_Arrow_BlackRight.svg class='side-arrow' height='23px' width='23px'> SEE NEXT NEWS" ?>
+            <?php next_post_link( '%link', $output, TRUE ); ?>        </div>
     </div>
     
     <!-- Right side with stuff for something -->
