@@ -162,22 +162,24 @@
     </script>
 
     <!-- jQuery -->
-    <script src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery-1.9.0.min.js"></script>
     
-    <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery.nivo.slider.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 
     <script type="text/javascript">
+    (function($) {
       $('.project-nav-article').click(function() {
         $('.project-nav-article').removeClass('active');
         $(this).addClass('active');
       });
+    })(jQuery);
     </script>
     <script type="text/javascript">
+    (function($) {
       $( document ).ready(function() {
         console.log( "document loaded" );
         $('.band').addClass('active');
       });
+    })(jQuery);
     </script>
     
     
@@ -255,6 +257,7 @@
   
 
     <script type="text/javascript">
+    (function($) {
       $( document ).ready(function(){
         if ($('div').hasClass('theme-laguardalowSlider')){
           $('.slider-wrapper').css({
@@ -269,7 +272,7 @@
         }
 
       });
-  
+    })(jQuery)
     </script>
 
     <script type="text/javascript">
@@ -307,7 +310,6 @@
       });
     })(jQuery)
     </script>
-
     <?php wp_footer(); ?>
   </body>
 </html>

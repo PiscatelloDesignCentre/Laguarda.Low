@@ -1,0 +1,31 @@
+{
+  "name": "laguardalow",
+  "version": "1.0.0",
+  "description": "Package for Laguarda.Low ",
+  "main": "index.js",
+  "dependencies": {
+    "babel-plugin-async-to-promises": "^1.0.5"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-minify": "^0.4.3",
+    "babel-plugin-transform-es2015-template-literals": "^6.22.0",
+    "babel-polyfill": "^6.0.16",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-preset-minify": "^0.4.3"
+  },
+  "scripts": {
+    "build": "babel js -d lib && rm -rf lib/min && minify lib -d lib/min"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonahallibone/Laguarda.Low.git"
+  },
+  "author": "Jonah Allibone",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonahallibone/Laguarda.Low/issues"
+  },
+  "homepage": "https://github.com/jonahallibone/Laguarda.Low#readme"
+}
