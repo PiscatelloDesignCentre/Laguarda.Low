@@ -50,6 +50,18 @@
   wp_enqueue_style( 'header', get_template_directory_uri() . '/css/header.css',false,'1.1','all');
   wp_enqueue_style( 'mobile', get_template_directory_uri() . '/css/mobile.css',false,'1.1','all');
 
+  //Page Slug Body Class
+	function add_slug_body_class( $classes ) {
+		global $post;
+		
+		if ( isset( $post ) ) {
+			$classes[] = $post->post_type . '-' . $post->post_name;
+		}
+
+		return $classes;
+	}
+	add_filter( 'body_class', 'add_slug_body_class' );
+
   function people_init() {
 		// create a new taxonomy
 		register_taxonomy(

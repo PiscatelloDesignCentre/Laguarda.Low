@@ -30,3 +30,10 @@
     text-align: left;
     padding: 30px;
 }
+
+#video-slider {
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: nowrap;
+}

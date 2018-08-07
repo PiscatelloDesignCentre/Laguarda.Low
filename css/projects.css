@@ -81,6 +81,24 @@
     cursor: auto;
 }
 
+.project-caption {
+    position: absolute;
+    bottom: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+    color: #FFF;
+    display: block;
+    text-align: center;
+}
+
+.project-caption span {
+    display: block;
+    line-height: 1 !important;
+    position: static;
+    padding-bottom: 8px;
+}
+
 .project-title a {
     font-weight: 800 !important;
     color: #FFF;
@@ -104,14 +122,15 @@
 
 
 ul.navigation-tabs {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
     justify-content: stretch;
     align-content: center;
     white-space: nowrap;
     list-style: none;
     font-size: 14px;
     cursor: pointer;
-    background-color: #C0C0C0;
+    grid-gap: 1px;
 }
 
 
@@ -120,12 +139,10 @@ ul.navigation-tabs {
     background-color: #C0C0C0;
     height: 30px;
     color: #FFF;
-    width: 8.34%;
     text-align: center;
     display: inline-flex;
     align-items: center;
-    justify-content: flex-start;
-    padding-left: 15px;
+    justify-content: center;
     text-transform: uppercase;
     text-decoration: none;
     box-sizing: border-box;
@@ -145,11 +162,8 @@ ul.navigation-tabs {
     color: #ffffff;
 }
 
-.navigation-tabs a {
-    border-right: 1px solid #FFF;
-}
-.navigation-tabs a:last-of-type {
-    border-right: none;
+.page-news .navigation-tabs a:last-of-type {
+    border-right: 1px solid #FFF !important;
 }
 
 
@@ -325,10 +339,6 @@ ul.navigation-tabs {
 }
 /* NO SROLL */
 
-.noscroll {
-    overflow: hidden;
-}
-
  .visible {
     display: block;
     visibility: visible;
@@ -336,7 +346,63 @@ ul.navigation-tabs {
     transition: visibility 0s linear 1s, opacity .15s ease;
 }
 
+.project-slider-container {
+    margin-top: 60px;
+    height: calc(100% - 60px);
+}
 
+.main-carousel {
+    height: 100vh;
+}
+
+.carousel-cell {
+    width: 100%;
+    height: auto;
+    max-height: 100%;
+    margin-right: 0px;
+    background: #333;
+    display: flex;
+    justify-content: center;
+  }
+
+.carousel-cell-image {
+    display: block;
+    min-height: 100%;
+    height: auto;
+    margin: 0 auto;
+    opacity: 1;
+    -webkit-transition: opacity 0.4s;
+            transition: opacity 0.4s;
+            object-fit: none;
+}
+
+
+.flickity-page-dots {
+    bottom: 50px !important;
+}
+
+/** Fade hack **/
+.flickity-slider.fade {
+    transform: none !important;
+}
+  
+.flickity-slider.fade  .carousel-cell {
+    left: 0 !important;
+    opacity: 0;
+    transition: opacity 0.6s ease-in-out 0.3s;
+    z-index: 1;
+    min-height: 100%;
+}
+  
+.flickity-slider.fade .carousel-cell.is-selected {
+    opacity: 1;
+    transition: opacity 0.6s ease-in-out;
+    z-index: 2;
+}
+
+.flickity-prev-next-button {
+    z-index: 3;
+}
 /***
 ** Search Page
 ***/

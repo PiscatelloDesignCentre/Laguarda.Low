@@ -1,19 +1,19 @@
 <?php get_header() ?>
 <style>
     .grid-elements.grid-elements__overview::before  {
-        background-image: url('<?php echo get_field('overview_image') ?>');
+        background-image: url(<?php echo get_field('overview_image') ?>);
     }
 
     .grid-elements.grid-elements__leadership::before  {
-        background-image: url('<?php echo get_field('leadership_image') ?>');
+        background-image: url(<?php echo get_field('leadership_image') ?>);
     }
 
     .grid-elements.grid-elements__video::before  {
-        background-image: url('<?php echo get_field('videos_image') ?>');
+        background-image: url(<?php echo get_field('videos_image') ?>);
     }
 
     .grid-elements.grid-elements__awards::before  {
-        background-image: url('<?php echo get_field('awards_image') ?>');
+        background-image: url(<?php echo get_field('awards_image') ?>);
     }
 </style>
     <div class="grid-container-4">
@@ -32,7 +32,8 @@
     </div>
 
     <script>
-    window.onload = applyAnimation;
+    document.addEventListener("DOMContentLoaded", applyAnimation)
+    
     function applyAnimation() {
         var offset = 0;
         document.querySelectorAll(".grid-elements.invisible").forEach((el, i) => {

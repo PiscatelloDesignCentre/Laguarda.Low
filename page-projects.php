@@ -1,31 +1,4 @@
-<?php get_header(); ?>
-	<nav class="row-fluid project-nav sm-hidden">
-		<ul class="navigation-tabs">
-			<a data-filter="" href="#" class="selected">
-				ALL PROJECTS
-			</a>
-			<?php
-				$args = array(
-					"hide_empty" => 0,
-					"type"      => "post",      
-					"orderby"   => "name",
-					"order"     => "ASC",
-					'parent'  => 7 
-				);
-
-  				$cats = get_categories($args);
-				
-				foreach ( $cats as $cat ) { ?>
-					<?php if($cat->slug !== "projects") { ?>
-					<a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-", " ", $cat->slug) ?>">
-						<?php echo $cat->cat_name ?>
-					</a>
-					<?php } ?>  
-				<?php } ?>
-
-		</ul>
-	</nav> 
-	
+<?php get_header(); ?> 
 	<div class="row-fluid project-grid">
 		<div class="grid-container">
 		<?php
@@ -56,7 +29,7 @@
 								<?php echo get_the_title(); ?>
 							</span> 
 							<span class='project-location'> 
-								<?php the_field('location'); ?>
+								<?php the_field('project_city'); ?>, <?php the_field('project_country')?>
 							</span>
 							<span class='project-category'> 
 								<?php echo get_the_category()[1]->cat_name; ?> 
@@ -95,12 +68,16 @@
 			el.addEventListener("click", filterProjects);
 		});
 
+		document.querySelectorAll(".drop-down-selector a").forEach((el, i) => {
+			el.addEventListener("click", filterProjects);
+		});
+
 		document.addEventListener("DOMContentLoaded", pageLoaded)
 
 		window.onbeforeunload = function(){ window.scrollTo(0,0); }
 
 		async function getCategories() {
-			return await fetch('/wordpress/wp-json/wp/v2/categories?per_page=50', {
+			return await fetch('<?php echo site_url() ?>/wp-json/wp/v2/categories?per_page=50', {
 				method: "GET"
 			}).then(res => {
 				return res.json()
@@ -111,7 +88,14 @@
 				return Promise.resolve(categories)
 			})
 		}
+
+		window.addEventListener("hashchange", handleHashChange);
 		
+		function handleHashChange() {
+			let hashname =  location.hash.replace("#", '')
+			document.querySelector(".category-name-band").innerText = hashname || "All";
+		}
+		 
 
 		async function pageLoaded() {
 			// console.log(window.page_length)
@@ -129,6 +113,7 @@
 			if(location.hash) {
 				let catName = location.hash.replace('#','')
 				let cat = filterCategoryNames(catName.toLowerCase())
+				document.querySelector(".category-name-band").innerText = catName;
 				currentFilter = cat.id;
 
 				filter = "&categories=" + cat.id
@@ -149,8 +134,9 @@
 				}
 			
 			}
-
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=7&per_page=16&page=1"  + filter , {
+			document.querySelector(".spinner").classList.add("top-center");
+			document.querySelector(".spinner").classList.remove("hidden");
+			let posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&order=asc&categories=7&per_page=16&page=1"  + filter , {
 				method: 'GET'
 			}).then((res) => {
 				// console.log(res.headers)
@@ -168,11 +154,13 @@
 				})
 			
 
-				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=7&parent=7&per_page=16&exclude="+idArr.join(","), {
+				filler = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&order=asc&categories=7&parent=7&per_page=16&exclude="+(idArr.join(",") || -"1"), {
 					method: 'GET'
 				}).then((res) => {
 					return res.json()
 				});
+				document.querySelector(".spinner").classList.remove("top-center");
+				document.querySelector(".spinner").classList.add("hidden");
 			
 			}
 
@@ -245,7 +233,7 @@
 				filter = ""
 			}
 			if(!categoryComplete) {
-				posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=16&page=" + pageNumber + filter , {
+				posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=16&page=" + pageNumber + filter , {
 					method: 'GET'
 				}).then((res) => {
 					if(!res.ok) {
@@ -266,7 +254,7 @@
 					idArr.push(el.id)
 				})
 
-				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=16&page="+pageNumber+"&exclude="+(idArr.join(",") || -"1"), {
+				filler = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=16&page="+pageNumber+"&exclude="+(idArr.join(",") || -"1"), {
 					method: 'GET'
 				}).then((res) => {
 					return res.json()
@@ -278,6 +266,8 @@
 		}
 
 		async function filterProjects(e) {
+			window.scrollTo(0,0);
+			document.body.classList.remove("noscroll");
 			if(e.target.classList.contains("selected")) { return }
 
 			currentPage = 1;
@@ -294,11 +284,14 @@
  
 			e.target.classList.add("selected");
 			await fadeOutAnimation()
-
 			if(e.target.dataset.filter == 19) {
 				document.body.classList.add("noscroll");
-				archivesLoaded()
+				document.querySelector(".spinner").classList.add("top-center");
+				document.querySelector(".spinner").classList.remove("hidden");
+				await archivesLoaded()
 				document.querySelector(".archives-overlay").classList.add("visible")
+				document.querySelector(".spinner").classList.remove("top-center");
+				document.querySelector(".spinner").classList.add("hidden");
 				return;
 			}
 
@@ -311,8 +304,11 @@
 			}
 
 			currentFilter = e.target.dataset.filter;
-			
+			document.querySelector(".spinner").classList.add("top-center");
+			document.querySelector(".spinner").classList.remove("hidden");
 			let posts = await getNewPosts(currentFilter);
+			document.querySelector(".spinner").classList.add("hidden");
+			document.querySelector(".spinner").classList.remove("top-center");
 			let html = await returnProject(posts);
 			
 			document.querySelector(".grid-container").classList.remove("fade-out")
@@ -346,7 +342,7 @@
 								${post.title.rendered} 
 							</span> 
 							<span class='project-location'> 
-								${post.acf.location}
+								${post.acf.project_city}, ${post.acf.project_country}
 							</span>
 							<span class='project-category'> 
 								${mapCategories(post.categories).name} 

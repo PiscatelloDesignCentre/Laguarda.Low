@@ -30,7 +30,9 @@
     <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/nivo-slider/themes/bar/bar.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/nivo-slider/themes/laguardalowSlider/laguardalowSlider.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/css/nivo-slider.css" type="text/css" media="screen" />
-
+    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+    <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/flickity.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.min.js" defer="defer"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -56,11 +58,8 @@
 
   </head>
 
-  <body class="<?php echo is_home() ? "full-bleed-homepage" : "" ?>">
+  <body class="<?php echo is_home() ? "full-bleed-homepage " : "" ?><?php echo "page-" . str_replace(' ', '-', strtolower(get_the_title(get_the_ID()))); ?>">
     <header>
-      <!-- <?php if (is_page('projects')) { ?>
-
-      <?php }?> -->
       <div class="band laguarda-low-header <?php echo is_home() ? "home-band" : "" ?>">
         <div class="flex-left">
           
@@ -172,8 +171,60 @@
 
       <!-- Mobile Selector -->
       <div class="mobile-selector">
-        <span class="selected-category">Projects | All</span>
+        
+        <span class="selected-category">
+          <?php if(is_page('projects')): ?>
+            Projects | <span class="category-name-band" style="text-transform: capitalize">All</span>
+          <?php elseif(is_page('news')): ?>
+            News | All
+          <?php else: ?>
+            <?php the_title() ?>  
+          <?php endif; ?>
+        </span>
+        <?php if(is_page('projects') || is_page('news')): ?>
+        <div class="down-arrow-mobile-selector"></div>
         <div class="drop-down-selector">
+          <a data-filter="" href="#" class="selected">
+            All Projects
+          </a>
+          <?php
+            if(is_page('projects')) {
+              $args = array(
+                "hide_empty" => 0,
+                "type"      => "post",      
+                "orderby"   => "name",
+                "order"     => "ASC",
+                'parent'  => 7 
+              );
+            }
+
+            else if (is_page('news')) {
+              $args = array(
+                "hide_empty" => 0,
+                "type"      => "post",      
+                "orderby"   => "name",
+                "order"     => "ASC",
+                'parent'  => 51 
+              );
+  
+            }
+
+              $cats = get_categories($args);
+          ?>
+          <?php foreach ( $cats as $cat ) { ?>
+            <?php if($cat->slug !== "projects") { ?>
+            <a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-", " ", $cat->slug) ?>">
+              <?php echo $cat->cat_name ?>
+            </a>
+            <?php } ?>  
+          <?php } ?>
+        </div>
+        <?php endif; ?>
+      </div>
+      <!-- End Mobile Selector -->
+      <?php if(is_page("projects")): ?>
+      <nav class="row-fluid project-nav sm-hidden">
+        <ul class="navigation-tabs">
           <a data-filter="" href="#" class="selected">
             ALL PROJECTS
           </a>
@@ -186,26 +237,26 @@
               'parent'  => 7 
             );
 
-              $cats = get_categories($args);
-          ?>
-          <?php foreach ( $cats as $cat ) { ?>
+            $cats = get_categories($args);
+            
+          foreach ( $cats as $cat ) { ?>
             <?php if($cat->slug !== "projects") { ?>
             <a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-", " ", $cat->slug) ?>">
               <?php echo $cat->cat_name ?>
             </a>
             <?php } ?>  
           <?php } ?>
-        </div>
-      </div>
-      <!-- End Mobile Selector -->
+        </ul>
+      </nav>
+      <?php endif; ?>
     </header>
-
     <script>
     ((window, undefined) => {
       var top = 0;
-
+      // console.log("Hello")
+      /** ONLY WINDOW.ONLOAD IN THE PROJECT */
       window.onload = () => {
-        lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        var lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
         var scroll = window.requestAnimationFrame ||
              window.webkitRequestAnimationFrame ||
@@ -214,10 +265,11 @@
              window.oRequestAnimationFrame ||
              // IE Fallback, you can even fallback to onscroll
              function(callback){ window.setTimeout(callback, 1000/60) };
-
+        
         function loop() {
 
           var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+          // console.log(st)
           if (st > lastScrollTop && st > 120){
             document.querySelector("header").classList.add("header-hidden");
           } 
@@ -226,7 +278,9 @@
           }
 
           lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-            scroll( loop )
+          
+
+          scroll(loop)
         }
 
         // Call the loop for the first time
@@ -236,12 +290,14 @@
 
 
         //Header nav window
+        <?php if(is_page('projects') || is_page('news')): ?>
+
 
         document.querySelector(".mobile-selector").addEventListener("click", (e) => {
           var band = document.querySelector(".laguarda-low-header")
           e.currentTarget.classList.toggle("dropped")
           document.body.classList.toggle("noscroll")
-          document.querySelector("html").classList.toggle("noscroll")
+          document.querySelector("html").classList.toggle("noscroll");
           
           if(band.classList.contains("fixed")) {
             band.classList.remove("fixed")
@@ -251,6 +307,8 @@
           document.querySelector(".laguarda-low-header").classList.toggle("fixed")
           document.querySelector(".mobile-selector").classList.toggle("fixed")
         });
+
+        <?php endif; ?>
       }
     })(window)
     </script>

@@ -59,7 +59,7 @@
     });
 
     async function archivesLoaded() {
-        let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=7&per_page=100", {
+        let posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=7&per_page=100", {
             method: 'GET'
         }).then((res) => {
             return res.json()
@@ -86,10 +86,6 @@
                     <div class='table-cell'>${el.acf.location}</div>
                     <div class='table-cell'>2016</div> 
                     <div class='slide-open'> 
-                    Overlooking Shenzhen Bay, OCT Bay is a unique shopping 
-                    and entertainment development with a diverse range of 
-                    retail shops, restaurants, hotels and entertainment facilities. 
-                        <br><br> 
                         ${ 
                             (el => {
                                 if(el.link != "") {
@@ -114,7 +110,7 @@
                         <strong>Scope</strong><br> 
                         ${el.acf.scope[0].scope_item } 
                     </div> 
-                    <div class='slide-open'><img src='${el._embedded["wp:featuredmedia"][0].source_url}' /></div> 
+                    <a href="${el.link}" class='slide-open'><img src='${el._embedded["wp:featuredmedia"][0].source_url}' /></a> 
                 </div>`
         });
 

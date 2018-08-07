@@ -1,5 +1,5 @@
 <?php get_header() ?>
-    <div class="row-fluid padding-t-60">
+    <div class="row-fluid">
         <div class="page-title-video">
             <h3><strong>Contact</strong></h3>
         </div>
@@ -22,32 +22,28 @@
         </div>
         <div class="animate invisible">
             <p>
-                Placeholder Name<br>
-                newbiz@laguardalow.com
-            </p>
-        </div>
-        <div class="animate invisible">
-        <p>
-                Placeholder Name<br>
-                info@laguardalow.com
+                <?php the_field('new_business_contact_name') ?>
             </p>
         </div>
         <div class="animate invisible">
             <p>
-                Placeholder Name<br>
-                press@laguardalow.com
+                <?php the_field('general_inquiry_name') ?>
             </p>
         </div>
         <div class="animate invisible">
             <p>
-                Placeholder Name<br>
-                careers@laguardalow.com
+                <?php the_field('press_inquiry_name') ?>
+            </p>
+        </div>
+        <div class="animate invisible">
+            <p>
+                <?php the_field('career_contact_name') ?>
             </p>
         </div>
     </div>
     <div class="content__full-width grid-1 nopadding animate invisible" id="locations">
         <div class="img-block">
-        <img src="<?php echo get_template_directory_uri() ?>/images/Laguarda_NYC.jpg">
+            <img src="<?php echo get_template_directory_uri() ?>/images/Laguarda_NYC.jpg">
         </div>
     </div>
     <div class="content__full-width grid-2  new-york-band contact gap-16 animate invisible">
@@ -56,15 +52,16 @@
         </div>
         <div class="right">
             <p>
-            Laguarda.Low Architects<br>
+            <?php the_field('new_york_headquarters') ?>
+            <!-- Laguarda.Low Architects<br>
             25 East 21st Street, 2nd Floor<br>
             New York, NY 10010<br>
             T 646.823.9770<br>
-            F 646.823.9891<br>
+            F 646.823.9891<br> -->
             </p>
         </div>
     </div>
-    <div class="content__full-width grid-2 nopadding gap-16">
+    <div class="content__full-width grid-2 nopadding gap-16 sm-hidden">
         <div class="left img-block gray-block animate invisible">
             <img src="<?php echo get_template_directory_uri() ?>/images/Laguarda_Beijing.jpg">
         </div>
@@ -74,11 +71,15 @@
     </div>
     <div class="content__full-width grid-4 contact animate invisible">
         <div class="left">
+            <div class="left img-block gray-block animate invisible mobile-hidden" style="padding-bottom: 30px">
+                <img src="<?php echo get_template_directory_uri() ?>/images/Laguarda_Beijing.jpg">
+            </div>
             <h3>Affiliate Beijing Office</h3>
         </div>
         <div class="right">
             <p>
-            Laguarda.Low Architects<br>
+                <?php the_field('beijing_headquarters_info') ?>
+            <!-- Laguarda.Low Architects<br>
             RM501 Tower 15<br>
             Jianwai SOHO No. 39<br>
             East Third Ring Road<br>
@@ -87,28 +88,33 @@
             T +86.10.58691224<br>
             F +86.10.58691560<br><br>
             James Wu<br>
-            james.wu@laguardalow.com<br>
+            james.wu@laguardalow.com<br> -->
             </p>
         </div>
         <div class="left">
+            <div class="right img-block gray-block animate invisible mobile-hidden" style="padding-bottom: 30px">
+                <img src="<?php echo get_template_directory_uri() ?>/images/Laguarda_Tokyo.jpg">
+            </div>
             <h3>Affiliate Tokyo Office</h3>
         </div>
         <div class="right">
-            <p>
-            Laguarda.Low + Tanamachi<br>
+            <?php the_field('tokyo_headquarters_info') ?>
+            <!-- Laguarda.Low + Tanamachi<br>
             3-1-8, INA Bldg 403<br>
             Hakusan Bunkyo-Ku<br>
             Tokyo, 112001, Japan<br><br>
             T +81.3.5800.5851<br> 
             F +81.3.5800.5852<br><br>
             Hiro Tanamachi<br>
-            tanamachi@llta.co.jp<br>
-            </p>
+            tanamachi@llta.co.jp<br> -->
         </div>
     </div>
     <div class="content__full-width grid-2 contact career full-height nopadding animate invisible" id="careers">
         <div class="left innerpadding">
-            <h3>Career Opportunities</h3>
+            <h3 class="career-title">Career Opportunities</h3>
+            <div class="mobile-hidden">
+                <template class="video-template" data-video-url="<?php echo get_field('contact_video', $post->ID) ?>"></template>
+            </div>
             <div class="content__full-width grid-3 nopadding white-bg">
             <?php query_posts('category_name=Career&posts_per_page=6'); ?>
             <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
@@ -127,27 +133,8 @@
             </div>
         </div>
         <div class="right innerpadding nooverflow">
-            <div class="video-container" style="margin-top: 80px">
-                <video class="video" playsinline webkit-playsinline>
-                    <source src="<?php echo get_field('contact_video', $post->ID) ?>" type="video/mp4">
-                    Your browser does not support HTML5 video.
-                </video>
-                <div class="video-container-overlay">
-                    <div class="button">Play Video</div>
-                </div>
-                <div class="video-controls hidden">
-                    <button type="button" class="play-pause"></button>
-                    <span class="time-passed">0:00</span>
-                    <progress class="seek-bar" max="100" value="0"></progress>
-                    <span class="time-left">0:00</span>
-                    <button class="full-screen"></button>
-                    <div class="volume-control">
-                        <button class="volume"></button>
-                        <div class="range-container">
-                            <input type="range" min=0 max=100>
-                        </div>
-                    </div>
-                </div>
+            <div class="sm-hidden">
+                <template class="video-template" data-video-url="<?php echo get_field('contact_video', $post->ID) ?>"></template>
             </div>
             <div class="overlay innerpadding">
                 <div class="close-overlay"></div>
@@ -167,6 +154,8 @@
 
         document.querySelector(".close-overlay").addEventListener("click", el => {
             document.querySelector(".overlay").classList.remove("slide-out");
+            document.querySelector("header").classList.add("header-hidden");
+            document.body.classList.remove("noscroll")
         });
         
 
@@ -182,11 +171,14 @@
 
         function getPostById(e) {     
             document.querySelector(".overlay").classList.add("slide-out")
+            document.querySelector("header").classList.remove("header-hidden");
+            document.body.classList.add("noscroll")
+
             let postID = (e.currentTarget.dataset.postId)
 
             let careerSpace = document.querySelector('.career-content')
 
-            let post = fetch("/wordpress/wp-json/wp/v2/posts?include="+postID, {
+            let post = fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?include="+postID, {
                 method: "GET"
             }).then((res) => {
                 return res.json()

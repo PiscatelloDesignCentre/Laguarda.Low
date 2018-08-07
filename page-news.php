@@ -16,7 +16,7 @@
   				$cats = get_categories($args);
 				
 				foreach ( $cats as $cat ) { ?>
-					<?php if($cat->slug !== "projects") { ?>
+					<?php if($cat->slug !== "projects" && $cat->slug !== "posts") { ?>
 					<a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-", " ", $cat->slug) ?>">
 						<?php echo $cat->cat_name ?>
 					</a>
@@ -99,7 +99,7 @@
 		window.onbeforeunload = function(){ window.scrollTo(0,0); }
 
 		async function getCategories() {
-			return await fetch('/wordpress/wp-json/wp/v2/categories?per_page=50', {
+			return await fetch('<?php echo site_url() ?>/wp-json/wp/v2/categories?per_page=50', {
 				method: "GET"
 			}).then(res => {
 				return res.json()
@@ -149,7 +149,7 @@
 			
 			}
 
-			let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=51&per_page=16&page=1"  + filter , {
+			let posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&order=asc&categories=51&per_page=16&page=1"  + filter , {
 				method: 'GET'
 			}).then((res) => {
 				// console.log(res.headers)
@@ -167,7 +167,7 @@
 				})
 			
 
-				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&order=asc&categories=51&parent=7&per_page=16&exclude="+idArr.join(","), {
+				filler = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&order=asc&categories=51&parent=7&per_page=16&exclude="+idArr.join(","), {
 					method: 'GET'
 				}).then((res) => {
 					return res.json()
@@ -244,7 +244,7 @@
 				filter = ""
 			}
 			if(!categoryComplete) {
-				posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=51&order=asc&per_page=16&page=" + pageNumber + filter , {
+				posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=51&order=asc&per_page=16&page=" + pageNumber + filter , {
 					method: 'GET'
 				}).then((res) => {
 					if(!res.ok) {
@@ -265,7 +265,7 @@
 					idArr.push(el.id)
 				})
 
-				filler = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=51&order=asc&per_page=16&page="+pageNumber+"&exclude="+(idArr.join(",") || -"1"), {
+				filler = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=51&order=asc&per_page=16&page="+pageNumber+"&exclude="+(idArr.join(",") || -"1"), {
 					method: 'GET'
 				}).then((res) => {
 					return res.json()

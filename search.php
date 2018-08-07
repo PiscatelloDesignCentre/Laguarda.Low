@@ -36,7 +36,8 @@ get_header(); ?>
         </div>
 
         <script>
-            window.onload = animateRows;
+            document.addEventListener("DOMContentLoaded", animateRows)
+
             function animateRows() {
                 let offset = 0;
                 document.querySelectorAll(".result").forEach((el, i) => {

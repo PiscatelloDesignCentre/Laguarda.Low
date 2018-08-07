@@ -386,7 +386,7 @@ h5.subtitle {
 }
 
 .innerpadding {
-    padding: 30px 30px;
+    padding: 30px 15px;
     box-sizing: border-box;
 }
 
@@ -655,7 +655,7 @@ input[type=range] {
 .page-title-leadership,
 .page-title-video {
     background-color: #F1F1F2;
-    padding: 60px 15px;
+    padding: 90px 15px 60px 15px;
 }
 
 .page-title-leadership h3,

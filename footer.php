@@ -80,9 +80,9 @@
         <div class="col-md-3 copyRight">
           <p>Copyright &copy; 2018 Laguarda Low Architects | LLA</p>
         </div>
-        <div class="col-md-3 mobile-hidden"></div>
-        <div class="col-md-3 mobile-hidden"></div>
-        <div class="col-md-3 socialMedia mobile-hidden">
+        <div class="col-md-3 sm-hidden"></div>
+        <div class="col-md-3 sm-hidden"></div>
+        <div class="col-md-3 socialMedia sm-hidden mobile-hidden">
           <?php wp_nav_menu( array( 'theme_location' => 'footer' ) ); ?>  
         </div>
       </div>
@@ -91,9 +91,10 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  
+   
+
     <script type="text/javascript">
+    (function($) {
       // Select all links with hashes
       $('a[href*="#"]')
         // Remove links that don't actually link to anything
@@ -113,23 +114,29 @@
             if (target.length) {
               // Only prevent default if animation is actually gonna happen
               event.preventDefault();
-              $('html, body').animate({
-                scrollTop: target.offset().top
-              }, 1200, function() {
-                // Callback after animation
-                // Must change focus!
-                var $target = $(target);
-                $target.focus();
-                if ($target.is(":focus")) { // Checking if the target was focused
-                  return false;
-                } else {
-                  $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
-                  $target.focus(); // Set focus again
-                };
+              // $('html, body').animate({
+              //   scrollTop: target.offset().top
+              // }, 1200, function() {
+              //   // Callback after animation
+              //   // Must change focus!
+              //   var $target = $(target);
+              //   $target.focus();
+              //   if ($target.is(":focus")) { // Checking if the target was focused
+              //     return false;
+              //   } else {
+              //     $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+              //     $target.focus(); // Set focus again
+              //   };
+              // });
+
+              window.scrollTo({
+                top: target.offset().top,
+                behavior: "smooth"
               });
             }
           }
         });
+      })(jQuery)
     </script>
     <script>
       document.querySelectorAll(".site-footer ul").forEach((el, i) => {
@@ -161,36 +168,6 @@
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 
     <script type="text/javascript">
-    $(window).load(function() {
-    
-      $('#slider').nivoSlider({ 
-        effect: 'fade',                 // Specify sets like: 'fold,fade,sliceDown' 
-        slices: 15,                       // For slice animations 
-        boxCols: 8,                       // For box animations 
-        boxRows: 4,                       // For box animations 
-        animSpeed: 500,                   // Slide transition speed 
-        pauseTime: 3000,                  // How long each slide will show 
-        startSlide: 0,                    // Set starting Slide (0 index) 
-        directionNav: true,               // Next & Prev navigation 
-        controlNav: true,                 // 1,2,3... navigation 
-        controlNavThumbs: false,          // Use thumbnails for Control Nav 
-        pauseOnHover: false,               // Stop animation while hovering 
-        manualAdvance: false,             // Force manual transitions 
-        prevText: 'Prev',                 // Prev directionNav text 
-        nextText: 'Next',                 // Next directionNav text 
-        randomStart: false,               // Start on a random slide 
-        beforeChange: function(){},       // Triggers before a slide transition 
-        afterChange: function(){},        // Triggers after a slide transition 
-        slideshowEnd: function(){},       // Triggers after all slides have been shown 
-        lastSlide: function(){},          // Triggers when last slide is shown 
-        afterLoad: function(){}           // Triggers when slider has loaded 
-      });
-
-      $("#slider").css({"opacity": 1});
-      
-    });
-    </script>
-    <script type="text/javascript">
       $('.project-nav-article').click(function() {
         $('.project-nav-article').removeClass('active');
         $(this).addClass('active');
@@ -208,6 +185,7 @@
 
     <!-- Footer sliding up on scroll -->
     <script type="text/javascript">
+    (function($) {
       var $animation_elements = $('.animation-element');
       var $window = $(window);
 
@@ -234,9 +212,11 @@
 
       $window.on('scroll resize', check_if_in_view);
       $window.trigger('scroll');
+    })(jQuery)
     </script>
     
-    <script>
+  <script>
+      (function($) {
         $.fn.isInViewport = function() {
             var elementTop = $(this).offset().top 
             var elementBottom = elementTop + $(this).outerHeight();
@@ -269,7 +249,8 @@
                 }
             });
         });
-      </script>
+      })(jQuery)
+    </script>
     
   
 
@@ -292,24 +273,39 @@
     </script>
 
     <script type="text/javascript">
+    (function($) {
       $(".projectMap").click(function(){
         $('div.relatedProjectsContent').removeClass("active");
         $('div.shareProjectContent').removeClass("active");
+        $('div.projectVideoContent').removeClass("active");
         $('div.mapContent').addClass("active");
+        
       });
       $(".projectShare").click(function(){
         $('div.relatedProjectsContent').removeClass("active");
         $('div.mapContent').removeClass("active");
+        $('div.projectVideoContent').removeClass("active");
         $('div.shareProjectContent').addClass("active");
+
       });
+      $(".projectVideo").click(function(){
+        $('div.relatedProjectsContent').removeClass("active");
+        $('div.mapContent').removeClass("active");
+        $('div.shareProjectContent').removeClass("active");
+        $('div.projectVideoContent').addClass("active");
+      });
+    })(jQuery)
     </script>
 
     <script type="text/javascript">
+    (function($) {
       $(".closeButton").click(function(){
         $('div.mapContent').removeClass("active");
         $('div.shareProjectContent').removeClass("active");
+        $('div.projectVideoContent').removeClass("active");
         $('div.relatedProjectsContent').addClass("active");
       });
+    })(jQuery)
     </script>
 
     <?php wp_footer(); ?>

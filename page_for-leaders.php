@@ -32,10 +32,11 @@ while ( have_posts() ) : the_post(); ?>
             <div class="img-block invisible animate">
                 <img src="<?php the_field('employee_office_shot')?>">
             </div>
-            <h4 class="section-title"><?php the_title() ?>'s Posts</h4>
-            <div class="related-projects">
-                <?php 
-                    if(have_rows('posts_by_employee')):
+            <?php 
+                if(have_rows('posts_by_employee')): ?>
+                    <h4 class="section-title"><?php the_title() ?>'s Posts</h4>
+                    <div class="related-projects">
+                    <?php
                         while(have_rows('posts_by_employee')): the_row();
                             $post_o = get_sub_field('employee_post');
                             if($post_o): 
@@ -56,15 +57,14 @@ while ( have_posts() ) : the_post(); ?>
                             <?php
                             wp_reset_postdata(); 
                             endif;
-                        endwhile;
-                    else:
-                    endif;
-                ?>
-            </div>
+                        endwhile; ?>
+                    </div>
+                    <?php else: ?>
+                <?php endif; ?>
         </div>
         <div class="approach-nav invisible animate">
-            <?php $output  = "<img src=" . get_template_directory_uri() . "/images/LaguardaLow_Arrow_BlackRight.svg class='side-arrow' height='23px' width='23px'> SEE NEXT LEADERSHIP" ?>
-            <?php next_post_link( '%link', $output, TRUE ); ?>
+            <?php $output  = "<img src=" . get_template_directory_uri() . "/images/LaguardaLow_Arrow_BlackLeft.svg class='side-arrow' height='23px' width='23px'> BACK TO LEADERSHIP" ?>
+            <a href="<?php echo get_site_url() . "/firm/leadership" ?>"><?php echo $output ?></a>
         </div>
     </div>
     

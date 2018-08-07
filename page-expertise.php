@@ -14,7 +14,10 @@
         </a>
     </div>
     <script>
-    window.onload = applyAnimation;
+
+        
+    document.addEventListener("DOMContentLoaded", applyAnimation)
+
     function applyAnimation() {
         var offset = 0;
         document.querySelectorAll(".grid-elements.invisible").forEach((el, i) => {

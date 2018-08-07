@@ -33,7 +33,9 @@
                 <?php endif; ?>
             </div>
             <div class="page-top-left" style="margin-top: 30px">
-                <h5><button class="share-button">SHARE</button></h5>
+                <div class="projectShare" style="margin-left: 0 !important">
+					<a>Share</a>
+                </div>                
                 <h5>&nbsp</h5>
             </div>
             

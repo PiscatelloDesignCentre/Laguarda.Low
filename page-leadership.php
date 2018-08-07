@@ -1,6 +1,6 @@
 <?php get_header(); ?> 
-<div class="row-fluid project-grid padding-t-60">
-    <div class="page-title-leadership">
+<div class="row-fluid">
+    <div class="page-title-leadership sm-hidden">
         <h3><strong>Leadership</strong></h3>
     </div>
     <div class="grid-container">
@@ -22,7 +22,8 @@
     </div>
 </div>
 <script>
-    window.onload = applyAnimation;
+    document.addEventListener("DOMContentLoaded", applyAnimation);
+    
     function applyAnimation() {
         var offset = 0;
         document.querySelectorAll(".project-thumb.invisible").forEach((el, i) => {

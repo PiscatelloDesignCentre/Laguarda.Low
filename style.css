@@ -13,13 +13,191 @@ Tags: bootstrap
 
 html {
   margin: 0 !important;
+  height: 100%;
 }
 
 body {
   font-family: 'Noto Sans', sans-serif !important;
   color: #000000;
+  min-height: 100%;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
+
+a:hover {
+  text-decoration: none !important;
+}
+
+a:hover, a:active, a:focus, a:visited {
+  text-decoration: none !important;
+}
+
+.main-carousel { height: 100%; }
+
+.carousel-cell { height: 100%; width: 100%; overflow: hidden; }
+
+#myVideo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+.slider-video-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+video::-webkit-media-controls-start-playback-button {
+  display: none!important
+  -webkit-appearance: none
+}
+
+
+video::-webkit-media-controls-panel {
+  display: none!important
+  -webkit-appearance: none
+}
+
+video::--webkit-media-controls-play-button {
+  display: none!important
+  -webkit-appearance: none
+}
+
+/* Flickity Fade */
+
+.flickity-slider.fade {
+  transform: none !important;
+}
+
+.flickity-slider.fade .carousel-cell {
+  left: 0 !important;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out 0.3s;
+  z-index: 1;
+}
+
+.flickity-slider.fade .carousel-cell.is-selected {
+  opacity: 1;
+  transition: opacity 0.6s ease-in-out;
+  z-index: 2;
+}
+
+.flickity-prev-next-button {
+  z-index: 3;
+}
+
+.flickity-page-dots {
+  z-index: 10;
+}
+
+li.dot {
+  height: 15px !important;
+  width: 15px !important;
+  border-radius: 5px !important;
+  background-color: transparent !important;
+  position: relative;
+}
+
+li.dot:after {
+  content: '';
+  position: absolute;
+  height: 6px;
+  width: 6px;
+  border-radius: 4px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+}
+
+.path {
+	stroke-dasharray: 1000 1000;/*615.423095703125;*/
+	stroke-dashoffset: 1000;/*615.423095703125;*/
+	/*animation: dash 5s linear forwards;
+	-webkit-animation: dash 3s linear forwards;*/
+}
+.is-selected .figure {
+  display: block;
+}
+
+.figure svg {
+  overflow: visible !important;
+}
+
+.figure {
+  position: absolute;
+  overflow: visible;
+  display: none;
+  top: calc(50% + 1px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.flickity-prev-next-button {
+  display: none;
+}
+
+.custom-prev-next-button {
+  height: 35px;
+  width: 35px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  background-color: transparent;
+  border: none;
+  background-size: contain;
+  background-repeat: no-repeat;
+  outline: none;
+}
+
+.slideshow-custom-wrapper {
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .345s ease opacity;
+}
+
+.slideshow-custom-wrapper.loaded {
+  opacity: 1;
+}
+
+.custom-prev-next-button.left {
+  left: 10px;
+  background-image: url("images/LaguardaLow_LeftArrow-150x150.png");
+}
+
+.custom-prev-next-button.right {
+  right: 10px;
+  background-image: url("images/LaguardaLow_RightArrow-150x150.png");
+}
+
+.homepage-quote {
+  font-size: 25px;
+  color: #FFF;
+  font-weight: 600;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  z-index: 5;
+  width: 100%;
+  padding: 35px 15px;
+  background: linear-gradient(transparent , #000000 125%);
+  line-height: 32px;
+}
+
+.loaded .homepage-quote span {
+  animation: slideFromBottom 1.25s ease forwards;
+  -webkit-backface-visibility: hidden;
+  -webkit-transform: rotate(0deg) skewY(0deg);
+  opacity: 1;
+  transform: translateY(20px);
+}
 
 
 /*
@@ -40,6 +218,16 @@ body {
 /*
  * band
  */
+
+ .header-hidden {
+  transform: translateY(-100%);
+}
+
+header {
+  position: fixed;
+  transition: .345s ease all;
+}
+
 .site-header{
   background-color: transparent;
   background-size: cover;
@@ -196,8 +384,6 @@ header .menu li:nth-last-child(2) {
 
 header .menu li:first-of-type {
   margin-left: 10%;
-  margin-right: -3%;
-  padding-right: 10px;
 }
 
 /*
@@ -394,6 +580,7 @@ header .menu li:first-of-type {
 .menu-social-links-menu-container {
   float: right;
   height: 100%;
+  margin-right: 30px;
 }
 
 .socialMedia ul li {
@@ -542,7 +729,11 @@ header .menu li:first-of-type {
 .project-nav {
   box-shadow: none;
   height: 30px;
-  margin-top: 60px;
+  background-color: #FFF;
+}
+
+.project-grid {
+  margin-top: 90px;
 }
 
 .project-nav ul {
@@ -820,7 +1011,7 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 
 .projectContent {
   background-color: #F1F1F2;
-  padding: 30px 60px 30px 30px;
+  padding: 30px 15px 30px 15px;
   float: left;
   width: 50%;
   height: auto;
@@ -859,43 +1050,67 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 .mapAndShare {
   float: right;
   width: 50%;
-  height: 20px;
-  margin-top: 5px;
+  margin-top: -5px;
+  display: flex;
+  justify-content: flex-start;
+
 }
 
-.projectMap {
-  float: left;
-  width: 48%;
-  height: 20px;
-  background-color: #bcbec0;
+.projectVideo {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
   text-align: center;
+  background-image: url('./images/LL_Icon_Play_G.svg');
+  margin-left: 10px;
+}
+
+.projectVideo:hover {
+  background-image: url('./images/LL_Icon_Play_R.svg');
+  cursor: pointer;
+}
+
+
+.projectMap {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  text-align: center;
+  background-image: url('./images/LL_Icon_Map_G.svg');
 }
 
 .projectMap:hover {
-  background-color: #ED2939;
+  background-image: url('./images/LL_Icon_Map_R.svg');
   cursor: pointer;
 }
 
 .projectShare {
-  float: right;
   width: 48%;
   height: 20px;
-  background-color: #bcbec0;
+  background-color: transparent;
   text-align: center;
+  background-image: url('./images/LL_Icon_Lnk_G.svg');
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-left: 10px;
 }
 
 .projectShare:hover {
-  background-color: #ED2939;
+  background-image: url('./images/LL_Icon_Lnk_R.svg');
   cursor: pointer;
 }
 
-.projectMap a, .projectShare a {
+.projectMap a, .projectShare a, .projectVideo a {
   color: #ffffff;
-  font-size: 14px;
+  font-size: 0;
   line-height: 20px;
   vertical-align: middle;
   margin: 0px;
   text-decoration: none;
+  height: 40px;
+  width: 40px;
+  display: block;
 }
 
 .projectDescription {
@@ -1062,16 +1277,33 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   display: block;
 }
 
+.projectVideoContent {
+  visibility: hidden;
+  display: none;
+}
+
+.projectVideoContent.active {
+  background-color: #bcbec0;
+  padding: 30px 15px 30px 15px;
+  float: right;
+  width: 50%;
+  height: auto;
+  flex: 0 0 50%;
+  visibility: visible;
+  display: block;
+}
+
 .shareProjectTitle {
-  height: 20%;
+  height: 10%;
   line-height: 5px;
-  padding-top: 20px;
+  padding-top: 0;
   padding-bottom: 10px;
   font-weight: bold;
 }
 
 .shareProjectTitle h3 {
   font-size: 25px;
+  margin-top: 0;
   font-weight: bold;
   color: #000000;
   float: left;
@@ -1081,7 +1313,6 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   height: 30px;
   width: 30px;
   float: right;
-  margin-top: 20px;
   background: url('./images/LaguardaLow_closeButtonBlack.png') center center no-repeat;
   background-size: cover;
 }
@@ -1098,48 +1329,50 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 
 #shareOnFacebook, #shareOnLinkedIn, #shareOnPintrest, #shareOnInstagram {
   display: inline-table;
+  margin-right: 10px;
 }
 
 #shareOnFacebook a, #shareOnLinkedIn a, #shareOnPintrest a, #shareOnInstagram a {
   display: block;
-  width: 75px;
-  height: 75px;
-  background-size: cover;
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
   font-size: 0px;
   line-height: 0px;
   color: transparent;
 }
 
 #shareOnFacebook a {
-  background-image: url('./images/LaguardaLow_socialMediaBlack1.png');
+  background-image: url('./images/LL_Icon_FB_B.svg');
 }
 
 #shareOnLinkedIn a {
-  background-image: url('./images/LaguardaLow_socialMediaBlack2.png');
+  background-image: url('./images/LL_Icon_in_B.svg');
 }
 
 #shareOnPintrest a {
-  background-image: url('./images/LaguardaLow_socialMediaBlack3.png');
+  background-image: url('./images/LL_Icon_P_B.svg');
 }
 
 #shareOnInstagram a {
-  background-image: url('./images/LaguardaLow_socialMediaBlack4.png');
+  background-image: url('./images/LL_Icon_IG_B.svg');
 }
 
 #shareOnFacebook a:hover {
-  background-image: url('./images/LaguardaLow_socialMediaWhite1.png');
+  background-image: url('./images/LL_Icon_FB_R.svg');
 }
 
 #shareOnLinkedIn a:hover {
-  background-image: url('./images/LaguardaLow_socialMediaWhite2.png');
+  background-image: url('./images/LL_Icon_in_R.svg');
 }
 
 #shareOnPintrest a:hover {
-  background-image: url('./images/LaguardaLow_socialMediaWhite3.png');
+  background-image: url('./images/LL_Icon_P_R.svg');
 }
 
 #shareOnInstagram a:hover {
-  background-image: url('./images/LaguardaLow_socialMediaWhite4.png');
+  background-image: url('./images/LL_Icon_IG_R.svg');
 }
 
 .shareLinks{
@@ -1170,6 +1403,12 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   width: 100%;
   text-align: center;
   padding: 30px 0;
+  z-index: 999;
+}
+
+.spinner.top-center {
+  position: absolute;
+  top: 300px;
 }
 
 .menu-item.wpml-ls-slot-4 {
@@ -1182,7 +1421,7 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 .spinner > div {
   width: 10px;
   height: 10px;
-  background-color: #000;
+  background-color: #bcbec0;
   margin: 5px;
   border-radius: 100%;
   display: inline-block;

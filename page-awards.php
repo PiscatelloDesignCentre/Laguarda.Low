@@ -64,7 +64,7 @@
     });
 
     async function archivesLoaded() {
-        let posts = await fetch("/wordpress/wp-json/wp/v2/posts?_embed&categories=50&per_page=100", {
+        let posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=50&per_page=100", {
             method: 'GET'
         }).then((res) => {
             return res.json()
@@ -84,9 +84,6 @@
                     <div class='table-cell'>${el.content.rendered.replace(/(<([^>]+)>)/ig,"")}</div> 
                     <div class='table-cell'>2016</div> 
                     <div class='slide-open'> 
-                        ${el.acf.award_description}
-                        <br>
-                        <br>
                         <a href='${el.link}'>View Project</a>
                     </div> 
                     <div class='slide-open'> 

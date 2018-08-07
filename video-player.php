@@ -1,7 +1,16 @@
 <script>
-    window.onload = () => {
+    document.addEventListener("DOMContentLoaded", ready);
+
+    function ready() {
+        let templates = document.querySelectorAll(".video-template").forEach((el, i) => {
+            el.insertAdjacentHTML('afterend', getMarkup(el.dataset.videoUrl))
+        });
+
         let videos = document.querySelectorAll(".video-container");
-        videos.forEach((video, index) => {
+
+
+
+        videos.forEach(async (video, index) => {
             var playButton = video.querySelector(".play-pause");
             var seekBar = video.querySelector(".seek-bar");
             var timePassed = video.querySelector(".time-passed");
@@ -26,15 +35,9 @@
                 if (video.querySelector(".video").paused == true) {
                     // Play the video
                     video.querySelector(".video").play();
-
-                    // Update the button text to 'Pause'
-                    // playButton.innerHTML = "Pause";
                 } else {
                     // Pause the video
                     video.querySelector(".video").pause();
-
-                    // Update the button text to 'Play'
-                    // playButton.innerHTML = "Play";
                 }
 
                 playButton.classList.toggle("paused");
@@ -105,6 +108,34 @@
             });
         });
 
+        async function setup(video) {
+            console.log(video)
+        }
+
+        function getMarkup(url) {
+            return `<div class="video-container">
+                        <video class="video" playsinline webkit-playsinline>
+                            <source src="${url}" type="video/mp4">
+                            Your browser does not support HTML5 video.
+                        </video>
+                        <div class="video-container-overlay">
+                            <div class="button">Play Video</div>
+                        </div>
+                        <div class="video-controls hidden">
+                            <button type="button" class="play-pause"></button>
+                            <span class="time-passed">0:00</span>
+                            <progress class="seek-bar" max="100" value="0"></progress>
+                            <span class="time-left">0:00</span>
+                            <button class="full-screen"></button>
+                            <div class="volume-control">
+                                <button class="volume"></button>
+                                <div class="range-container">
+                                    <input type="range" min=0 max=100>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+        }
     
     }
 </script>
