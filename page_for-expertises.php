@@ -20,7 +20,7 @@ while ( have_posts() ) : the_post(); ?>
 				while ( have_rows('slider_images') ) : the_row(); ?>
 					<?php $image = get_sub_field('slider_image') ?>
 					<div class="carousel-cell">
-                        <img src="<?php the_sub_field('slider_image'); ?>" title="#htmlcaption" alt="">
+                        <img class="carousel-cell-image" src="<?php the_sub_field('slider_image'); ?>" title="#htmlcaption" alt="">
 					</div>
 				<?php 
 				endwhile;
@@ -35,11 +35,22 @@ while ( have_posts() ) : the_post(); ?>
 		</div>
 		<div class="project-caption">
 			<span class="projectName"><?php the_title() ?></span> 
-			<span class="projectCategory">Expertise</span>
+			<span class="projectCategory">
+                <?php if(ICL_LANGUAGE_NAME == "中文" ):?>	
+                专长
+                <?php else: ?>
+                Expertise
+                <?php endif; ?>
+            </span>
         </div>
 		<button class="custom-prev-next-button left"></button>
 		<button class="custom-prev-next-button right"></button>
-	
+        <div class="homepage-quote empty">
+            <div class="downArrow">
+                <a href="#content">
+                </a>
+            </div>
+        </div>
 	</div>
 
     <!-- Left side with info -->
@@ -47,13 +58,28 @@ while ( have_posts() ) : the_post(); ?>
         <div class="left invisible animate">
             <div class="page-top-left invisible animate">
                 <h3 class="title"><?php the_title() ?></h3>
+                <?php if(ICL_LANGUAGE_NAME == "中文" ):?>	
+                <h5 class="subtitle">专长</h5>
+                <?php else: ?>
                 <h5 class="subtitle">Expertise</h5>
+                <?php endif; ?>
             </div>
-            <p style="width: 66.66%"><?php echo get_the_content(); ?></p>
+            <p style="width: 66.66%; white-space: pre-wrap;"><?php echo get_the_content(); ?></p>
         </div>
-        <div class="right">
-            <template class="video-template" data-video-url="<?php echo get_field('expertise_video') ?>"></template>
-            <h4 class="section-title invisible animate"><?php the_title() ?> Projects</h4>
+        <div class="right img-block">
+            <?php if(get_field('expertise_video')): ?>
+            <template class="video-template" data-video-url="<?php echo get_field('expertise_video') ?>" data-video-poster="<?php the_field('expertise_video_thumbnail') ?>"></template>
+            <?php else: ?>
+            <img src="<?php the_field('expertise_video_thumbnail') ?>">
+            <?php endif; ?>
+            <h4 class="section-title invisible animate">
+                <?php the_title() ?> 
+                <?php if(ICL_LANGUAGE_NAME == "中文" ):?>	
+                项目
+                <?php else: ?>
+                Projects
+                <?php endif; ?>
+            </h4>
             <div class="related-projects-container">
                 <div class="related-projects invisible animate">
                     <?php 
@@ -71,7 +97,7 @@ while ( have_posts() ) : the_post(); ?>
                                             <?php the_title(); ?>
                                         </span>
                                         <span class='project-location'>
-                                            <?php the_field('location') ?>
+                                            <?php the_field('project_city') ?>, <?php the_field('project_country')?>
                                         </span>
                                         <span class='project-category'>
                                             <?php echo get_the_category()[1]->cat_name ?>
@@ -126,6 +152,20 @@ flkty.previous();
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".carousel-cell-image").forEach(function(el, i) {
+        el.onload = () => {
+            if(el.naturalWidth >= 1920) {
+                el.classList.add("wide");
+            }
+        }
+
+        if(el.complete) {
+            if(el.naturalWidth >= 1920) {
+                el.classList.add("wide");
+            }
+        }
+        
+    });
    setTimeout( ()=> {
      document.querySelector(".slideshow-custom-wrapper").classList.add("loaded")
    }, 2000)

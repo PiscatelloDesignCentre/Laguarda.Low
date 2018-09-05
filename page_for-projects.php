@@ -7,7 +7,8 @@
 // TO SHOW THE PAGE CONTENTS
 
 get_header(); 
-while ( have_posts() ) : the_post(); ?>
+
+if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 	<!-- Left side with info -->
 	<?php 
 		$my_post_categories = get_the_category();
@@ -19,9 +20,6 @@ while ( have_posts() ) : the_post(); ?>
 			}
 		}
 	?>
-<div class="pseudo-select project-page">
-</div>
-
 <div class="row-fluid project-slider-container loaded">
 	<div class="slideshow-custom-wrapper">
 		<div class="main-carousel">
@@ -29,14 +27,21 @@ while ( have_posts() ) : the_post(); ?>
 
 				// check if the repeater field has rows of data
 				if( have_rows('slider_images') ):
+				$counter = 0;
 
 				// loop through the rows of data
 				while ( have_rows('slider_images') ) : the_row(); ?>
 					<?php $image = get_sub_field('slider_image') ?>
 					<div class="carousel-cell">
-						<img class="carousel-cell-image" src="<?php echo wp_get_attachment_image_src($image, "slider-small")[0]?>" title="#htmlcaption" alt="">
+					<!-- $post->ID)[$counter]["mobile_image"]["url"]; echo "<pre>" . var_dump($mobileImage) -->
+						<img 
+							class="carousel-cell-image" 
+							src="<?php echo wp_get_attachment_image_src($image, "slider-small")[0]?>" 
+							title="#htmlcaption" alt=""
+						>
 					</div>
-				<?php 
+				<?php
+				$counter++;
 				endwhile;
 
 				else :
@@ -49,8 +54,19 @@ while ( have_posts() ) : the_post(); ?>
 		</div>
 		<div class="project-caption">
 			<span class="projectName"><?php the_title() ?></span> 
-			<span class="projectCategory"><?php echo get_the_category()[1]->cat_name ?></span>
+			<span class="projectCategory">
+				<?php 
+					$p_cat = get_the_category();
+					foreach($p_cat as $category) {
+						// var_dump($p_cat);
+						if($category->cat_name != "Current" && $category->cat_name != "Projects") {
+							echo $category->cat_name;
+						}
+					}
+				?>
+			</span>
         </div>
+		<div class="homepage-quote empty sm-hidden"></div>
 		<button class="custom-prev-next-button left"></button>
 		<button class="custom-prev-next-button right"></button>
 	
@@ -78,6 +94,9 @@ while ( have_posts() ) : the_post(); ?>
 				<div class="projectShare">
 					<a>Share</a>
 				</div>
+				<div class="projectRelated active">
+					<a>Related</a>
+				</div>
 				<?php if(get_field('project_video')): ?>
 				<div class="projectVideo">
 					<a>Video</a>
@@ -91,73 +110,115 @@ while ( have_posts() ) : the_post(); ?>
 			<?php $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>
 			<ul class="shareLinks">
 				<li id="shareOnFacebook">
-					<a href="<?php "https://www.facebook.com/sharer/sharer.php?u=" . $actual_link?>">Facebook</a>
+					<a href="<?php echo "https://www.facebook.com/sharer/sharer.php?u=" . $actual_link?>">Facebook</a>
 				</li>
 				<li id="shareOnLinkedIn">
-					<a href="">LinkedIn</a>
+					<a href="<?php echo "https://www.linkedin.com/shareArticle?mini=true&url=" . $actual_link ?>">LinkedIn</a>
 				</li>
 				<li id="shareOnPintrest">
-					<a href="">Pintrest</a>
-				</li>
-				<li id="shareOnInstagram">
-					<a href="">Instagram</a>
+					<a href="<?php echo "http://pinterest.com/pin/create/button/?url=" . $actual_link ?>">Pintrest</a>
 				</li>
 			</ul>
 		</div>
 		<div class="row-fluid projectDescription animate invisible">
-			<p style="width: 66.66%"><?php echo get_the_content() ?></p>
+			<div style="width: 66.66%"><?php echo get_the_content() ?></div>
 		</div>
 		<div class="row-fluid projectMeta closed">
 			<div class="leftMeta animate invisible">
+				<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+				<p><strong class="facts-and-figures">项目概况</strong></p>
+				<?php else: ?>
 				<p><strong class="facts-and-figures">Facts + Figures</strong></p>
+				<?php endif; ?>		
+
+				<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+				<p><strong class="border-top">位置</strong></p>
+				<?php else: ?>
 				<p><strong class="border-top">Location</strong></p>
+				<?php endif; ?>
 				<p><?php echo get_field('project_city') ?>, <?php echo get_field('project_country') ?></p>
 				<br>
 				<?php if(get_field('project_area')): ?>
+				<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+				<p><strong class="border-top">规模</strong></p>
+				<?php else: ?>
 				<p><strong class="border-top">Area</strong></p>
+				<?php endif; ?>
 				<p><?php the_field('project_area') ?></p>
 				<?php endif; ?>
 				<br>
 				<?php if(get_field('scope')): ?>
+				<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+				<p><strong class="border-top">设计范围</strong></p>
+				<?php else: ?>
 				<p><strong class="border-top">Scope</strong></p>
+				<?php endif; ?>
 				<p><?php the_field('scope') ?></p>
 				<?php endif; ?>
 				<br>
 				<?php if(get_field('collaborators')): ?>
+				<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+				<p><strong class="border-top">合作方</strong></p>
+				<?php else: ?>
 				<p><strong class="border-top">Collaborators</strong></p>
+				<?php endif; ?>
 				<p><?php the_field('collaborators') ?></p>
 				<?php endif; ?>
 				<br>
 				<?php if(get_field('client')): ?>
+				<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+				<p><strong class="border-top">业主</strong></p>
+				<?php else: ?>
 				<p><strong class="border-top">Client</strong></p>
+				<?php endif; ?>
 				<p><?php the_field('client') ?></p>
 				<?php endif; ?>
 			</div>
 			<div class="rightMeta animate invisible">
 				<?php if(get_field('status')): ?>
+				<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+				<p><strong class="border-top">项目状态</strong></p>
+				<?php else: ?>
 				<p><strong class="border-top">Status</strong></p>
+				<?php endif; ?>
 				<p><?php the_field('status') ?></p>
 				<br>
 				<?php endif; ?>
-				<!-- <p><strong class="border-top">Program</strong></p>
-				<p>Mixed-use retail and entertainment development on Shenzhen Bay including:</p>
-				<br>
-				<p><strong><a href="">57 Room Luxury Bay Breeze Hotel</a></strong></p>
-				<br>
-				<p><strong><a href="">Food and Beverage “Village”</a></strong></p>
-				<br>
-				<p><strong><a href="">O’Plaza Mall</a></strong></p>
-				<br>
-				<p><strong><a href="">Mariot Executive Apartments</a></strong></p>
-				<br>
-				<p><strong><a href="">IMAX Theater</a></strong></p> -->
+				<?php if(get_field('program')): ?>
+				<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+				<p><strong class="border-top">项目类型</strong></p>
+				<?php else: ?>
+				<p><strong class="border-top">Program</strong></p>
+				<?php endif; ?>
+				<p><strong><?php the_field('program') ?></strong></p>
+				<?php endif; ?>
 			</div>
 			<div style="clear:both;"></div> 
 		</div>
+		<div class="backToCategory">
+		<?php $cats = get_the_category() ?>
+		<?php foreach ( $cats as $cat ): ?>
+			<?php if(str_replace("-zh-hans", "", $cat->slug) !== "projects" && str_replace("-zh-hans", "", $cat->slug) !== "current"):?>
+				<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+				<a href="<?php echo get_site_url() ?>/zh-hans/projects/#<?php echo str_replace("-zh-hans", "", $cat->slug) ?>">
+					<div id="backButton"></div>
+					<div id="backToText"><p>返回 <?php echo $cat->cat_name ?></p></div>
+				</a>
+				<?php else: ?>
+				<a href="<?php echo get_site_url() ?>/projects/#<?php echo str_replace("-zh-hans", "", $cat->slug) ?>">
+					<div id="backButton"></div>
+					<div id="backToText"><p>BACK TO <?php echo $cat->cat_name ?></p></div>
+				</a>
+				<?php endif; ?>
+			<?php endif; ?>
+		<?php endforeach; ?>
+		</div>
 	</div>
+	<?php if(get_field('project_video')): ?>
 	<div class="map-row">
-		<template class="video-template" data-video-url="<?php the_field('project_video') ?>"></template>
+		<template class="video-template" data-video-url="<?php the_field('project_video') ?>" data-video-poster="<?php the_field('project_video_thumbnail')?>"></template>
 	</div>
+	<?php endif; ?>
 	<div class="map-row">
 		<div id="map" class="mobile-map"></div>
 	</div>
@@ -166,7 +227,7 @@ while ( have_posts() ) : the_post(); ?>
 			<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
 			<h3>相关项目</h3>
 			<?php else: ?>
-			<h3>Related Mixed Use Projects</h3>
+			<h3>Related <?php echo get_the_category()[1]->cat_name ?> Projects</h3>
 			<?php endif; ?>
 			<p class="sm-hidden"> &nbsp; </p>
 		</div>
@@ -189,7 +250,15 @@ while ( have_posts() ) : the_post(); ?>
 									<?php the_field('project_city') ?>, <?php the_field('project_country') ?>
 								</span>
 								<span class='project-category'>
-									<?php echo get_the_category()[1]->cat_name ?>
+									<?php 
+										$r_cat = get_the_category();
+										foreach($r_cat as $category) {
+											// var_dump($p_cat);
+											if($category->cat_name != "Current" && $category->cat_name != "Projects") {
+												echo $category->cat_name;
+											}
+										}
+									?>
 								</span>
 							</div>
 						</a>
@@ -213,10 +282,6 @@ while ( have_posts() ) : the_post(); ?>
 		<?php else: ?>
 		<h3>Share This project</h3>
 		<?php endif; ?>
-			<!-- <p> &nbsp; </p> -->
-			<div class="closeButton">
-				<a></a>
-			</div>
 		</div>
 		<div class="shareProjectIcons">
 			<ul class="shareLinks">
@@ -224,13 +289,10 @@ while ( have_posts() ) : the_post(); ?>
 					<a href="<?php echo "https://www.facebook.com/sharer/sharer.php?u=" . $actual_link?>">Facebook</a>
 				</li>
 				<li id="shareOnLinkedIn">
-					<a href="">LinkedIn</a>
+					<a href="<?php echo "https://www.linkedin.com/shareArticle?mini=true&url=" . $actual_link ?>">LinkedIn</a>
 				</li>
 				<li id="shareOnPintrest">
-					<a href="">Pintrest</a>
-				</li>
-				<li id="shareOnInstagram">
-					<a href="">Instagram</a>
+					<a href="<?php echo "http://pinterest.com/pin/create/button/?url=" . $actual_link ?>">Pintrest</a>
 				</li>
 			</ul>
 		</div>
@@ -242,14 +304,10 @@ while ( have_posts() ) : the_post(); ?>
 			<?php else: ?>
 			<h3>Share This project</h3>
 			<?php endif; ?>
-			<!-- <p> &nbsp; </p> -->
-			<div class="closeButton">
-				<a></a>
-			</div>
 		</div>
 	</div>
 	<div class="projectVideoContent sm-hidden">
-			<template class="video-template" data-video-url="<?php the_field('project_video') ?>"></template>
+			<template class="video-template" data-video-url="<?php the_field('project_video') ?>" data-video-poster="<?php the_field('project_video_thumbnail')?>"></template>
 		</div>
 	<div style="clear:both;"></div> 
 </div>
@@ -261,8 +319,9 @@ while ( have_posts() ) : the_post(); ?>
 <script src="<?php echo get_template_directory_uri() ?>/lib/min/projects.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJY5t-tXrIskhm6OZmUp0DnSytAlCwavA&callback=initMap"></script>
 <?php
-    endwhile; //resetting the page loop
-    wp_reset_query(); //resetting the page query
+	endwhile; //resetting the page loop
+	wp_reset_query(); //resetting the page query
+endif;
 ?>
 <?php include('video-player.php') ?>
 <?php get_footer(); ?> 

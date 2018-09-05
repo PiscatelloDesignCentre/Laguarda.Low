@@ -1,10 +1,10 @@
 <div class="archives-overlay">
     <div class="table-header">
         <div class="table-row">
-            <div class="table-cell sort-header active" data-key="title.rendered">Project</div>
-            <div class="table-cell sort-header" data-key="categories">Category</div> 
-            <div class="table-cell sort-header" data-key="acf.location">Location</div>
-            <div class="table-cell sort-header">Year</div>
+            <div class="table-cell sort-header" data-key="post_title">Project</div>
+            <div class="table-cell sort-header" data-key="category_names">Category</div> 
+            <div class="table-cell sort-header" data-key="post_country">Location</div>
+            <div class="table-cell sort-header active" data-key="post_year">Year</div>
         </div>
     </div>
     <div class="table-contents">
@@ -13,12 +13,10 @@
 
 <script>
 
-    var globalPosts = [];
-
-
     function preventBodyScroll(e) {
         document.body.classList.add("noscroll");
     }
+
     function slideOpen(e) {
         if(e.currentTarget.classList.contains("selected")) {
             e.currentTarget.classList.toggle("selected")
@@ -53,26 +51,11 @@
             event.currentTarget.classList.add("active");
             let sortKey = event.currentTarget.dataset.key;
             let direction = event.currentTarget.dataset.direction;
-            let sorted = _.sortBy(globalPosts, sortKey);
+            let sorted = _.sortBy(window.posts, function(e) {return e[sortKey]});
             loadRows(sorted)
         });
     });
 
-    async function archivesLoaded() {
-        let posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=7&per_page=100", {
-            method: 'GET'
-        }).then((res) => {
-            return res.json()
-        }).then( (json) => {
-            loadRows(json)
-        });
-    }
-
-    function mapCategories(id) {
-        let cat = window.categories.filter(category => category.id == id)[0]
-        // console.log(cat)
-        return cat || ""
-    }
 
     async function loadRows(json) {
         let html = ""
@@ -81,15 +64,16 @@
         json.forEach( (el, i) => {
             html += 
                 `<div class='table-row' onclick='return slideOpen(event)'> 
-                    <div class='table-cell'>${el.title.rendered}</div> 
-                    <div class='table-cell'>${mapCategories(el.categories).name }</div> 
-                    <div class='table-cell'>${el.acf.location}</div>
-                    <div class='table-cell'>2016</div> 
+                    <div class='table-cell'>${el.post_title}</div> 
+                    <div class='table-cell'><span class="mobile-hidden">Type:&nbsp;</span>${el.category_names[0]}</div> 
+                    <div class='table-cell'><span class="mobile-hidden">Location:&nbsp;</span>${el.project_city}, ${el.project_country}</div>
+                    <div class='table-cell'><span class="mobile-hidden">Year:&nbsp;</span>${el.post_year}</div> 
+                    <a href="${el.permalink}" class='slide-open mobile-hidden'><img src='${el.thumbnail}' /></a> 
                     <div class='slide-open'> 
                         ${ 
                             (el => {
-                                if(el.link != "") {
-                                    return `<a href='${el.link}'>View Project</a>`
+                                if(el.permalink != "") {
+                                    return `<a href='${el.permalink}' onclick='return event.stopPropagation()'>View Project</a>`
                                 }
                             })(el)
                         }   
@@ -97,20 +81,20 @@
                     </div> 
                     <div class='slide-open'>
                         <strong>Status</strong><br> 
-                        <span>${el.acf.status[0].status_update}</span> 
-                        <br><br> 
+                        <span>${el.status}</span> 
+                        <br class="sm-hidden"><br class="sm-hidden"> 
                         <strong>Size</strong><br> 
-                        <span>400sqf</span> 
-                        <br><br>
+                        <span>${el.project_area}</span> 
+                        <br class="sm-hidden"><br>
                         <strong>Client</strong><br> 
-                        <span>${el.acf.client}</span> 
-                        <br></br> 
+                        <span>${el.client}</span> 
+                        <br class="sm-hidden"><br class="sm-hidden">
                     </div> 
                     <div class='slide-open'> 
                         <strong>Scope</strong><br> 
-                        ${el.acf.scope[0].scope_item } 
+                        ${el.scope } 
                     </div> 
-                    <a href="${el.link}" class='slide-open'><img src='${el._embedded["wp:featuredmedia"][0].source_url}' /></a> 
+                    <a href="${el.permalink}" class='slide-open sm-hidden'><img src='${el.thumbnail}' /></a> 
                 </div>`
         });
 

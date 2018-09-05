@@ -8,6 +8,10 @@
     background-color: #FAFAFA;
 }
 
+.grid-container.archives-active {
+    grid-template-columns: 1fr;
+}
+
 .mapAndShare a:hover {
     color: #FFF !important;
     text-decoration: none;
@@ -129,8 +133,9 @@ ul.navigation-tabs {
     white-space: nowrap;
     list-style: none;
     font-size: 14px;
+    background-color: #C0C0C0;
     cursor: pointer;
-    grid-gap: 1px;
+    /* grid-gap: 1px; */
 }
 
 
@@ -146,6 +151,11 @@ ul.navigation-tabs {
     text-transform: uppercase;
     text-decoration: none;
     box-sizing: border-box;
+    border-right: 1px solid #FFF;
+}
+
+.navigation-tabs a:last-of-type {
+    border-right: none;
 }
 
 .navigation-tabs a:visited,
@@ -215,20 +225,18 @@ ul.navigation-tabs {
 /* Archives Page */
 
 .archives-overlay {
-    height: calc(100vh - 90px);
+    min-height: calc(100vh - 90px);
     width: 100%;
     bottom: 0;
     left: 0;
-    position: absolute;
     z-index: 99;
     background-color: #FFF;
     font-family: 'Noto Sans', sans-serif;
     box-sizing: border-box;
-    overflow: scroll;
-    position: fixed;
-    visibility: hidden;
-    opacity: 0;
+    overflow: auto;
+    opacity: 1;
     transition: .25s ease opacity, visibility 0s ease 1s;
+    display: none;
 }
 
 .archives-overlay.awards {
@@ -360,7 +368,7 @@ ul.navigation-tabs {
     height: auto;
     max-height: 100%;
     margin-right: 0px;
-    background: #333;
+    background: #000;
     display: flex;
     justify-content: center;
   }
@@ -373,9 +381,14 @@ ul.navigation-tabs {
     opacity: 1;
     -webkit-transition: opacity 0.4s;
             transition: opacity 0.4s;
-            object-fit: none;
+            object-fit: contain;
 }
 
+.carousel-cell-image.wide {
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
 
 .flickity-page-dots {
     bottom: 50px !important;

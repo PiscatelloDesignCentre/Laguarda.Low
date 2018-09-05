@@ -8,7 +8,7 @@ function initMap() {
   // The map, centered at Uluru
   document.querySelectorAll("#map").forEach( (el, i) => {
       var map = new google.maps.Map(
-      el, {zoom: 13, center: coords, mapTypeId: 'satellite'});
+      el, {zoom: 16, center: coords, mapTypeId: 'satellite'});
 
       // The marker, positioned at Uluru
          var marker = new google.maps.Marker({
@@ -214,7 +214,23 @@ function playPrev(e) {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
- setTimeout( ()=> {
-   document.querySelector(".slideshow-custom-wrapper").classList.add("loaded")
- }, 2000)
+    document.querySelectorAll(".carousel-cell-image").forEach(function(el, i) {
+        el.onload = () => {
+            if(el.naturalWidth >= 1920) {
+                el.classList.add("wide");
+            }
+        }
+
+        if(el.complete) {
+            if(el.naturalWidth >= 1920) {
+                el.classList.add("wide");
+            }
+        }
+        
+    });
+
+    setTimeout( ()=> {
+        document.querySelector(".slideshow-custom-wrapper").classList.add("loaded")
+    }, 2000)
+
 })

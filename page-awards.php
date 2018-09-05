@@ -1,130 +1,212 @@
 <?php get_header(); ?> 
-<div class="row-fluid padding-t-60">
-    <div class="page-title-video">
+<div class="row-fluid project-grid">
+    <div class="page-title-video sm-hidden">
         <h3><strong>Awards</strong></h3>
     </div>
-</div>
-<div class="archives-overlay visible awards">
-    <div class="table-header">
-        <div class="table-row">
-            <div class="table-cell sort-header active" data-key="title.rendered">Award</div>
-            <div class="table-cell sort-header" data-key="project_post.post_title">Project</div> 
-            <div class="table-cell sort-header">Location</div>
-            <div class="table-cell sort-header">Year</div>
+    <div class="archives-overlay visible awards">
+        <div class="table-header">
+            <div class="table-row">
+                <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+                <div class="table-cell sort-header active" data-key="post_title">奖项</div>
+                <div class="table-cell sort-header" data-key="title">项目</div> 
+                <div class="table-cell sort-header" data-key="country">地区</div>
+                <div class="table-cell sort-header" data-key="acf.award_date">获奖年份</div>
+                <?php else: ?>
+                <div class="table-cell sort-header active" data-key="post_title">Award</div>
+                <div class="table-cell sort-header" data-key="title">Project</div> 
+                <div class="table-cell sort-header" data-key="country">Location</div>
+                <div class="table-cell sort-header" data-key="acf.award_date">Year</div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <div class="table-contents">
         </div>
     </div>
-    <div class="table-contents">
-    </div>
 </div>
 
-<script>
+<?php
 
-    var globalPosts = []
-
-    function preventBodyScroll(e) {
-        document.body.classList.add("noscroll");
-    }
-    function slideOpen(e) {
-        if(e.currentTarget.classList.contains("selected")) {
-            e.currentTarget.classList.toggle("selected")
-            e.currentTarget.querySelectorAll(".slide-open").forEach( (el, i) => {
-                el.classList.remove("open")
-            });
+$args = array( 'posts_per_page' => -1, 'offset' => 0, 'category' => 50);
+$posts = get_posts( $args );
+    foreach($posts as $post) {
+        $post->acf = get_fields($post->ID);
+        $post->project_permalink = get_the_permalink( $post->acf["ID"]);
+        $awardProjectId = $post->acf["project_post"]->ID;
+        $post->post_meta = get_fields($awardProjectId);
+        
+        if ($post->acf["project_post"]->post_title) {
+            $post->title = $post->acf["project_post"]->post_title;
         }
         else {
-            document.querySelectorAll(".table-row").forEach( (el, i) => {
-                el.classList.remove("selected")
-            });
+            $post->title = $post->acf["project_title"];
+        }
 
-            document.querySelectorAll(".slide-open").forEach( (el, i) => {
-                el.classList.remove("open")
-            });
 
-            e.currentTarget.querySelectorAll(".slide-open").forEach( (el, i) => {
-                el.classList.add("open")
-            })
+        if(!$post->acf["award_project_city"]) {
+            $post->city = $post->post_meta["project_city"];
+            $post->country = $post->post_meta["project_country"]; 
+            $post->permalink = get_the_permalink($post->acf["project_post"]->ID);
+        }
+        else {
+            $post->city = $post->acf["award_project_city"];
+            $post->country = $post->acf["award_project_country"]; 
+        }
+        foreach($post->category_ids as $cat_id) {
+            $cat_name = get_cat_name($cat_id);
 
-            e.currentTarget.classList.toggle("selected")
+            if(trim($cat_name) !== "Projects" && trim($cat_name)  !== "Current") {
+                array_push($post->category_names, $cat_name);
+            }
         }
     }
+$post_json = json_encode($posts);
 
-    document.querySelectorAll(".sort-header").forEach( (el, i) => {
-        el.addEventListener("click", (event) => {
+?>
+<script>window.posts = <?php echo $post_json ?> || "";</script>
+<script>window.posts_original = <?php echo $post_json ?> || "";</script>
+<script>
+function preventBodyScroll(e) {
+    document.body.classList.add("noscroll");
+}
 
-            document.querySelectorAll(".sort-header").forEach( (el, i) => {
-                el.classList.remove("active")
-            });
-
-            event.currentTarget.classList.add("active");
-            let sortKey = event.currentTarget.dataset.key;
-            let direction = event.currentTarget.dataset.direction;
-            let sorted = _.sortBy(globalPosts, sortKey);
-            loadRows(sorted)
+function slideOpen(e) {
+    if(e.currentTarget.classList.contains("selected")) {
+        e.currentTarget.classList.toggle("selected")
+        e.currentTarget.querySelectorAll(".slide-open").forEach( (el, i) => {
+            el.classList.remove("open")
         });
+    }
+    else {
+        document.querySelectorAll(".table-row").forEach( (el, i) => {
+            el.classList.remove("selected")
+        });
+
+        document.querySelectorAll(".slide-open").forEach( (el, i) => {
+            el.classList.remove("open")
+        });
+
+        e.currentTarget.querySelectorAll(".slide-open").forEach( (el, i) => {
+            el.classList.add("open")
+        })
+
+        e.currentTarget.classList.toggle("selected")
+    }
+}
+
+document.querySelectorAll(".sort-header").forEach( (el, i) => {
+    el.addEventListener("click", (event) => {
+
+        document.querySelectorAll(".sort-header").forEach( (el, i) => {
+            el.classList.remove("active")
+        });
+
+        event.currentTarget.classList.add("active");
+        let sortKey = event.currentTarget.dataset.key;
+        let direction = event.currentTarget.dataset.direction;
+        let sorted = _.sortBy(window.posts, function(e) {return e[sortKey]});
+        loadRows(sorted)
+    });
+});
+
+
+async function loadRows(json) {
+    let html = ""
+    globalPosts = json;
+    // json = _.sortBy(globalPosts, "title.rendered")
+
+    json.forEach( (el, i) => {
+        html += 
+            `<div class='table-row' onclick='return slideOpen(event)'> 
+                <div class='table-cell'>${el.post_title}</div> 
+                <div class='table-cell'><span class="mobile-hidden">Project:&nbsp;</span>${el.title}</div> 
+                <div class='table-cell'><span class="mobile-hidden">Location:&nbsp;</span>${el.city}, ${el.country}</div>
+                <div class='table-cell'><span class="mobile-hidden">Year:&nbsp;</span>${el.acf.award_date}</div> 
+                ${ 
+                    (el => {
+                        if(el.acf.project_post != false) {
+                            return `<a href="${el.permalink}" class='slide-open mobile-hidden' onclick='return event.stopPropagation()'><img src='${el.acf.award_project_image.sizes.medium_large}' /></a>`
+                        }
+                        else return `<div class='slide-open mobile-hidden'><img src='${el.acf.award_project_image.sizes.medium_large}' /></div>`;
+                    })(el)
+                }    
+                <div class='slide-open'> 
+                    ${ 
+                        (el => {
+                            if(el.acf.project_post != false) {
+                                return `<a href='${el.permalink}' onclick='return event.stopPropagation()'>View Project</a>`
+                            }
+                            else return '';
+                        })(el)
+                    }   
+                    
+                </div> 
+                <div class='slide-open'>
+                    <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+                    <span><strong>项目状态</strong></span><br>
+                    <?php else: ?>
+                    <span><strong>Status</strong></span><br>
+                    <?php endif; ?>
+                    <span>${el.acf.award_status}</span> 
+                    <br><br> 
+                    <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+                    <span><strong>规模</strong></span><br>
+                    <?php else: ?>
+                    <span><strong>Size</strong></span><br>
+                    <?php endif; ?> 
+                    <span>${el.acf.award_project_size}</span> 
+                    <br><br>
+                    <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+                    <span><strong>业主</strong></span><br>
+                    <?php else: ?>
+                    <span><strong>Client</strong></span><br>
+                    <?php endif; ?>  
+                    <span>${el.acf.award_client}</span> 
+                    <br></br> 
+                </div> 
+                <div class='slide-open'> 
+                    <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+                    <strong>设计范围</strong><br>
+                    <?php else: ?>
+                    <strong>Scope</strong><br>
+                    <?php endif; ?>  
+                    ${el.acf.awarded_project_scope } 
+                </div>
+                ${ 
+                    (el => {
+                        if(el.acf.project_post != false) {
+                            return `<a href="${el.permalink}" class='slide-open sm-hidden' onclick='return event.stopPropagation()'><img src='${el.acf.award_project_image.sizes.medium_large}' /></a>`
+                        }
+                        else return `<div class='slide-open sm-hidden'><img src='${el.acf.award_project_image.sizes.medium_large}' /></div>`;
+                    })(el)
+                }    
+            </div>`
     });
 
-    async function archivesLoaded() {
-        let posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=50&per_page=100", {
-            method: 'GET'
-        }).then((res) => {
-            return res.json()
-        }).then( (json) => {
-            loadRows(json)
-        })
-    }
+    document.querySelector(".table-contents").innerHTML = html
 
-    async function loadRows(json) {
-        let html = ""
-        globalPosts = json;
-        json.forEach( (el, i) => {
-            html += 
-                `<div class='table-row' onclick='return slideOpen(event)'> 
-                    <div class='table-cell'>${el.title.rendered}</div> 
-                    <div class='table-cell'>${el.project_post.post_title}</div> 
-                    <div class='table-cell'>${el.content.rendered.replace(/(<([^>]+)>)/ig,"")}</div> 
-                    <div class='table-cell'>2016</div> 
-                    <div class='slide-open'> 
-                        <a href='${el.link}'>View Project</a>
-                    </div> 
-                    <div class='slide-open'> 
-                        <strong>Status</strong><br> 
-                        <span>${el.acf.award_status}</span> 
-                        <br><br> 
-                        <strong>Size</strong><br> 
-                        <span>${el.acf.awarded_project_size}</span> 
-                        <br><br>
-                        <strong>Client</strong><br> 
-                        <span>${el.acf.award_client}</span> 
-                        <br></br> 
-                    </div> 
-                    <div class='slide-open'> 
-                        <strong>Scope</strong><br> 
-                        ${el.acf.awarded_project_scope}
-                    </div> \
-                    <div class='slide-open'><img src="${el.acf.award_project_image.url}" /></div> 
-                </div>`
-        });
+    animateRows()
+}
 
-        document.querySelector(".table-contents").innerHTML = html
+function animateRows() {
+    let offset = 0;
 
-        animateRows()
-    }
+    document.querySelectorAll(".table-row").forEach((el, i) => {
 
-    function animateRows() {
-        let offset = 0;
+        setTimeout(() => {
+            el.classList.add('row-animate');
+        }, offset);
 
-        document.querySelectorAll(".table-row").forEach((el, i) => {
+        offset += 75;
+    })
+    
+}
 
-            setTimeout(() => {
-                el.classList.add('row-animate');
-            }, offset);
-
-            offset += 75;
-            // console.log(offset)
-        })
-    }
-
-    archivesLoaded()
+requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+        console.log(window.posts)
+        loadRows(window.posts);
+    })
+})
 
 </script>
 <?php get_footer(); ?>

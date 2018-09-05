@@ -1,6 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-90138439-7"></script>
+    <!-- Detect IE and Redirect -->
+    <meta name="google-site-verification" content="aviffuElckckEMalYrMYOhK8BVUME0ioE-PuljwBikg" />
+    <script>
+    function isIE(userAgent) {
+      userAgent = userAgent || navigator.userAgent;
+      return userAgent.indexOf("MSIE ") > -1 || userAgent.indexOf("Trident/") > -1;
+    }
+
+    window.addEventListener("load", function() {
+      console.log(isIE)
+      if(isIE(navigator.userAgent)) {
+        var overlay = document.createElement("div");
+        overlay.style = "position: fixed; margin-top: 60px; height: calc(100vh - 60px); width: 100vw; top: 0; left: 0; background-color: #FFF; z-index: 9998;text-align: center;";
+        var text = document.createTextNode("Internet Explorer is not supported. Please consider upgrading to a modern browser.");
+        var br = document.createElement("br");
+        var timer = 10;
+        var counter = "Redirecting in&nbsp;<span class='counter'>" + counter + "</span>&nbsp;second(s).";
+        overlay.appendChild(text);
+        overlay.appendChild(br);
+        overlay.insertAdjacentHTML("beforeend",counter);
+        document.querySelector(".band").classList.add("active");
+        document.body.appendChild(overlay);
+        let countDown = setInterval(function() {
+          timer -= 1;
+          document.querySelector(".counter").innerHTML = timer;
+          if(timer == 0) {
+            window.location = "http://laguardalowold.wpengine.com";
+            clearInterval(countDown);
+          }
+        }, 1000)
+
+      }
+
+    });
+    </script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-90138439-7');
+      
+    </script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,6 +62,7 @@
 
     <!-- Custom styles for this template -->
     <link href="<?php echo get_bloginfo('template_directory'); ?>/style.css" rel="stylesheet">
+    <link href="https://vjs.zencdn.net/7.1.0/video-js.css" rel="stylesheet">
 
     <!-- Custom font for this template -->
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,400i,700,700i" rel="stylesheet">
@@ -24,15 +70,9 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
 
     <!-- Custom code for using Nivo slider -->
-    <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/nivo-slider/themes/default/default.css" type="text/css" media="screen" />
-    <link rel="<?php echo get_bloginfo('template_directory'); ?>/nivo-slider/themes/light/light.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/nivo-slider/themes/dark/dark.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/nivo-slider/themes/bar/bar.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/nivo-slider/themes/laguardalowSlider/laguardalowSlider.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="<?php echo get_bloginfo('template_directory'); ?>/css/nivo-slider.css" type="text/css" media="screen" />
-    <link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css" />
+    <link href="https://unpkg.com/flickity@2/dist/flickity.min.css" rel="stylesheet" />
     <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/flickity.js"></script>
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.min.js" defer="defer"></script>
+    <!-- <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.min.js" defer="defer"></script> -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -64,9 +104,15 @@
         <div class="flex-left">
           
           <div class="logo flex-col" style="background-image: url('<?php echo get_site_url() ?>/wp-content/uploads/2018/05/LaguardaLow_LogoWhite.png')">
+            <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+            <a href="<?php echo get_site_url() ?>/zh-hans/">
+              Lauguarda Low
+            </a>
+            <?php else: ?>
             <a href="<?php echo get_site_url() ?>">
               Lauguarda Low
             </a>
+            <?php endif; ?>
           </div>
           <div class="flex-col search-col">
             <!-- Desktop Search -->
@@ -83,12 +129,19 @@
         <div class="search-overlay">
           <ul class="search-suggestions">
             <li class="text-red search-title">Recommended Searches</li>
-            <li><a href="">OCT Bay</a></li>
-            <li><a href="">OCT Boanan</a></li>
-            <li><a href="">Empire State Building</a></li>
-            <li><a href="">Freedom Tower</a></li>
-            <li><a href="">Burj Khalifa</a></li>
-            <li><a href="">330 W 38th Street</a></li>
+            <?php
+            $rows = get_field('search_suggestions', 207);
+            if($rows)
+            {
+              foreach ($rows as $row) {
+                // echo var_dump($row["recommended_item"]->ID);
+                $url = get_permalink($row["recommended_item"]->ID);
+                $p_title = $row["recommended_item"]->post_title;
+                ?>
+                  <li><a href="<?php echo $url?>"><?php echo $p_title ?></a></li>
+              <?php
+              }
+            }?>
           </ul>
         </div>
         <!-- Mobile search -->
@@ -106,7 +159,8 @@
             <nav class="site-nav">
               <?php
               $args = array(
-                'theme_location' => 'primary'
+                'theme_location' => 'primary',
+                'menu' => 'Main Menu'
               );
               ?>
               <?php wp_nav_menu( $args ); ?>
@@ -118,74 +172,36 @@
           <div class="dot bottom"></div>
         </div>
       </div>
-    
-
-      <script>
-        document.querySelector(".open-close").addEventListener('click', (e) => {
-          var box = e.currentTarget.classList.toggle("expand");
-          document.querySelector(".flex-right").classList.toggle("visible")
-          document.body.classList.toggle("noscroll")
-          document.querySelector(".band").classList.toggle("fixed");
-          
-          if(document.querySelector(".band").classList.contains("home-band")) {
-            document.querySelector(".band").classList.toggle("active");
-            document.querySelector(".band").blur();
-          }
-
-        })
-
-        document.querySelector(".close-search").addEventListener("click", () => {
-          document.querySelector(".search-container").classList.remove("active");
-          $(".nav-collapse").css({"visibility": "visible"})
-          $(".nav-collapse").fadeTo(".345", 1)
-          document.body.classList.remove("noscroll")
-          document.querySelector(".search-overlay").classList.remove("visible");
-          document.querySelector(".band").classList.remove("searching")
-
-        });
-
-
-        document.querySelector(".search").addEventListener("click", () => {
-          document.querySelector(".search-container").classList.toggle("active")
-          if(document.querySelector(".search-container").classList.contains("active")) {
-            $(".nav-collapse").fadeTo(".345", 0)
-            setTimeout(() => {
-              $(".nav-collapse").css({"visibility": "hidden"})
-            }, 345);
-            document.body.classList.add("noscroll")
-            document.querySelector(".search-overlay").classList.add("visible");
-            document.querySelector(".band").classList.add("searching")
-            document.querySelector(".band").classList.add("active")
-          }
-
-          else {
-            $(".nav-collapse").css({"visibility": "visible"})
-            $(".nav-collapse").fadeTo(".345", 1)
-            document.body.classList.remove("noscroll")
-            document.querySelector(".search-overlay").classList.remove("visible");
-            document.querySelector(".band").classList.remove("searching")
-
-          }
-        });
-      </script>
 
       <!-- Mobile Selector -->
       <div class="mobile-selector">
         
         <span class="selected-category">
           <?php if(is_page('projects')): ?>
-            Projects | <span class="category-name-band" style="text-transform: capitalize">All</span>
-          <?php elseif(is_page('news')): ?>
-            News | All
+          <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+          项目| <span class="category-name-band" style="text-transform: capitalize">所有</span>
           <?php else: ?>
-            <?php the_title() ?>  
+          Projects| <span class="category-name-band" style="text-transform: capitalize">All</span>
+          <?php endif; ?>
+          <?php elseif(is_page('news')): ?>
+            <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+            新闻| <span class="category-name-band" style="text-transform: capitalize">所有</span>
+            <?php else: ?>
+            News| <span class="category-name-band" style="text-transform: capitalize">All</span>
+            <?php endif; ?>
+          <?php else: ?>
+            <strong><?php the_title() ?></strong>
           <?php endif; ?>
         </span>
         <?php if(is_page('projects') || is_page('news')): ?>
         <div class="down-arrow-mobile-selector"></div>
         <div class="drop-down-selector">
           <a data-filter="" href="#" class="selected">
-            All Projects
+          <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+          全部项目
+          <?php else: ?>
+          All Projects
+          <?php endif; ?>
           </a>
           <?php
             if(is_page('projects')) {
@@ -194,11 +210,11 @@
                 "type"      => "post",      
                 "orderby"   => "name",
                 "order"     => "ASC",
-                'parent'  => 7 
+                'parent'  => 7
               );
             }
 
-            else if (is_page('news')) {
+            else if (is_page('news') || is_page('新闻')) {
               $args = array(
                 "hide_empty" => 0,
                 "type"      => "post",      
@@ -213,22 +229,38 @@
           ?>
           <?php foreach ( $cats as $cat ) { ?>
             <?php if($cat->slug !== "projects") { ?>
-            <a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-", " ", $cat->slug) ?>">
+            <a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-zh-hans", "", $cat->slug) ?>">
               <?php echo $cat->cat_name ?>
             </a>
             <?php } ?>  
           <?php } ?>
         </div>
         <?php endif; ?>
+        <?php wp_reset_query() ?>
       </div>
       <!-- End Mobile Selector -->
-      <?php if(is_page("projects")): ?>
+      <?php if(is_page("projects") || is_page('news')): ?>
       <nav class="row-fluid project-nav sm-hidden">
         <ul class="navigation-tabs">
+          <?php if(is_page('projects')): ?>
           <a data-filter="" href="#" class="selected">
+            <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+            全部项目
+            <?php else: ?>
             ALL PROJECTS
+            <?php endif; ?>
           </a>
+          <?php elseif(is_page('news')): ?>
+          <a data-filter="" href="#" class="selected">
+            <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+            新闻
+            <?php else: ?>
+            ALL NEWS
+            <?php endif; ?>
+          </a>
+          <?php endif; ?>
           <?php
+          if(is_page('projects')) { 
             $args = array(
               "hide_empty" => 0,
               "type"      => "post",      
@@ -236,12 +268,23 @@
               "order"     => "ASC",
               'parent'  => 7 
             );
+          }
 
+            else if (is_page('news') || is_page('新闻')) {
+              $args = array(
+                "hide_empty" => 0,
+                "type"      => "post",      
+                "orderby"   => "name",
+                "order"     => "ASC",
+                'parent'  => 51 
+              );
+            }
+            
             $cats = get_categories($args);
             
           foreach ( $cats as $cat ) { ?>
             <?php if($cat->slug !== "projects") { ?>
-            <a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-", " ", $cat->slug) ?>">
+            <a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-zh-hans", "", $cat->slug) ?>">
               <?php echo $cat->cat_name ?>
             </a>
             <?php } ?>  
@@ -249,7 +292,9 @@
         </ul>
       </nav>
       <?php endif; ?>
+      <?php wp_reset_query() ?>
     </header>
+    <script src="<?php echo get_template_directory_uri() ?>/lib/min/header.js"></script>
     <script>
     ((window, undefined) => {
       var top = 0;
@@ -293,7 +338,7 @@
         <?php if(is_page('projects') || is_page('news')): ?>
 
 
-        document.querySelector(".mobile-selector").addEventListener("click", (e) => {
+        document.querySelector(".mobile-selector").addEventListener("click", function(e) {
           var band = document.querySelector(".laguarda-low-header")
           e.currentTarget.classList.toggle("dropped")
           document.body.classList.toggle("noscroll")

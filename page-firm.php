@@ -17,6 +17,20 @@
     }
 </style>
     <div class="grid-container-4">
+    <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+        <a href="/zh-hans/firm/overview" class="grid-elements invisible grid-elements__overview">
+            <div class="floating-label">公司概览</div>
+        </a>
+        <a href="/zh-hans/firm/leadership" class="grid-elements invisible grid-elements__leadership">
+            <div class="floating-label">领导团队</div>
+        </a>
+        <a href="/zh-hans/firm/videos" class="grid-elements invisible grid-elements__video">
+            <div class="floating-label">项目视频</div>
+        </a>
+        <a href="/zh-hans/firm/awards" class="grid-elements invisible grid-elements__awards">
+            <div class="floating-label">奖项</div>
+        </a>
+        <?php else: ?>
         <a href="overview" class="grid-elements invisible grid-elements__overview">
             <div class="floating-label">Overview</div>
         </a>
@@ -29,6 +43,7 @@
         <a href="awards" class="grid-elements invisible grid-elements__awards">
             <div class="floating-label">Awards</div>
         </a>
+        <?php endif; ?>
     </div>
 
     <script>

@@ -26,10 +26,12 @@
             <div class="img-block invisible animate">
                 <?php $file_parts = pathinfo(get_field('attachment')); ?>
                 <?php if($file_parts['extension'] == "pdf"): ?>
-                    <?php $pdf_url = '[flipbook pdf="' . get_field('attachment') .'" lightbox="true" height="800px" cover="'. get_field('pdf_preview') .'"]';?>
-                    <?php echo do_shortcode($pdf_url) ?>
+                    <?php $pdf_url = get_field('attachment')  ?>
+                    <a href = "<?php echo $pdf_url ?>" target="_blank">
+                        <img src="<?php the_field('pdf_preview')?>">
+                    </a>
                 <?php else: ?>
-                    <img src="<?php the_field('attachment')?>">
+                    <img src="<?php the_field('pdf_preview')?>">
                 <?php endif; ?>
             </div>
             <div class="page-top-left" style="margin-top: 30px">

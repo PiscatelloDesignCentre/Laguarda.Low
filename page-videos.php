@@ -7,7 +7,7 @@
     <div class="content__full-width nopadding-top">
     <?php if( have_rows('video_repeater') ):
         while ( have_rows('video_repeater') ) : the_row();?>
-                <template class="video-template" data-video-url="<?php the_sub_field('video_url')?>"></template>
+                <template class="video-template" data-video-url="<?php the_sub_field('video_url')?>" data-video-poster="<?php the_sub_field('video_thumbnail') ?>"></template>
         <?php endwhile; ?>
     <?php else : ?>
     <?php endif;?>

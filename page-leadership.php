@@ -5,8 +5,15 @@
     </div>
     <div class="grid-container">
         <!-- Leadership goes here -->
-        <?php query_posts('category_name=employee&posts_per_page=20'); ?>
-        <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
+        <?php wp_reset_postdata();?>
+
+        <?php 
+        
+        global $post;
+        $args = array( 'posts_per_page' => -1, 'offset' => 0, 'category' => 48);
+        
+        $myposts = get_posts( $args );
+        foreach ( $myposts as $post ) : setup_postdata( $post ); ?>
             <a href="<?php the_permalink() ?>" class='project-thumb invisible'> 
                 <img src="<?php the_field('employee_image') ?>">
                 <div class='project-info'> 
@@ -18,7 +25,9 @@
                     </span> 
                 </div> 
             </a>
-        <?php endwhile; endif; ?>
+        <?php endforeach; ?> 
+        <?php wp_reset_postdata();?>
+        
     </div>
 </div>
 <script src="<?php echo get_template_directory_uri() ?>/lib/min/leadership.js"></script>

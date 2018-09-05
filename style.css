@@ -52,6 +52,12 @@ a:hover, a:active, a:focus, a:visited {
   overflow: hidden;
 }
 
+.slider-video-container video {
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+}
+
 video::-webkit-media-controls-start-playback-button {
   display: none!important
   -webkit-appearance: none
@@ -191,6 +197,10 @@ li.dot:after {
   line-height: 32px;
 }
 
+.homepage-quote.empty {
+  height: 300px;
+}
+
 .loaded .homepage-quote span {
   animation: slideFromBottom 1.25s ease forwards;
   -webkit-backface-visibility: hidden;
@@ -278,7 +288,7 @@ header {
 }
 
 .band:hover .logo, .band.active .logo {
-  background-image: url("images/LaguardaLow_LogoRed.png") !important;
+  background-image: url("./images/LaguardaLow_Logo_Red.svg") !important;
   background-color: transparent;
   max-height:100%;
   max-width: 100%;
@@ -467,6 +477,15 @@ header .menu li:first-of-type {
   padding: 10px 20px;
   text-align: center;
   border-radius: 30px;
+}
+
+/*
+ * Contact
+ */
+
+
+.grid-4.contact p {
+  margin-bottom: 0;
 }
 
 /*
@@ -1028,7 +1047,7 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 
 .projectTitle {
   float: left;
-  width: 50%;
+  width: 75%;
   height: auto;
   padding-right: 5px;
 }
@@ -1036,7 +1055,7 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 .projectTitle h3 {
   font-size: 25px;
   font-weight: bold;
-  width: 50%;
+  width: 100%;
   margin-bottom: 5px;
   margin-top: 0;
 }
@@ -1049,7 +1068,7 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
 
 .mapAndShare {
   float: right;
-  width: 50%;
+  width: 25%;
   margin-top: -5px;
   display: flex;
   justify-content: flex-start;
@@ -1079,14 +1098,13 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   background-image: url('./images/LL_Icon_Map_G.svg');
 }
 
-.projectMap:hover {
+.projectMap:hover,
+.projectMap.active {
   background-image: url('./images/LL_Icon_Map_R.svg');
   cursor: pointer;
 }
 
 .projectShare {
-  width: 48%;
-  height: 20px;
   background-color: transparent;
   text-align: center;
   background-image: url('./images/LL_Icon_Lnk_G.svg');
@@ -1094,10 +1112,32 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   height: 40px;
   border-radius: 20px;
   margin-left: 10px;
+  font-size: 0;
 }
 
-.projectShare:hover {
+.projectShare:hover,
+.projectShare.active {
   background-image: url('./images/LL_Icon_Lnk_R.svg');
+  cursor: pointer;
+}
+
+.projectRelated {
+  background-color: transparent;
+  text-align: center;
+  background-image: url('./images/LaguardaLow_RelatedProj_Grey.svg');
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin-left: 10px;
+  background-size: 33px 33px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  font-size: 0;
+}
+
+.projectRelated:hover,
+.projectRelated.active {
+  background-image: url('./images/LaguardaLow_RelatedProj_Red.svg');
   cursor: pointer;
 }
 
@@ -1192,6 +1232,7 @@ body .rt-tpg-container .rt-tpg-isotope-buttons .selected {
   display: block;
   line-height: 30px;
   white-space: nowrap; 
+  text-transform: uppercase;
 }
 
 .relatedProjectsContent {

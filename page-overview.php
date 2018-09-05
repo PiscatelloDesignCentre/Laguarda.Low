@@ -12,20 +12,32 @@
         </style>
         <p><?php echo the_content(); ?></p>
     </div>
-    <div class="right invisible animate">
-        <template class="video-template" data-video-url="<?php the_field('overview_video') ?>"></template>
+    <div class="right invisible animate img-block">
+        <?php if(get_field('overview_video')): ?>
+        <template class="video-template" data-video-url="<?php the_field('overview_video') ?>" data-video-poster="<?php the_field('overview_video_thumbnail') ?>"></template>
+        <?php else: ?>
+        <img src="<?php the_field('overview_video_thumbnail') ?>" ?>
+        <?php endif; ?>
     </div>
-    <a href="#approach" class="approach-nav">
+    <a href="#approach" class="approach-nav sm-hidden">
         <img src="<?php echo get_template_directory_uri() ?>/images/LaguardaLow_Arrow_BlackDown.svg" height="23px" width="23px">
+        <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+        设计理念
+        <?php else: ?>
         See Approach
+        <?php endif; ?>
     </a>
 </div>
 <div class="content__full-width full-height" id="approach">
     <div class="left invisible animate">
         <div class="page-top-left">
-            <h3 class="title">Approach</h3>
+        <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+        <h3 class="title">设计理念</h3>
+        <?php else: ?>
+        <h3 class="title">Approach</h3>
+        <?php endif; ?>
         </div>
-        <p style="width: 66.66%"><?php the_field('approach') ?></p>
+        <div style="white-space: pre-wrap;"><?php the_field('approach') ?></div>
     </div>
     <div class="right">
         <div class="approach-gallery">

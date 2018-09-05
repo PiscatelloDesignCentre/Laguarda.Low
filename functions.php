@@ -11,6 +11,8 @@
 		'footer' => __( 'Footer Menu'),
 	));
 
+	define('ACF_EARLY_ACCESS', '5');
+
 	add_filter( 'nav_menu_css_class', 'add_parent_url_menu_class', 10, 2 );
 
 	function add_parent_url_menu_class( $classes = array(), $item = false ) {
@@ -148,3 +150,18 @@ function wp_rest_get_tags_links($post){
 }
 
 add_image_size( 'slider-small', 1920, 1080, true );
+
+
+/**
+ * Advanced Custom Fields Options function
+ * Always fetch an Options field value from the default language
+ */
+function cl_acf_set_language() {
+	return acf_get_setting('default_language');
+}
+function get_global_option($name) {
+	add_filter('acf/settings/current_language', 'cl_acf_set_language', 100);
+	$option = get_field($name, 'option');
+	remove_filter('acf/settings/current_language', 'cl_acf_set_language', 100);
+	return $option;
+}

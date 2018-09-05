@@ -25,8 +25,10 @@ while ( have_posts() ) : the_post(); ?>
                 <h3 class="title"><?php the_title() ?><?php echo  (get_field('designation') ? sprintf(', %s', get_field('designation')): '') ?></h3>
                 <h5 class="subtitle"><?php the_field('formal_title')?></h5>
             </div>
-            <p style="width: 66.66%"><?php echo get_the_content(); ?></p>
-            <h2 class="padding-t-60" style="margin: 0; width: 66.66%">"<?php the_field('quote')?>"</h2>
+            <div style="width: 66.66%"><?php echo get_the_content(); ?></div>
+            <?php if(get_field('quote')): ?>
+            <h2 class="padding-t-60 quote-h2" style="margin: 0; width: 66.66%">"<?php the_field('quote')?>"</h2>
+            <?php endif; ?>
         </div>
         <div class="right invisible animate">
             <div class="img-block invisible animate">

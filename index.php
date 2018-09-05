@@ -1,10 +1,24 @@
-<?php get_header(); ?>
+    <?php ini_set('display_errors', 0); ?>
+    <?php
+    /**
+    * @package WordPress
+    * @subpackage Laguarda.Low
+    */
+    if (function_exists('get_header')) {
+    }
+
+    else {
+        /* Redirect browser */
+        header("Location: https://" . $_SERVER['HTTP_HOST'] . "");
+        /* Make sure that code below does not get executed when we redirect. */
+        exit;
+    }; 
+    ?>
 	<?php get_template_part( 'content', get_post_format() ); ?>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/jquery.nivo.slider.js"></script>
 
     <script type="text/javascript">
         $(window).load(function() {

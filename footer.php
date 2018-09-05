@@ -3,8 +3,26 @@
         <div class="col-md-8">
           <div class="col-md-2 animation-element footer_projects">
             <ul>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/zh-hans/projects">项目</a></li>
+              <?php else: ?>
               <li class="footer-titles"><a href="<?php echo get_site_url() ?>/projects">PROJECTS</a></li>
+              <?php endif; ?>
               </br>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/">全部项目</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#current">最新项目</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#planning">总体规划</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#mixeduse">综合体</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#retail">商业建筑</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#transit">交通运输</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#office">办公楼</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#residential">住宅</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#hospitality">酒店</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#renovation">建筑改造</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#public">公共建筑</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/projects/#archive">项目列表</a></li>
+              <?php else: ?>
               <li><a href="<?php echo get_site_url() ?>/projects">All Projects</a></li>
               <li><a href="<?php echo get_site_url() ?>/projects#current">Current</a></li>
               <li><a href="<?php echo get_site_url() ?>/projects#planning">Planning</a></li>
@@ -17,59 +35,110 @@
               <li><a href="<?php echo get_site_url() ?>/projects#renovation">Renovation</a></li>
               <li><a href="<?php echo get_site_url() ?>/projects#public">Public</a></li>
               <li><a href="<?php echo get_site_url() ?>/projects#archive">Archive</a></li>
+              <?php endif; ?>
             </ul>
           </div>
           <div class="col-md-2 animation-element footer_expertise">
             <ul>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/zh-hans/expertise">专长</a></li>
+              <?php else: ?>
               <li class="footer-titles"><a href="<?php echo get_site_url() ?>/expertise">EXPERTISE</a></li>
+              <?php endif; ?>
               </br>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/master-planning?lang=zh-hans">总体规划</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/mixed-use?lang=zh-hans">综合体设计</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/retail-design?lang=zh-hans">商业建筑</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/sustainability?lang=zh-hans">可持续性设计</a></li>
+              <?php else: ?>
               <li><a href="<?php echo get_site_url() ?>/expertise/master-planning">Master Planning</a></li>
               <li><a href="<?php echo get_site_url() ?>/expertise/mixed-use">Mixed Use</a></li>
               <li><a href="<?php echo get_site_url() ?>/expertise/retail-design">Retail Design</a></li>
               <li><a href="<?php echo get_site_url() ?>/expertise/sustainability">Sustainability</a></li>
+              <?php endif; ?>
             </ul>
           </div>
           <div class="col-md-2 animation-element footer_firm">
             <ul>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/zh-hans/firm">关于我们</a></li>
+              <?php else: ?> 
               <li class="footer-titles"><a href="<?php echo get_site_url() ?>/firm">FIRM</a></li>
+              <?php endif; ?>
               </br>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/overview/">公司概览</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/leadership?lang=zh-hans">领导团队</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/videos?lang=zh-hans">项目视频</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/awards?lang=zh-hans">奖项</a></li>
+              <?php else: ?>
               <li><a href="<?php echo get_site_url() ?>/firm/overview">Overview</a></li>
               <li><a href="<?php echo get_site_url() ?>/firm/leadership">Leadership</a></li>
               <li><a href="<?php echo get_site_url() ?>/firm/videos">Videos</a></li>
               <li><a href="<?php echo get_site_url() ?>/firm/awards">Awards</a></li>
+              <?php endif; ?>
             </ul>
           </div>
           <div class="col-md-2 animation-element footer_news">
             <ul>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/zh-hans/news">新闻</a></li>
+              <?php else: ?>
               <li class="footer-titles"><a href="<?php echo get_site_url() ?>/news">NEWS</a></li>
-              </br>
-              <li><a href="<?php echo get_site_url() ?>/news/events">Events</a></li>
-              <li><a href="<?php echo get_site_url() ?>/news/construction">Construction</a></li>
-              <li><a href="<?php echo get_site_url() ?>/news/publications">Publications</a></li>
-              <li><a href="<?php echo get_site_url() ?>/news/awards">Awards</a></li>
-              <li><a href="<?php echo get_site_url() ?>/news/newsletters">Newsletters</a></li>
+              <?php endif ?>
+              <br/>>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#events?lang=zh-hans">事件</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#construction?lang=zh-hans">在建项目</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#publications?lang=zh-hans">媒体报道</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#awards?lang=zh-hans">最新获奖</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#newsletters?lang=zh-hans">新闻动态</a></li>
+              <?php else: ?>
+              <li><a href="<?php echo get_site_url() ?>/news/#events">Events</a></li>
+              <li><a href="<?php echo get_site_url() ?>/news/#construction">Construction</a></li>
+              <li><a href="<?php echo get_site_url() ?>/news/#publications">Publications</a></li>
+              <li><a href="<?php echo get_site_url() ?>/news/#awards">Awards</a></li>
+              <li><a href="<?php echo get_site_url() ?>/news/#newsletters">Newsletters</a></li>
+              <?php endif; ?>
             </ul>
           </div>
           <div class="col-md-2 animation-element footer_contact">
             <ul>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li class="footer-titles"><a href="<?php echo get_site_url() ?>/zh-hans/contact">联系我们</a></li>
+              <?php else: ?>
               <li class="footer-titles"><a href="<?php echo get_site_url() ?>/contact">CONTACT</a></li>
+              <?php endif; ?>
               </br>
+              <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/contact">其他</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/contact/#locations?lang=zh-hans">公司分部</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/contact/#careers?lang=zh-hans">工作机会</a></li>
+              <?php else: ?>
               <li><a href="<?php echo get_site_url() ?>/contact">General</a></li>
-                            <li><a href="<?php echo get_site_url() ?>/contact/#locations">Office Locations</a></li>
+              <li><a href="<?php echo get_site_url() ?>/contact/#locations">Office Locations</a></li>
               <li><a href="<?php echo get_site_url() ?>/contact/#careers">Careers</a></li>
+              <?php endif; ?>
             </ul>
           </div>
           <div class="col-md-2 animation-element"></div>
         </div>
         <div class="col-md-4 animation-element credits">
           <ul>
+            <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
             <li class="footer-titles">CREDITS</li>
+            <?php else: ?>
+            <li class="footer-titles">CREDITS</li>
+            <?php endif; ?>
             </br>
+            <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+            <li>网站设计/网站建设</li>
+            <?php else: ?>
             <li>Website Design and Development</li>
+            <?php endif; ?>
             <li><a href="http://piscatello.com" target="_blank">Piscatello Design Centre</a></li>
             </br>
-            <li>Video</li>
-            <li><a href="http://www.yoyuucreative.com/" target="_blank">Yo.Yuu Creative</a></li>
           </ul>
         </div>
       </div>
@@ -91,7 +160,8 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-   
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.js"></script>
+   <script src="https://vjs.zencdn.net/7.1.0/video.js"></script>
 
     <script type="text/javascript">
     (function($) {
@@ -140,7 +210,7 @@
     </script>
     <script>
       document.querySelectorAll(".site-footer ul").forEach((el, i) => {
-        el.addEventListener("touchstart", (event) => {
+        el.addEventListener("click", (event) => {
           if(event.currentTarget.classList.contains("toggle-footer")) {
             event.currentTarget.classList.remove("toggle-footer");
             return; 
@@ -154,7 +224,7 @@
       });
 
       document.querySelectorAll(".site-footer ul a").forEach((el, i) => {
-        el.addEventListener("touchstart", (event) => {
+        el.addEventListener("click", (event) => {
           event.stopPropagation();
         });
       });
@@ -163,7 +233,6 @@
 
     <!-- jQuery -->
     
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 
     <script type="text/javascript">
     (function($) {
@@ -281,13 +350,22 @@
         $('div.relatedProjectsContent').removeClass("active");
         $('div.shareProjectContent').removeClass("active");
         $('div.projectVideoContent').removeClass("active");
+        $('div.projectRelated').removeClass("active");
+        $('div.projectShare').removeClass("active");
+        $('div.projectVideo').removeClass("active");
         $('div.mapContent').addClass("active");
+        $('div.projectMap').addClass("active");
         
       });
       $(".projectShare").click(function(){
         $('div.relatedProjectsContent').removeClass("active");
         $('div.mapContent').removeClass("active");
         $('div.projectVideoContent').removeClass("active");
+        $('div.projectRelated').removeClass("active");
+        $('div.projectVideo').removeClass("active");
+        $('div.projectMap').removeClass("active");
+
+        $('div.projectShare').addClass("active");
         $('div.shareProjectContent').addClass("active");
 
       });
@@ -295,6 +373,11 @@
         $('div.relatedProjectsContent').removeClass("active");
         $('div.mapContent').removeClass("active");
         $('div.shareProjectContent').removeClass("active");
+        $('div.projectRelated').removeClass("active");
+        $('div.projectShare').removeClass("active");
+        $('div.projectMap').removeClass("active");
+
+        $('div.projectVideo').addClass("active");
         $('div.projectVideoContent').addClass("active");
       });
     })(jQuery)
@@ -302,10 +385,15 @@
 
     <script type="text/javascript">
     (function($) {
-      $(".closeButton").click(function(){
+      $(".projectRelated").click(function(){
         $('div.mapContent').removeClass("active");
         $('div.shareProjectContent').removeClass("active");
         $('div.projectVideoContent').removeClass("active");
+        $('div.projectVideo').removeClass("active");
+        $('div.projectShare').removeClass("active");
+        $('div.projectMap').removeClass("active");
+
+        $('div.projectRelated').addClass("active");
         $('div.relatedProjectsContent').addClass("active");
       });
     })(jQuery)

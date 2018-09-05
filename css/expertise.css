@@ -40,21 +40,6 @@
     transition: .5s ease all;
 }
 
-.grid-elements.grid-elements__master-planning::before {
-    background-image: url('../images/masterplanning.jpg');
-}
-
-.grid-elements.grid-elements__retail-design::before {
-    background-image: url('../images/retaildesign.jpg');
-}
-
-.grid-elements.grid-elements__sustainability::before {
-    background-image: url('../images/sustainability.jpg');
-}
-
-.grid-elements.grid-elements__mixed-use::before {
-    background-image: url('../images/mixeduse.jpg');
-}
 
 .floating-label {
     position: absolute;

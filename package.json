@@ -10,13 +10,13 @@
     "babel-cli": "^6.26.0",
     "babel-minify": "^0.4.3",
     "babel-plugin-transform-es2015-template-literals": "^6.22.0",
-    "babel-polyfill": "^6.0.16",
+    "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-minify": "^0.4.3"
   },
   "scripts": {
-    "build": "babel js -d lib && rm -rf lib/min && minify lib -d lib/min"
+    "build": "rm -rf lib && babel js -d lib && minify lib -d lib/min"
   },
   "repository": {
     "type": "git",

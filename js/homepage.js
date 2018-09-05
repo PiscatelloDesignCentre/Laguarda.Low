@@ -4,8 +4,12 @@ var elem = document.querySelector(".main-carousel"),
     contain: !1,
     setGallerySize: !1,
     draggable: !1,
-    wrapAround: !0
+    wrapAround: !0,
+    accessibility: true
   });
+
+  var isWindowFocused = true
+
 
 function playOnSelect() {
   console.log("selected"), console.log(video), video && video.removeEventListener("ended", playNext, !0), video = elem.querySelector(".is-selected").querySelector("video"), video.addEventListener("ended", playNext, !0), video.addEventListener("play", function () {

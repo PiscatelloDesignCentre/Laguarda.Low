@@ -1,75 +1,32 @@
-<?php get_header(); ?>
-	<nav class="row-fluid project-nav">
-		<ul class="navigation-tabs">
-			<a data-filter="" href="#" class="selected">
-				ALL NEWS
-			</a>
-			<?php
-				$args = array(
-					"hide_empty" => 0,
-					"type"      => "post",      
-					"orderby"   => "name",
-					"order"     => "ASC",
-					'parent'  => 51 
-				);
+<?php get_header(); ?> 
+<?php
 
-  				$cats = get_categories($args);
-				
-				foreach ( $cats as $cat ) { ?>
-					<?php if($cat->slug !== "projects" && $cat->slug !== "posts") { ?>
-					<a data-filter="<?php echo $cat->term_id ?>" href="#<?php echo str_replace("-", " ", $cat->slug) ?>">
-						<?php echo $cat->cat_name ?>
-					</a>
-					<?php } ?>  
-				<?php } ?>
+$args = array( 'posts_per_page' => -1, 'offset' => 0, 'category' => 51);
+$posts = get_posts( $args );
+    foreach($posts as $post) {
+        $post->acf = get_fields($post->ID);
+        $post->category_ids= wp_get_post_categories($post->ID);
+        $post->category_names = [];
+        $post->post_year = $post->acf["project_year"];
+		$post->post_country = trim($post->acf["project_country"]);
+        foreach($post->category_ids as $cat_id) {
+            $cat_name = get_cat_name($cat_id);
+			if($cat_name == "Current") { $post->is_current = true; }
+            if(trim($cat_name) !== "News" && trim($cat_name)  !== "Current") {
+                array_push($post->category_names, $cat_name);
+            }
+        }
+        $post->permalink = get_permalink($post->ID);
+        $post->thumbnail = get_the_post_thumbnail_url($post->ID);
+    }
+$post_json = json_encode($posts);
 
-		</ul>
-	</nav> 
+?>
+<script>window.posts = <?php echo $post_json ?> || "";</script>
+<script>window.posts_original = <?php echo $post_json ?> || "";</script>
+<script>console.log(window.posts)</script>
 	<div class="row-fluid project-grid">
 		<div class="grid-container">
-		<?php
-			$args = [
-				"cat" => 51,
-				"posts_per_page" => 16,
-				"page" => 1,
-				"order" => "ASC",
-
-			];
-
-			// The Query
-			$the_query = new WP_Query( $args );
-			echo "<script>window.page_length = ".$the_query->max_num_pages."</script>";
-			// The Loop
-			if ( $the_query->have_posts() ):
-			
-				while ( $the_query->have_posts() ):
-					$the_query->the_post();
-				?>
-				<!-- POST CONTENT -->
-					<a href="<?php echo get_the_permalink(); ?>" class="project-thumb invisible"> 
-						<img 
-							src="<?php echo get_the_post_thumbnail_url( get_the_ID(), 'full' ); ?>"
-						> 
-						<div class='project-info'> 
-							<span class='project-title'> 
-								<?php echo get_the_date('F j, Y'); ?>
-							</span> 
-							<span class='project-location'> 
-								<?php the_title(); ?>
-							</span>
-							<span class='project-category'> 
-								<?php echo get_the_category()[1]->cat_name; ?> 
-							</span> 
-						</div> 
-					</a>
-				<?php endwhile; ?> 
-			
-			<?php else: ?>
-
-			<?php endif; ?>
-			
-			<?php wp_reset_postdata();?>
-
 		</div>
 
 		<div class="spinner hidden">
@@ -77,320 +34,209 @@
 			<div class="bounce2"></div>
 			<div class="bounce3"></div>
 		</div>
-		<?php include "archives.php" ?>
 	</div>
-	<script>
-		var urlPart = {}
-		var categories = []
-		var currentlyLoading = false;
-		var currentPage = 1;
-		var loading = false;
-		var isPageLoaded = false;
-		var currentFilter = "";
-		var idArr = [];
-		var categoryComplete = false;
-		
-		document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
-			el.addEventListener("click", filterProjects);
-		});
+<script>
+    window.site_url = "<?php echo site_url() ?>/" || "";
+</script>
+<script>
+// Filter Projects on hash change
+// Allows for back button rendering
+// Allows also for AJAX free navigation
+// Improves Sped
 
-		document.addEventListener("DOMContentLoaded", pageLoaded)
-
-		window.onbeforeunload = function(){ window.scrollTo(0,0); }
-
-		async function getCategories() {
-			return await fetch('<?php echo site_url() ?>/wp-json/wp/v2/categories?per_page=50', {
-				method: "GET"
-			}).then(res => {
-				return res.json()
-			}).catch(err => {
-				throw new error(err)
-			}).then(data => {
-				categories = data
-				return Promise.resolve(categories)
-			})
-		}
-		
-
-		async function pageLoaded() {
-			// console.log(window.page_length)
-			loading = true
-			categories = await getCategories()
-			window.categories = categories
-			let filter = ""
-			if(!location.hash || location.hash.length < 1) {
-				applyAnimation();
-				isPageLoaded = true;
-				loading = false;
-				return;
-			}
-			
-			if(location.hash) {
-				let catName = location.hash.replace('#','')
-				let cat = filterCategoryNames(catName.toLowerCase())
-				currentFilter = cat.id;
-
-				filter = "&categories=" + cat.id
-				document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
-					if(el.dataset.filter == cat.id) {
-						el.classList.add("selected")
-					}
-
-					else {
-						el.classList.remove("selected")
-					}
-				});
-				if(cat.id == 19) {
-					document.body.classList.add("noscroll")
-					archivesLoaded()
-					document.querySelector(".archives-overlay").classList.add("visible")
-					return;
-				}
-			
-			}
-
-			let posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&order=asc&categories=51&per_page=16&page=1"  + filter , {
-				method: 'GET'
-			}).then((res) => {
-				// console.log(res.headers)
-				// console.log(res)
-				return res.json()
-			});
-		
-			let filler = [];
-
-			if(posts.length && posts.length < 11 || (window.page_length >= currentPage)) {
-				categoryComplete = true;
-
-				posts.forEach( (el, i) => {
-					idArr.push(el.id)
-				})
-			
-
-				filler = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&order=asc&categories=51&parent=7&per_page=16&exclude="+idArr.join(","), {
-					method: 'GET'
-				}).then((res) => {
-					return res.json()
-				});
-			
-			}
-
-			isPageLoaded = true;
-			loading = false;
-
-			posts = posts.concat(filler)
-
-			let html = await returnProject(posts);
-			
-			document.querySelector(".grid-container").classList.remove("fade-out")
+window.addEventListener("hashchange", handleHashChange)
 
 
-			document.querySelector(".grid-container").innerHTML = ""
-			document.querySelector(".grid-container").innerHTML = html
-			
-			applyAnimation();
-			 
-			
-		}
+// Track number of posts output
+window.post_number = 0;
 
-		function filterCategoryNames(name) {
-			let cat = categories.filter(category => category.slug == name)[0]
-			// console.log(cat)
-			return cat || ""
-		}
+// Add posts to the DOM via loop
+// @param numberOfPosts - Integer, used for number of posts to render
+async function addPosts(numberOfPosts, posts, reset = false) {
 
-		function applyAnimation() {
-			
-			var offset = 0;
-			document.querySelectorAll(".project-thumb.invisible").forEach((el, i) => {
-				setTimeout(() => {
-					el.classList.add('animate-grid');
-					el.classList.remove('invisible');
-					el.classList.remove('fade-out');
-				}, offset);
+    var insert = "";
+    for(let x = 0; x < numberOfPosts; x++ ) {
+        
+        if(reset) {
+            window.post_number = 0;
+            await fadeOutAnimation();
+            window.scrollTo(0,0); 
+            document.querySelector(".grid-container").innerHTML = "";
+            document.querySelector(".grid-container").classList.remove("fade-out")
+        }
 
-				offset += 200;
-			})
-		}
+        if(window.post_number + (x+1) > posts.length) {
+            break;
+        }
 
-		const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+		var options = {year: 'numeric', month: 'long', day: 'numeric' };
+		let post = posts[ window.post_number + x];
+		var date = new Date(post.post_date.replace(/-/g, '/'));
+        insert += 
+        `<a href='${post.permalink}' class='project-thumb invisible'> 
+            <img src='${post.thumbnail}' /> 
+            <div class='project-info'> 
+                <span class='project-title'> 
+                    ${post.post_title} 
+                </span> 
+                <span class='project-location'> 
+                    ${date.toLocaleDateString(date.getTimezoneOffset(), options)}
+                </span>
+                <span class='project-category'> 
+                    ${post.category_names[0]} 
+                </span> 
+            </div> 
+        </a>`
+    }
+    
+    window.post_number += numberOfPosts;
 
-
-		async function fadeOutAnimation() {
-			document.querySelector(".grid-container").classList.add("fade-out")
-		}
-		
-		function shuffle(a) {
-			for (let i = a.length - 1; i > 0; i--) {
-				const j = Math.floor(Math.random() * (i + 1));
-				[a[i], a[j]] = [a[j], a[i]];
-			}
-			return a;
-		}
-
-		/**
-		@filterProjects
-		returns void
-		Filters projects based on data-set and matching strings.
-		*/
-	
-
-		async function getNewPosts(filterLabel, pageNumber = 1) {
-			let filter = "&categories=" + filterLabel
-			let posts = []
-			loading = true;
-			console.log(filterLabel)
-			if(!filterLabel) { 
-				filter = ""
-			}
-			if(!categoryComplete) {
-				posts = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=51&order=asc&per_page=16&page=" + pageNumber + filter , {
-					method: 'GET'
-				}).then((res) => {
-					if(!res.ok) {
-						throw Error(res.statusText)
-					}
-					return res.json()
-				}).catch((err) => {
-					// console.log(err)
-				});
-			}
-			
-
-			let filler = [];
-
-			if(posts.length && posts.length < 11 && filterLabel || (window.page_length >= pageNumber)) {
-				categoryComplete = true;
-				posts.forEach( (el, i) => {
-					idArr.push(el.id)
-				})
-
-				filler = await fetch("<?php echo site_url() ?>/wp-json/wp/v2/posts?_embed&categories=51&order=asc&per_page=16&page="+pageNumber+"&exclude="+(idArr.join(",") || -"1"), {
-					method: 'GET'
-				}).then((res) => {
-					return res.json()
-				});
-			}
-
-			loading = false;
-			return posts.concat(filler) || []
-		}
-
-		async function filterProjects(e) {
-			if(e.target.classList.contains("selected")) { return }
-
-			currentPage = 1;
-			idArr = [];
-			categoryComplete = false;
-
-			loading = true;
-
-			document.querySelectorAll(".navigation-tabs a").forEach( (el, i) => {
-				el.classList.remove("selected")
-			});
-			
-			
+    document.querySelector(".grid-container").insertAdjacentHTML('beforeend', insert);
+    applyAnimation();
+    
+}
  
-			e.target.classList.add("selected");
-			await fadeOutAnimation()
+// Animate DOM elements just applied to the DOM
+function applyAnimation() {
+    
+    var offset = 0;
+    document.querySelectorAll(".project-thumb.invisible").forEach((el, i) => {
+        setTimeout(() => {
+            el.classList.add('animate-grid');
+            el.classList.remove('invisible');
+            el.classList.remove('fade-out');
+        }, offset);
 
-			if(e.target.dataset.filter == 19) {
-				document.body.classList.add("noscroll");
-				archivesLoaded()
-				document.querySelector(".archives-overlay").classList.add("visible")
-				return;
-			}
+        offset += 200;
+    });
+}
 
-			else   {
-				document.body.classList.remove("noscroll")
-				document.querySelector(".archives-overlay").classList.remove("visible")
-				setTimeout(() => {
-					document.querySelector(".table-contents").innerHTML = ""
-				}, 500)
-			}
+// rAF cross browser usage
+var scroll = window.requestAnimationFrame ||
+             window.webkitRequestAnimationFrame ||
+             window.mozRequestAnimationFrame ||
+             window.msRequestAnimationFrame ||
+             window.oRequestAnimationFrame ||
+             // IE Fallback, you can even fallback to onscroll
+             function(callback){ window.setTimeout(callback, 1000/60) };
+        
+// function run in rAF
+function scrollAnimation() {
 
-			currentFilter = e.target.dataset.filter;
-			
-			let posts = await getNewPosts(currentFilter);
-			let html = await returnProject(posts);
-			
-			document.querySelector(".grid-container").classList.remove("fade-out")
+    var container = document.querySelector(".grid-container"),
+        space = window.innerHeight - document.querySelector(".grid-container").getBoundingClientRect().bottom;
+    if (space > 100){
+        addPosts(4, window.posts)
+    }
 
+    scroll(scrollAnimation)
+}
 
-			document.querySelector(".grid-container").innerHTML = ""
-			document.querySelector(".grid-container").innerHTML = html
-			applyAnimation();
-			loading = false;
-		}
-
-			
-
-		function mapCategories(id) {
-			// console.log(id)
-			var index = id.indexOf(51);
-			if (index !== -1) id.splice(index, 1);
-			let cat = categories.filter(category => category.id == id[0])
-			return cat[0] || ""
-		}
-		
-
-		async function returnProject(posts = [], append = false) {
-			let htmlList = ""
-			var options = {year: 'numeric', month: 'long', day: 'numeric' };
-
-			await posts.forEach((post,i) => {
-				let insert = 
-					`<a href='${post.link}' class='project-thumb invisible'> 
-						<img src='${post._embedded["wp:featuredmedia"][0].source_url}' /> 
-						<div class='project-info'> 
-							<span class='project-title'> 
-								${new Date(post.date).toLocaleDateString('en-us', options)} 
-							</span> 
-							<span class='project-location'> 
-								${post.title.rendered.replace(/(<([^>]+)>)/ig,"")}
-							</span>
-							<span class='project-category'> 
-								${mapCategories(post.categories).name} 
-							</span> 
-						</div> 
-					</a>`
-				if(append) {
-					document.querySelector(".project-grid .grid-container").insertAdjacentHTML('beforeend', insert)
-				}
-				
-				else htmlList += insert
-			});	
-
-			return Promise.resolve(htmlList)
-		}
+// Call the loop for the first time
+scrollAnimation();
 
 
+// Handle hash change, should provide native back and forward project loading
+function handleHashChange() {
+    selectButton();
+    var filter = window.location.hash.replace("#",'');
 
-		// Lazy Loading 
+    if(filter == "archive") {
+        showArchives();
+    }
 
+    else hideArchives();
 
+    filterPosts(filter);
+}
 
-		window.onscroll = async function() {
-			var container = document.querySelector(".grid-container"),
-				space = $(window).height() - $(".grid-container")[0].getBoundingClientRect().bottom;
+function showArchives() {
+    fadeOutAnimation();
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            document.querySelector(".grid-container").style.display = "none"
+            document.querySelector(".archives-overlay").style.display = "block"
+        });
+    });
+}
 
-			// console.log(space)
-			
-			if ((space > -200) && !loading && isPageLoaded && currentPage < window.page_length) {
-				loading = true;
-				currentPage++;
-				// console.log(currentPage)
-				document.querySelector(".spinner").classList.remove("hidden");
-				let posts = await getNewPosts(currentFilter, currentPage);
-				document.querySelector(".spinner").classList.add("hidden");
-				let html = await returnProject(posts, true);
+function hideArchives() {
+    fadeOutAnimation();
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            document.querySelector(".grid-container").style.display = "grid"
+            document.querySelector(".archives-overlay").style.display = "none"
+        });
+    });
+}
 
-				// console.log("loading...")
+function filterPosts(term) {
+    let posts = window.posts;
+    var selectedPosts = [];
+    var remainingPosts = [];
+    
+    if(term == "" || !term) {
+        window.posts = getOriginalPosts();
+    }
+    else {
+        selectedPosts = posts.filter(el => {
+            if(el.category_names[0].toLowerCase().replace(/\s/g,'') == term) return el;
+        });
 
-				applyAnimation();
-				loading = false;
-			}
-		};
-	</script>
+        if(selectedPosts.length > 0) {
+            remainingPosts = posts.filter(el => {
+                if(el.category_names[0].toLowerCase().replace(/\s/g,'') !== term) return el;
+            });
 
-<?php get_footer(); ?>
+            window.posts = selectedPosts.concat(remainingPosts)
+
+        }
+
+        else {
+            window.posts = getOriginalPosts();
+        }
+        
+        
+    } 
+    
+    addPosts(16, window.posts, true)
+} 
+
+// Get original array from JSON
+
+function getOriginalPosts() {
+    return JSON.parse(JSON.stringify(window.posts_original));
+}
+
+// Fadeout Anim
+
+async function fadeOutAnimation() {
+    document.querySelector(".grid-container").classList.add("fade-out")
+}
+
+function selectButton() {
+    var navTabs = document.querySelectorAll(".navigation-tabs a");
+    let button = document.querySelector(".navigation-tabs a[href='" + window.location.hash.replace(/\s/g,'') +"']" );
+    
+    navTabs.forEach(el => el.classList.remove("selected"));
+    
+    if(button) button.classList.add("selected");
+    else navTabs[0].classList.add("selected")
+}
+
+document.addEventListener("DOMContentLoaded", (event) => {
+    if(window.location.hash) {
+        let hash = window.location.hash.replace("#",'');
+        if(hash == "archive") {
+            showArchives();
+        }
+        else filterPosts(hash);
+        selectButton();
+    }
+    else addPosts(16, window.posts)
+    scrollAnimation();
+});
+
+</script>
+
+<?php get_footer() ?>
