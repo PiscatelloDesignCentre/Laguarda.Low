@@ -143,11 +143,11 @@ document.addEventListener("DOMContentLoaded", ready);
 
 function ready() {
     let templates = document.querySelectorAll(".video-template").forEach((el, i) => {
-        el.insertAdjacentHTML('afterend', getMarkup(el.dataset.videoUrl, el.dataset.videoPoster))
+        el.insertAdjacentHTML('afterend', getMarkup(el.dataset.videoUrl, el.dataset.videoPoster, el.dataset.videoTitle))
     });
 }
 
-function getMarkup(url, poster) {
+function getMarkup(url, poster, title) {
     return `<div class="video-container">
                 <video class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" playsinline webkit-playsinline controls preload="auto" poster="${poster || ""}" data-setup='{"fluid": true}'>
                     <source src="${url}" type="video/mp4">
@@ -156,10 +156,6 @@ function getMarkup(url, poster) {
                     <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                     </p>
                 </video>
-                ${
-                    (function() {
-                        return `<h2>${title}</h2>`
-                    })
-                }
+                <h4>${title}</h4>
             </div>`
 }

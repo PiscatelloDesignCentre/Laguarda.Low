@@ -47,10 +47,10 @@
               <?php endif; ?>
               </br>
               <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/master-planning?lang=zh-hans">总体规划</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/mixed-use?lang=zh-hans">综合体设计</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/retail-design?lang=zh-hans">商业建筑</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/sustainability?lang=zh-hans">可持续性设计</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/master-planning">总体规划</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/mixed-use">综合体设计</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/retail-design">商业建筑</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/expertise/sustainability">可持续性设计</a></li>
               <?php else: ?>
               <li><a href="<?php echo get_site_url() ?>/expertise/master-planning">Master Planning</a></li>
               <li><a href="<?php echo get_site_url() ?>/expertise/mixed-use">Mixed Use</a></li>
@@ -69,9 +69,9 @@
               </br>
               <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
               <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/overview/">公司概览</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/leadership?lang=zh-hans">领导团队</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/videos?lang=zh-hans">项目视频</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/awards?lang=zh-hans">奖项</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/leadership">领导团队</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/videos">项目视频</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/firm/awards">奖项</a></li>
               <?php else: ?>
               <li><a href="<?php echo get_site_url() ?>/firm/overview">Overview</a></li>
               <li><a href="<?php echo get_site_url() ?>/firm/leadership">Leadership</a></li>
@@ -87,13 +87,13 @@
               <?php else: ?>
               <li class="footer-titles"><a href="<?php echo get_site_url() ?>/news">NEWS</a></li>
               <?php endif ?>
-              <br/>>
+              <br/>
               <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#events?lang=zh-hans">事件</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#construction?lang=zh-hans">在建项目</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#publications?lang=zh-hans">媒体报道</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#awards?lang=zh-hans">最新获奖</a></li>
-              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#newsletters?lang=zh-hans">新闻动态</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#events">事件</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#construction">在建项目</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#publications">媒体报道</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#awards">最新获奖</a></li>
+              <li><a href="<?php echo get_site_url() ?>/zh-hans/news/#newsletters">新闻动态</a></li>
               <?php else: ?>
               <li><a href="<?php echo get_site_url() ?>/news/#events">Events</a></li>
               <li><a href="<?php echo get_site_url() ?>/news/#construction">Construction</a></li>
@@ -110,7 +110,7 @@
               <?php else: ?>
               <li class="footer-titles"><a href="<?php echo get_site_url() ?>/contact">CONTACT</a></li>
               <?php endif; ?>
-              </br>
+              <br/>
               <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
               <li><a href="<?php echo get_site_url() ?>/zh-hans/contact">其他</a></li>
               <li><a href="<?php echo get_site_url() ?>/zh-hans/contact/#locations?lang=zh-hans">公司分部</a></li>

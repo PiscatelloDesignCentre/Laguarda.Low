@@ -65,8 +65,13 @@ while ( have_posts() ) : the_post(); ?>
                 <?php endif; ?>
         </div>
         <div class="approach-nav invisible animate">
+            <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
+            <?php $output  = "<img src=" . get_template_directory_uri() . "/images/LaguardaLow_Arrow_BlackLeft.svg class='side-arrow' height='23px' width='23px'> 回到领导层" ?>
+            <a href="<?php echo get_site_url() . "/zh-hans/firm/leadership" ?>"><?php echo $output ?></a>
+            <?php else: ?>
             <?php $output  = "<img src=" . get_template_directory_uri() . "/images/LaguardaLow_Arrow_BlackLeft.svg class='side-arrow' height='23px' width='23px'> BACK TO LEADERSHIP" ?>
             <a href="<?php echo get_site_url() . "/firm/leadership" ?>"><?php echo $output ?></a>
+            <?php endif; ?>
         </div>
     </div>
     
