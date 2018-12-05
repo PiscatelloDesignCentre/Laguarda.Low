@@ -1,0 +1,21 @@
+
+{
+	"presets": [
+		[
+			"env", {
+				"targets": {
+					"browsers": [
+						"last 2 versions",
+						"IE >= 11"
+					]
+				},
+				"production": {
+					"presets": ["minify"]
+				},
+				"plugins": [
+					"transform-es2015-template-literals"
+				]
+			}
+		]
+	]
+}

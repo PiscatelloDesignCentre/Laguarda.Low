@@ -20,7 +20,7 @@
                 <h3 class="title"><?php the_title() ?></h3>
                 <h5 class="subtitle"><?php the_date() ?></h5>
             </div>
-            <p style="width: 66.66%"><?php echo get_the_content(); ?></p>
+            <div style="width: 66.66%"><?php echo get_the_content(); ?></div>
         </div>
         <div class="right invisible animate">
             <div class="img-block invisible animate">

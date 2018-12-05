@@ -1,354 +1,340 @@
-var urlPart = {}
-var categories = []
-var currentlyLoading = false;
-var currentPage = 1;
-var loading = false;
-var isPageLoaded = false;
-var currentFilter = "";
-var idArr = [];
-var categoryComplete = false;
+// Add posts to the DOM via loop
+// @param numberOfPosts - Integer, used for number of posts to render
+window.addEventListener("hashchange", handleHashChange)
 
-document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
-    el.addEventListener("click", filterProjects);
-});
+async function addPosts(numberOfPosts, posts, reset = false) {
 
-document.querySelectorAll(".drop-down-selector a").forEach((el, i) => {
-    el.addEventListener("click", filterProjects);
-});
-
-document.addEventListener("DOMContentLoaded", pageLoaded)
-
-document.onload = function(){ window.scrollTo(0,0); }
-
-async function getCategories() {
-    return await fetch(window.site_url + '/wp-json/wp/v2/categories?per_page=50', {
-        method: "GET"
-    }).then(res => {
-        return res.json()
-    }).catch(err => {
-        throw new error(err)
-    }).then(data => {
-        categories = data
-        return Promise.resolve(categories)
-    })
-}
-
-window.addEventListener("hashchange", handleHashChange);
-
-function handleHashChange() {
-    let hashname =  location.hash.replace("#", '')
-    document.querySelector(".category-name-band").innerText = hashname || "All";
-}
-    
-
-async function pageLoaded() {
-    // console.log(window.page_length)
-    loading = true
-    categories = await getCategories()
-    window.categories = categories
-    let filter = ""
-    if(!location.hash || location.hash.length < 1) {
-        applyAnimation();
-        isPageLoaded = true;
-        loading = false;
-        return;
-    }
-    
-    if(location.hash) {
-        let catName = location.hash.replace('#','')
-        let cat = filterCategoryNames(catName.toLowerCase())
-        document.querySelector(".category-name-band").innerText = catName;
-        currentFilter = cat.id;
-
-        filter = "&categories=" + cat.id
-        document.querySelectorAll(".navigation-tabs a").forEach((el, i) => {
-            if(el.dataset.filter == cat.id) {
-                el.classList.add("selected")
-            }
-
-            else {
-                el.classList.remove("selected")
-            }
-        });
-        if(cat.id == 19) {
-            document.body.classList.add("noscroll")
-            document.querySelector(".spinner").classList.add("top-center");
-            document.querySelector(".spinner").classList.remove("hidden");
-            await archivesLoaded()
-            document.querySelector(".spinner").classList.remove("top-center");
-            document.querySelector(".spinner").classList.add("hidden");
-            document.querySelector(".archives-overlay").classList.add("visible")
-            return;
+    var insert = "";
+    for(let x = 0; x < numberOfPosts; x++ ) {
+        
+        if(reset) {
+            window.post_number = 0;
+            await fadeOutAnimation();
+            window.scrollTo(0,0); 
+            document.querySelector(".grid-container").innerHTML = "";
+            document.querySelector(".grid-container").classList.remove("fade-out")
         }
-    
+
+        if(window.post_number + (x+1) > posts.length) {
+            break;
+        }
+
+        let post = posts[ window.post_number + x];
+        insert += 
+        `<a href='${post.permalink}' class='project-thumb invisible'> 
+            <img data-src='${post.thumbnail}' /> 
+            <div class='project-info'> 
+                <span class='project-title'> 
+                    ${post.post_title} 
+                </span> 
+                <span class='project-location'> 
+                    ${post.project_city}, ${post.project_country}
+                </span>
+                <span class='project-category'> 
+                    ${post.category_names[0]} 
+                </span> 
+            </div> 
+        </a>`
     }
-    document.querySelector(".spinner").classList.add("top-center");
-    document.querySelector(".spinner").classList.remove("hidden");
-    let posts = await fetch(window.site_url + "wp-json/wp/v2/posts?_embed&order=asc&categories=7&per_page=16&page=1"  + filter , {
-        method: 'GET'
-    }).then((res) => {
-        // console.log(res.headers)
-        // console.log(res)
-        return res.json()
+    
+    window.post_number += numberOfPosts;
+
+    document.querySelector(".grid-container").insertAdjacentHTML('beforeend', insert);
+
+    [].forEach.call(document.querySelectorAll('img[data-src]'), function(img) {
+        img.setAttribute('src', img.getAttribute('data-src'));
+        img.onload = function() {
+            img.removeAttribute('data-src');
+        };
     });
 
-    let filler = [];
-
-    if((posts.length && posts.length < 16)) {
-        // console.log(posts.length, window.page_length, currentPage)
-        categoryComplete = true;
-
-        posts.forEach( (el, i) => {
-            idArr.push(el.id)
-        })
-    
-
-        filler = await fetch(window.site_url + "/wp-json/wp/v2/posts?_embed&order=asc&categories=7&parent=7&per_page=16&exclude="+(idArr.join(",") || -"1"), {
-            method: 'GET'
-        }).then((res) => {
-            // console.log("Req from page loaded")
-            return res.json()
-        });
-    }
-
-    document.querySelector(".spinner").classList.remove("top-center");
-    document.querySelector(".spinner").classList.add("hidden");
-
-    isPageLoaded = true;
-    loading = false;
-
-    posts = posts.concat(filler)
-
-    let html = await returnProject(posts);
-    
-    document.querySelector(".grid-container").classList.remove("fade-out")
-
-
-    document.querySelector(".grid-container").innerHTML = ""
-    document.querySelector(".grid-container").innerHTML = html
-    
     applyAnimation();
-        
     
 }
-
-function filterCategoryNames(name) {
-    let cat = categories.filter(category => category.slug == name)[0]
-    // console.log(cat)
-    return cat || ""
-}
-
+ 
+// Animate DOM elements just applied to the DOM
 function applyAnimation() {
     
     var offset = 0;
-    document.querySelectorAll(".project-thumb.invisible").forEach((el, i) => {
-        setTimeout(() => {
+    document.querySelectorAll(".project-thumb.invisible").forEach(function(el, i) {
+        setTimeout(function() {
             el.classList.add('animate-grid');
             el.classList.remove('invisible');
             el.classList.remove('fade-out');
         }, offset);
 
         offset += 200;
-    })
+    });
 }
 
-const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+// rAF cross browser usage
+var scroll = window.requestAnimationFrame ||
+             window.webkitRequestAnimationFrame ||
+             window.mozRequestAnimationFrame ||
+             window.msRequestAnimationFrame ||
+             window.oRequestAnimationFrame ||
+             // IE Fallback, you can even fallback to onscroll
+             function(callback){ window.setTimeout(callback, 1000/60) };
+        
+// function run in rAF
+function scrollAnimation() {
 
+    var container = document.querySelector(".grid-container"),
+        space = window.innerHeight - document.querySelector(".grid-container").getBoundingClientRect().bottom;
+    if (space > 100){
+        addPosts(4, window.posts)
+    }
+
+    scroll(scrollAnimation)
+}
+
+// Call the loop for the first time
+scrollAnimation();
+
+
+// Handle hash change, should provide native back and forward project loading
+function handleHashChange() {
+    selectButton();
+    var filter = window.location.hash.replace("#",'');
+    changeMobileMenu(filter);
+
+    if(filter == "archive") {
+        showArchives();
+    }
+
+    else hideArchives();
+
+    filterPosts(filter);
+}
+
+function showArchives() {
+    fadeOutAnimation();
+    requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+            document.querySelector(".grid-container").style.display = "none"
+            document.querySelector(".archives-overlay").style.display = "block"
+        });
+    });
+}
+
+function hideArchives() {
+    fadeOutAnimation();
+    requestAnimationFrame(function() {
+        requestAnimationFrame(function() {
+            document.querySelector(".grid-container").style.display = "flex"
+            document.querySelector(".archives-overlay").style.display = "none"
+        });
+    });
+}
+
+function filterPosts(term) {
+    let posts = window.posts;
+    var selectedPosts = [];
+    var remainingPosts = [];
+
+    if(window.is_chinese) {
+        term = window.category_names[term.replace("-","")];
+        console.log(term)
+    }
+    
+    if(term == "" || !term) {
+        window.posts = getOriginalPosts();
+        console.log("being sorted!")
+    }
+    
+    else if(term == "current") {
+        selectedPosts = posts.filter(function(el) {
+            if(el.is_current == true) return el;
+        });
+
+        if(selectedPosts.length > 0) {
+            remainingPosts = posts.filter(function(el) {
+                if(el.is_current == false) return el;
+            });
+
+            window.posts = selectedPosts.concat(remainingPosts)
+
+        }
+    }
+    else {
+        //Select All posts which match criteria
+        selectedPosts = posts.filter(function(el) {
+            if(el.category_names[0].toLowerCase().replace(/\s/g,'-') == term) return el;
+        });
+
+        selectedPosts = _.sortBy(selectedPosts, "category_order");
+        
+        //If matching posts, backfill with all that don't match
+        if(selectedPosts.length > 0) {
+            remainingPosts = posts.filter(function(el) {
+                if(el.category_names[0].toLowerCase().replace(/\s/g,'') !== term) return el;
+            });
+
+            window.posts = selectedPosts.concat(remainingPosts)
+
+        }
+        
+        //Else, just get the original posts and use all them instead
+        else {
+            window.posts = getOriginalPosts();
+        }
+        
+        
+    } 
+    
+    addPosts(16, window.posts, true)
+} 
+
+// Get original array from JSON
+
+function getOriginalPosts() {
+    return JSON.parse(JSON.stringify(window.posts_original));
+}
+
+// Fadeout Anim
 
 async function fadeOutAnimation() {
     document.querySelector(".grid-container").classList.add("fade-out")
 }
 
-function shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
+function selectButton() {
+    var navTabs = document.querySelectorAll(".navigation-tabs a");
+    let button = document.querySelector(".navigation-tabs a[href='" + window.location.hash.replace(/\s/g,'-') +"']" );
+    
+    navTabs.forEach(function(el) { el.classList.remove("selected") });
+    
+    if(button) button.classList.add("selected");
+    else navTabs[0].classList.add("selected")
 }
 
-/**
-@filterProjects
-returns void
-Filters projects based on data-set and matching strings.
-*/
+function changeMobileMenu(filter) {
+    var headerArea = document.querySelector(".category-name-band");
+    if(window.is_chinese) {
+        headerArea.innerHTML = window.category_names[filter.replace("-","")] || '所有';
+    }
+    else headerArea.innerHTML = filter.replace("-"," ") || 'All';
+}
 
-
-async function getNewPosts(filterLabel, pageNumber = 1) {
-    let filter = "&categories=" + filterLabel
-    let posts = []
-    loading = true;
-    console.log(filterLabel)
-    if(!filterLabel) { 
-        filter = ""
+document.addEventListener("DOMContentLoaded", function(event) {
+    let sorted = _.sortBy(window.posts, function(e) {return e["post_year"]});
+    loadRows(sorted.reverse())
+    if(window.location.hash) {
+        let hash = window.location.hash.replace("#",'').replace("-","");
+        if(hash == "archive") {
+            showArchives();
+        }
+        else filterPosts(hash);
+        selectButton();
+    }
+    else {
+        window.posts = getOriginalPosts();
+        addPosts(16, window.posts)
     }
 
-    if(!categoryComplete) {
-        posts = await fetch(window.site_url + "/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=16&page=" + pageNumber + filter , {
-            method: 'GET'
-        }).then((res) => {
-            if(!res.ok) {
-                throw Error(res.statusText)
-            }
-            return res.json()
-        }).catch((err) => {
-            // console.log(err)
+    scrollAnimation();
+});
+
+function preventBodyScroll(e) {
+    document.body.classList.add("noscroll");
+}
+
+function slideOpen(e) {
+    if(e.currentTarget.classList.contains("selected")) {
+        e.currentTarget.classList.toggle("selected")
+        e.currentTarget.querySelectorAll(".slide-open").forEach( function(el, i) {
+            el.classList.remove("open")
+        });
+    }
+    else {
+        document.querySelectorAll(".table-row").forEach( function(el, i) {
+            el.classList.remove("selected")
         });
 
-        if(posts.length < 1) {
-            pageNumber = 1;
-            currentPage = 1;
-        }
-    }
-    
+        document.querySelectorAll(".slide-open").forEach( function(el, i) {
+            el.classList.remove("open")
+        });
 
-    let filler = [];
-    if((posts.length && posts.length < 16 && filterLabel) || categoryComplete && window.page_length >= currentPage) {
-        console.log("category_complete", posts.length, filterLabel, window.page_length <= currentPage)
-        categoryComplete = true
-        posts.forEach( (el, i) => {
-            idArr.push(el.id)
+        e.currentTarget.querySelectorAll(".slide-open").forEach( function(el, i) {
+            el.classList.add("open")
         })
 
-        filler = await fetch(window.site_url + "/wp-json/wp/v2/posts?_embed&categories=7&order=asc&per_page=16&page="+pageNumber+"&categories_exclude="+filterLabel, {
-            method: 'GET'
-        }).then((res) => {
-            // console.log("Req for add more")
-            return res.json()
+        e.currentTarget.classList.toggle("selected")
+    }
+}
+
+document.querySelectorAll(".sort-header").forEach( function(el, i) {
+    el.addEventListener("click", function (event) {
+
+        document.querySelectorAll(".sort-header").forEach( function(el, i) {
+            el.classList.remove("active")
         });
-    }
 
-    loading = false;
-    return posts.concat(filler) || []
-}
-
-async function filterProjects(e) {
-    window.scrollTo(0,0);
-    
-    document.body.classList.remove("noscroll");
-    if(e.target.classList.contains("selected")) { return }
-
-    currentPage = 1;
-    idArr = [];
-    categoryComplete = false;
-
-    loading = true;
-
-    document.querySelectorAll(".navigation-tabs a").forEach( (el, i) => {
-        el.classList.remove("selected")
+        event.currentTarget.classList.add("active");
+        let sortKey = event.currentTarget.dataset.key;
+        let direction = event.currentTarget.dataset.direction;
+        let sorted = _.sortBy(window.posts, function(e) {return e[sortKey]});
+        loadRows(sorted)
     });
-
-    document.querySelectorAll(".drop-down-selector a").forEach( (el, i) => {
-        el.classList.remove("selected")
-    });
-    
-    
-
-    e.target.classList.add("selected");
-    await fadeOutAnimation()
-    if(e.target.dataset.filter == 19) {
-        document.body.classList.add("noscroll");
-        document.querySelector(".spinner").classList.add("top-center");
-        document.querySelector(".spinner").classList.remove("hidden");
-        await archivesLoaded()
-        document.querySelector(".archives-overlay").classList.add("visible")
-        document.querySelector(".spinner").classList.remove("top-center");
-        document.querySelector(".spinner").classList.add("hidden");
-        return;
-    }
-
-    else   {
-        document.body.classList.remove("noscroll")
-        document.querySelector(".archives-overlay").classList.remove("visible")
-        setTimeout(() => {
-            document.querySelector(".table-contents").innerHTML = ""
-        }, 500)
-    }
-
-    currentFilter = e.target.dataset.filter;
-    document.querySelector(".spinner").classList.add("top-center");
-    document.querySelector(".spinner").classList.remove("hidden");
-    let posts = await getNewPosts(currentFilter);
-    document.querySelector(".spinner").classList.add("hidden");
-    document.querySelector(".spinner").classList.remove("top-center");
-    let html = await returnProject(posts);
-    
-    document.querySelector(".grid-container").classList.remove("fade-out")
+});
 
 
-    document.querySelector(".grid-container").innerHTML = ""
-    document.querySelector(".grid-container").innerHTML = html
-    applyAnimation();
-    loading = false;
-}
-
-    
-
-function mapCategories(id) {
-    // console.log(id)
-    var index = id.indexOf(7);
-    if (index !== -1) id.splice(index, 1);
-    let cat = categories.filter(category => category.id == id[0])
-    return cat[0] || ""
-}
-
-
-async function returnProject(posts = [], append = false) {
-    let htmlList = ""
-    await posts.forEach((post,i) => {
-        let insert = 
-            `<a href='${post.link}' class='project-thumb invisible'> 
-                <img src='${post._embedded["wp:featuredmedia"][0].source_url}' /> 
-                <div class='project-info'> 
-                    <span class='project-title'> 
-                        ${post.title.rendered} 
-                    </span> 
-                    <span class='project-location'> 
-                        ${post.acf.project_city}, ${post.acf.project_country}
-                    </span>
-                    <span class='project-category'> 
-                        ${mapCategories(post.categories).name} 
-                    </span> 
+async function loadRows(json) {
+    let html = ""
+    globalPosts = json;
+    // json = _.sortBy(globalPosts, "title.rendered")
+    json.forEach( function(el, i) {
+        html += 
+            `<div class='table-row' onclick='return slideOpen(event)'> 
+                <div class='table-cell'>${el.post_title}</div> 
+                <div class='table-cell'><span class="mobile-hidden">Type:&nbsp;</span>${el.category_names[0]}</div> 
+                <div class='table-cell'><span class="mobile-hidden">Location:&nbsp;</span>${el.project_city}, ${el.project_country}</div>
+                <div class='table-cell'><span class="mobile-hidden">Year:&nbsp;</span>${el.post_year}</div> 
+                <a href="${el.permalink}" class='slide-open mobile-hidden'><img src='${el.thumbnail}' /></a> 
+                <div class='slide-open'> 
+                    ${ 
+                        (function(el) {
+                            if(el.permalink != "") {
+                                return `<a href='${el.permalink}' onclick='return event.stopPropagation()'>View Project</a>`
+                            }
+                        })(el)
+                    }   
+                    
                 </div> 
-            </a>`
-        if(append) {
-            document.querySelector(".project-grid .grid-container").insertAdjacentHTML('beforeend', insert)
-        }
-        
-        else htmlList += insert
-    });	
+                <div class='slide-open'>
+                    <strong>Status</strong><br> 
+                    <span>${el.status}</span> 
+                    <br class="sm-hidden"><br class="sm-hidden"> 
+                    <strong>Size</strong><br> 
+                    <span>${el.project_area}</span> 
+                    <br class="sm-hidden"><br>
+                    <strong>Client</strong><br> 
+                    <span>${el.client}</span> 
+                    <br class="sm-hidden"><br class="sm-hidden">
+                </div> 
+                <div class='slide-open'> 
+                    <strong>Scope</strong><br> 
+                    ${el.scope } 
+                </div> 
+                <a href="${el.permalink}" class='slide-open sm-hidden'><img src='${el.thumbnail}' /></a> 
+            </div>`
+    });
 
-    return Promise.resolve(htmlList)
+    document.querySelector(".table-contents").innerHTML = html
+
+    animateRows()
 }
 
+function animateRows() {
+    let offset = 0;
 
+    document.querySelectorAll(".table-row").forEach( function(el, i) {
 
-// Lazy Loading 
+        setTimeout(function() {
+            el.classList.add('row-animate');
+        }, offset);
 
-
-
-window.onscroll = async function() {
-    (async function($) {
-
-    var container = document.querySelector(".grid-container"),
-        space = $(window).height() - $(".grid-container")[0].getBoundingClientRect().bottom;
-
-    // console.log(space)
+        offset += 75;
+        // console.log(offset)
+    })
     
-    if ((space > -200) && !loading && isPageLoaded && currentPage < window.page_length) {
-        loading = true;
-        currentPage++;
-        // console.log(currentPage)
-        document.querySelector(".spinner").classList.remove("hidden");
-        let posts = await getNewPosts(currentFilter, currentPage);
-        document.querySelector(".spinner").classList.add("hidden");
-        let html = await returnProject(posts, true);
-
-        // console.log("loading...")
-
-        applyAnimation();
-        loading = false;
-    }
-    
-    })(jQuery)
-};
+}

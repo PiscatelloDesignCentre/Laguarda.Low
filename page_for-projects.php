@@ -71,10 +71,9 @@ if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 		<button class="custom-prev-next-button right"></button>
 	
 	</div>
-	<div class="downArrow">
-		<a href="#wrapper">
-		</a>
-	</div>
+	<a class href="#wrapper">
+		<div class="downArrow"></div>
+	</a>
 </div>
 <div class="row-fluid single-project" id="wrapper">
 	<div class="projectContent">
@@ -215,8 +214,8 @@ if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 		</div>
 	</div>
 	<?php if(get_field('project_video')): ?>
-	<div class="map-row">
-		<template class="video-template" data-video-url="<?php the_field('project_video') ?>" data-video-poster="<?php the_field('project_video_thumbnail')?>"></template>
+	<div class="map-row mobile-hidden">
+		<template class="video-template" data-video-url="<?php the_field('project_video') ?>" data-video-poster="<?php the_field('project_video_thumbnail')?>" data-video-title=""></template>
 	</div>
 	<?php endif; ?>
 	<div class="map-row">
@@ -241,7 +240,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 							setup_postdata($post);
 						?>
 						<a href="<?php the_permalink(); ?>" class="project-thumb">
-							<?php the_post_thumbnail('medium') ?>
+							<?php the_post_thumbnail('large') ?>
 							<div class='project-info'>
 								<span class='project-title'>
 									<?php the_title(); ?>
@@ -297,17 +296,8 @@ if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 			</ul>
 		</div>
 	</div>
-	<div class="shareProjectContent sm-hidden">
-		<div class="row-fluid shareProjectTitle">
-			<?php if(ICL_LANGUAGE_NAME == "中文" ):?>
-			<h3>分享项目</h3>
-			<?php else: ?>
-			<h3>Share This project</h3>
-			<?php endif; ?>
-		</div>
-	</div>
 	<div class="projectVideoContent sm-hidden">
-			<template class="video-template" data-video-url="<?php the_field('project_video') ?>" data-video-poster="<?php the_field('project_video_thumbnail')?>"></template>
+			<template class="video-template" data-video-url="<?php the_field('project_video') ?>" data-video-poster="<?php the_field('project_video_thumbnail')?>" data-video-title=""></template>
 		</div>
 	<div style="clear:both;"></div> 
 </div>

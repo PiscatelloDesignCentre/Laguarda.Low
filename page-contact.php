@@ -93,7 +93,7 @@
         </div>
     </div>
     <div class="content__full-width grid-4 new-york-band contact animate invisible">
-        <div class="left">
+        <div class="left" style="order: 2">
             <div class="left img-block gray-block animate invisible mobile-hidden" style="padding-bottom: 30px">
                 <img src="<?php the_field('beijing_hq_image') ?>">
             </div>
@@ -103,7 +103,7 @@
             <h3>Beijing Office</h3>
             <?php endif; ?>
         </div>
-        <div class="right">
+        <div class="right" style="order: 4">
             <p>
                 <?php the_field('beijing_headquarters_info') ?>
             <!-- Laguarda.Low Architects<br>
@@ -118,7 +118,7 @@
             james.wu@laguardalow.com<br> -->
             </p>
         </div>
-        <div class="left">
+        <div class="left" style="order: 1">
             <div class="right img-block gray-block animate invisible mobile-hidden" style="padding-bottom: 30px">
                 <img src="<?php the_field('tokyo_hq_image') ?>">
             </div>
@@ -128,7 +128,7 @@
             <h3>Affiliate Tokyo Office</h3>
             <?php endif; ?>
         </div>
-        <div class="right">
+        <div class="right" style="order: 3">
             <?php the_field('tokyo_headquarters_info') ?>
             <!-- Laguarda.Low + Tanamachi<br>
             3-1-8, INA Bldg 403<br>
@@ -170,12 +170,6 @@
         <div class="right innerpadding nooverflow">
             <div class="sm-hidden">
                 <template class="video-template" data-video-url="<?php echo get_field('contact_video', $post->ID) ?>" data-video-poster="<?php the_field("contact_video_thumbnail") ?>"></template>
-            </div>
-            <div class="overlay innerpadding">
-                <div class="close-overlay"></div>
-                <div class="career-content">
-
-                </div>
             </div>
         </div>
     </div>

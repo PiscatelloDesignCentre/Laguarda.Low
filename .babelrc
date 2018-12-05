@@ -1,21 +1,3 @@
-
 {
-	"presets": [
-		[
-			"env", {
-				"targets": {
-					"browsers": [
-						"last 2 versions",
-						"IE >= 11"
-					]
-				},
-				"production": {
-					"presets": ["minify"]
-				},
-				"plugins": [
-					"transform-es2015-template-literals"
-				]
-			}
-		]
-	]
-}
+    "plugins": ["transform-es2015-arrow-functions", "transform-es2015-template-literals", "babel-plugin-transform-async-to-promises", "transform-es2015-parameters"]
+  }

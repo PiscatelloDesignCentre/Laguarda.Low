@@ -46,10 +46,11 @@ while ( have_posts() ) : the_post(); ?>
 		<button class="custom-prev-next-button left"></button>
 		<button class="custom-prev-next-button right"></button>
         <div class="homepage-quote empty">
-            <div class="downArrow">
+            <a href="#wrapper" class="downArrow">
                 <a href="#content">
+                    &nbsp;
                 </a>
-            </div>
+            </a>
         </div>
 	</div>
 
@@ -151,9 +152,9 @@ e.stopPropagation();
 flkty.previous();
 }
 
-window.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("DOMContentLoaded", function() {
     document.querySelectorAll(".carousel-cell-image").forEach(function(el, i) {
-        el.onload = () => {
+        el.onload = function() {
             if(el.naturalWidth >= 1920) {
                 el.classList.add("wide");
             }
@@ -166,7 +167,7 @@ window.addEventListener("DOMContentLoaded", () => {
         }
         
     });
-   setTimeout( ()=> {
+   setTimeout( function() {
      document.querySelector(".slideshow-custom-wrapper").classList.add("loaded")
    }, 2000)
 })

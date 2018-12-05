@@ -6,37 +6,15 @@
     <!-- Detect IE and Redirect -->
     <meta name="google-site-verification" content="aviffuElckckEMalYrMYOhK8BVUME0ioE-PuljwBikg" />
     <script>
-    function isIE(userAgent) {
-      userAgent = userAgent || navigator.userAgent;
-      return userAgent.indexOf("MSIE ") > -1 || userAgent.indexOf("Trident/") > -1;
+    // foreach polyfill
+    if (window.NodeList && !NodeList.prototype.forEach) {
+        NodeList.prototype.forEach = function (callback, thisArg) {
+            thisArg = thisArg || window;
+            for (var i = 0; i < this.length; i++) {
+                callback.call(thisArg, this[i], i, this);
+            }
+        };
     }
-
-    window.addEventListener("load", function() {
-      console.log(isIE)
-      if(isIE(navigator.userAgent)) {
-        var overlay = document.createElement("div");
-        overlay.style = "position: fixed; margin-top: 60px; height: calc(100vh - 60px); width: 100vw; top: 0; left: 0; background-color: #FFF; z-index: 9998;text-align: center;";
-        var text = document.createTextNode("Internet Explorer is not supported. Please consider upgrading to a modern browser.");
-        var br = document.createElement("br");
-        var timer = 10;
-        var counter = "Redirecting in&nbsp;<span class='counter'>" + counter + "</span>&nbsp;second(s).";
-        overlay.appendChild(text);
-        overlay.appendChild(br);
-        overlay.insertAdjacentHTML("beforeend",counter);
-        document.querySelector(".band").classList.add("active");
-        document.body.appendChild(overlay);
-        let countDown = setInterval(function() {
-          timer -= 1;
-          document.querySelector(".counter").innerHTML = timer;
-          if(timer == 0) {
-            window.location = "http://laguardalowold.wpengine.com";
-            clearInterval(countDown);
-          }
-        }, 1000)
-
-      }
-
-    });
     </script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -49,9 +27,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
     <title><?php bloginfo( 'name' ); ?><?php wp_title() ?></title>
     <?php wp_head(); ?>
 
@@ -72,6 +47,7 @@
     <!-- Custom code for using Nivo slider -->
     <link href="https://unpkg.com/flickity@2/dist/flickity.min.css" rel="stylesheet" />
     <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/flickity.js"></script>
+    <script type="text/javascript" src="<?php echo get_bloginfo('template_directory'); ?>/js/picturefill.min.js"></script>
     <!-- <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/velocity/1.1.0/velocity.min.js" defer="defer"></script> -->
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -296,11 +272,11 @@
     </header>
     <script src="<?php echo get_template_directory_uri() ?>/lib/min/header.js"></script>
     <script>
-    ((window, undefined) => {
+    (function(window, undefined) {
       var top = 0;
       // console.log("Hello")
       /** ONLY WINDOW.ONLOAD IN THE PROJECT */
-      window.onload = () => {
+      window.onload = function() {
         var lastScrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
         var scroll = window.requestAnimationFrame ||

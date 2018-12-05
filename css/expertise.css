@@ -1,16 +1,39 @@
 .grid-container-4 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    height: calc(100vh - 60px);
-    grid-gap: 1px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: calc(100% - 60px);
     margin-top: 60px;
 }
+
+@supports(display: grid) {
+    .grid-container-4 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        height: calc(100vh - 60px);
+        grid-gap: 1px;
+        margin-top: 60px;
+    }    
+}
+
 
 .grid-elements {
     position: relative;
     box-sizing: border-box;
     overflow: hidden;
+    height: 50%;
+    width: 50%;
+}
+
+@supports(display: grid) {
+    .grid-elements {
+        position: relative;
+        box-sizing: border-box;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+    }
 }
 
 .grid-elements::after {
@@ -79,13 +102,26 @@
     width: 100%;
     padding: 30px 15px;
     background: #F1F1F2;
-    display: grid;
-    grid-auto-rows: auto;
-    grid-gap: 64px;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     box-sizing: border-box;
     position: relative; 
     outline: none;
+    flex-wrap: wrap;
+}
+
+@supports(display: grid) {
+    .content__full-width {
+        width: 100%;
+        padding: 30px 15px;
+        background: #F1F1F2;
+        display: grid;
+        grid-auto-rows: auto;
+        grid-gap: 64px;
+        grid-template-columns: 1fr 1fr;
+        box-sizing: border-box;
+        position: relative; 
+        outline: none;
+    }
 }
 
 .content__full-width.full-height {
@@ -133,10 +169,18 @@ h5.subtitle {
     padding-left: 1px;
 }
 
-.video-container {
-    width: 100%;
-    background-color: transparent;
-    overflow: hidden;
+.page-videos .video-container {
+    padding-right: 2%;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+@supports(display: grid) {
+    .video-container {
+        width: 100%;
+        background-color: transparent;
+        overflow: hidden;
+    }
 }
 
 .video-container p.video-title {
@@ -147,17 +191,54 @@ h5.subtitle {
     width: 100%;
     display: block;
 }
+
 .related-projects {
-    display: grid;
-    margin-top: 16px;
-    width: 100%;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+} 
+
+.related-projects .project-thumb {
+    width: calc(50% - 10px);
+    margin-bottom: 20px;
+}
+
+.page-master-planning .project-thumb,
+.page-mixed-use .project-thumb,
+.page-sustainability .project-thumb,
+.page-retail-design .project-thumb {
+    width: calc(33.333% - 10px);
+}
+
+@supports(display: grid) {
+    .page-master-planning .project-thumb,
+    .page-mixed-use .project-thumb,
+    .page-sustainability .project-thumb,
+    .page-retail-design .project-thumb {
+        width: calc(50% - 10px);
+    }
+}
+
+@supports(display: grid) {
+    .related-projects {
+        display: grid;
+        margin-top: 16px;
+        width: 100%;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 16px;
+    }    
+
+    .related-projects .project-thumb {
+        width: 100%;
+        margin-bottom: 0;
+    }
 }
 
 .related-projects .project-thumb {
      background-color: #DDD;
+     border: none !important;
 }
+
 
 .related-projects .project-thumb img {
     height: 100%;
@@ -188,9 +269,18 @@ h5.subtitle {
     transform: translateX(-32px);
     color: #000 !important;
     text-decoration: none;
-    margin-left: -35px;
+    margin-left: 0;
 }
 
+@supports(display: grid) {
+    .career-link {
+        transform: translateX(-32px);
+        color: #000 !important;
+        text-decoration: none;
+        margin-left: -35px;
+    }
+    
+}
 .approach-nav img.side-arrow {
     margin-right: 6px;
     transform: translateY(-9%);
@@ -221,6 +311,11 @@ h5.subtitle {
         "tp  tp  tp  tp  tp  tp  tp  tp  tp  tp"
         "btm btm btm btm btm btm btm btm btm btm ";
     grid-gap: 16px;
+}
+
+.img-block {
+    display: block;
+    width: 100%;
 }
 
 .approach-gallery .img-block {
@@ -280,6 +375,13 @@ h5.subtitle {
 
 .job-opp {
     margin-top: 50px;
+    width: 25%;
+}
+
+@supports(display: grid) {
+    .job-opp {
+        width: 25%;
+    }
 }
 
 .job-opp h5 {
@@ -347,6 +449,17 @@ h5.subtitle {
 
 .grid-header {
     padding-bottom: 16px;
+    width: 25%;
+}
+
+.contact .animate-grid {
+    width: 25%;
+}
+
+@supports(display: grid) {
+    .contact .animate-grid {
+        width: auto;
+    }
 }
 
 
@@ -363,7 +476,15 @@ h5.subtitle {
 
 .right,
 .left {
-    position: relative;
+    width: 50%;
+}
+
+@supports(display: grid) {
+    .right,
+    .left {
+        position: relative;
+        width: auto;
+    }
 }
 
 .nooverflow {

@@ -11,8 +11,6 @@
 		'footer' => __( 'Footer Menu'),
 	));
 
-	define('ACF_EARLY_ACCESS', '5');
-
 	add_filter( 'nav_menu_css_class', 'add_parent_url_menu_class', 10, 2 );
 
 	function add_parent_url_menu_class( $classes = array(), $item = false ) {

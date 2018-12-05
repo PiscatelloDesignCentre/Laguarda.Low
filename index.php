@@ -5,6 +5,7 @@
     * @subpackage Laguarda.Low
     */
     if (function_exists('get_header')) {
+        get_header();
     }
 
     else {

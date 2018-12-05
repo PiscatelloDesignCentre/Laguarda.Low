@@ -147,7 +147,7 @@ function ready() {
     });
 }
 
-function getMarkup(url, poster, title) {
+function getMarkup(url, poster, title = "") {
     return `<div class="video-container">
                 <video class="video-js vjs-default-skin vjs-16-9 vjs-big-play-centered" playsinline webkit-playsinline controls preload="auto" poster="${poster || ""}" data-setup='{"fluid": true}'>
                     <source src="${url}" type="video/mp4">
@@ -156,6 +156,6 @@ function getMarkup(url, poster, title) {
                     <a href="https://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                     </p>
                 </video>
-                <h4>${title}</h4>
+                <h2>${title}</h2>
             </div>`
 }

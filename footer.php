@@ -131,14 +131,14 @@
             <?php else: ?>
             <li class="footer-titles">CREDITS</li>
             <?php endif; ?>
-            </br>
+            <br/>
             <?php if(ICL_LANGUAGE_NAME == "中文" ):?>
             <li>网站设计/网站建设</li>
             <?php else: ?>
             <li>Website Design and Development</li>
             <?php endif; ?>
             <li><a href="http://piscatello.com" target="_blank">Piscatello Design Centre</a></li>
-            </br>
+            <br/>
           </ul>
         </div>
       </div>
@@ -198,24 +198,31 @@
               //     $target.focus(); // Set focus again
               //   };
               // });
-
-              window.scrollTo({
-                top: target.offset().top,
-                behavior: "smooth"
-              });
+              console.log("Scrolling")
+              var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+              if(isIE11) {
+                window.scrollTo(0, parseFloat(target.offset().top))
+              }
+              
+              else {
+                window.scrollTo({
+                  top: target.offset().top,
+                  behavior: "smooth"
+                });
+              }
             }
           }
         });
       })(jQuery)
     </script>
     <script>
-      document.querySelectorAll(".site-footer ul").forEach((el, i) => {
-        el.addEventListener("click", (event) => {
+      document.querySelectorAll(".site-footer ul").forEach(function(el, i) {
+        el.addEventListener("click", function(event) {
           if(event.currentTarget.classList.contains("toggle-footer")) {
             event.currentTarget.classList.remove("toggle-footer");
             return; 
           }
-          document.querySelectorAll(".site-footer ul").forEach((el, i) => {
+          document.querySelectorAll(".site-footer ul").forEach(function(el, i) {
             el.classList.remove("toggle-footer");
           });
 
@@ -223,8 +230,8 @@
         });
       });
 
-      document.querySelectorAll(".site-footer ul a").forEach((el, i) => {
-        el.addEventListener("click", (event) => {
+      document.querySelectorAll(".site-footer ul a").forEach(function(el, i) {
+        el.addEventListener("click", function(event) {
           event.stopPropagation();
         });
       });

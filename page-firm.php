@@ -51,8 +51,8 @@
     
     function applyAnimation() {
         var offset = 0;
-        document.querySelectorAll(".grid-elements.invisible").forEach((el, i) => {
-            setTimeout(() => {
+        document.querySelectorAll(".grid-elements.invisible").forEach(function(el, i) {
+            setTimeout(function() {
                 el.classList.add('animate-grid');
                 el.classList.remove('invisible');
                 el.classList.remove('fade-out');
